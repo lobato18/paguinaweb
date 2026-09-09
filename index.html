@@ -1,6 +1,3 @@
-
-
-```html
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
@@ -89,7 +86,7 @@
       <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300">Generados por IA & Montados en Directo</span>
     </h1>
     <p class="text-slate-400 text-base md:text-lg max-w-2xl mb-8">
-      Dile a la IA qué juegos juegas o cuánto quieres gastar. Consultará componentes reales de <strong>LDLC España</strong>, te desglosará el presupuesto y nos enviará el pedido al correo para montarlo en directo.
+      Dile a la IA qué juegos juegas o cuánto quieres gastar. Consultará componentes reales de <strong>LDLC España</strong>, te desglosará el presupuesto y se sincronizará directamente con nuestro sistema de taller.
     </p>
     
     <div class="flex flex-wrap justify-center gap-3.5">
@@ -214,7 +211,7 @@
         <h3 class="text-xl font-bold text-white flex items-center gap-2 justify-center sm:justify-start">
           <span>🤖</span> Pide tu Presupuesto Automático LDLC
         </h3>
-        <p class="text-slate-400 text-xs sm:text-sm mt-1">Nuestra IA consultará piezas y precios oficiales de LDLC.com, generará tu presupuesto y nos lo enviará al correo para prepararlo en el taller.</p>
+        <p class="text-slate-400 text-xs sm:text-sm mt-1">Nuestra IA consultará piezas y precios oficiales de LDLC.com, generará tu presupuesto y lo enviará directamente al software de taller.</p>
       </div>
       <button onclick="toggleChat(); quickAsk('Quiero un presupuesto para un PC de 1000€ con piezas de LDLC')" class="bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold px-6 py-3 rounded-xl transition text-xs sm:text-sm whitespace-nowrap shadow-lg shadow-emerald-900/40">
         Crear Presupuesto con IA
@@ -320,7 +317,7 @@
     <div id="chat-messages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs bg-lobatoDark/80">
       <div class="bg-slate-900/95 border border-slate-800 text-slate-200 p-3.5 rounded-xl rounded-tl-none leading-relaxed">
         ¡Hola! 👋 Soy el configurador inteligente de <strong>TecnoLobato</strong> conectado con la base de componentes de <a href="https://www.ldlc.com/es-es/" target="_blank" class="text-emerald-400 underline font-bold">LDLC.com España</a>.<br><br>
-        Indícame tu <strong>presupuesto</strong> (ej. 700€, 1000€, 1500€) y qué uso le darás (Gaming, Ofimática, Edición o Servidor). Te desglosaré las piezas con enlaces directos y, si te convence, podrás <strong>aceptar el presupuesto para que nos llegue directamente al correo</strong>.
+        Indícame tu <strong>presupuesto</strong> (ej. 700€, 1000€, 1500€) y qué uso le darás (Gaming, Ofimática, Edición o Servidor). Te desglosaré las piezas con enlaces directos y, al aceptarlo, <strong>se enviará directamente a nuestro taller informático</strong>.
       </div>
     </div>
 
@@ -346,7 +343,7 @@
     </form>
   </div>
 
-  <!-- ================= MODAL DE ACEPTACIÓN Y ENVÍO POR CORREO ================= -->
+  <!-- ================= MODAL DE ACEPTACIÓN Y ENVÍO POR FIREBASE & CORREO ================= -->
   <div id="order-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="bg-lobatoCard border border-emerald-500/50 max-w-md w-full rounded-2xl p-6 shadow-2xl relative">
       <button onclick="closeOrderModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-sm">✕</button>
@@ -356,7 +353,7 @@
         <h3 class="text-lg font-black text-white">Confirmar y Enviar Presupuesto</h3>
       </div>
       <p class="text-xs text-slate-300 mb-4">
-        Este presupuesto será enviado al correo de taller (<strong>lobato.mo95@gmail.com</strong>) para que Jose Angel revise stock en LDLC y prepare el montaje en Twitch.
+        Este presupuesto entrará directamente en el sistema informático del taller y se notificará a <strong>lobato.mo95@gmail.com</strong> para su revisión.
       </p>
 
       <form id="order-form" onsubmit="submitOrderEmail(event)" class="space-y-3">
@@ -405,7 +402,7 @@
     </div>
   </footer>
 
-  <!-- ================= MOTOR LDLC & CORREOS ================= -->
+  <!-- ================= MOTOR LDLC, FIREBASE & CORREOS ================= -->
   <script>
     // 1. Twitch Player
     document.addEventListener("DOMContentLoaded", function () {
@@ -480,10 +477,9 @@
       document.getElementById('image-modal').classList.remove('flex');
     }
 
-    // ================= 3. ENLACES CORREGIDOS LDLC.COM (FORMATO OFICIAL ?q=) =================
+    // ================= 3. CATÁLOGO Y CONFIGURADOR LDLC =================
     let lastGeneratedBudget = null;
 
-    // Formato oficial de búsqueda directa en LDLC España (resuelve el error 404)
     function ldlcSearchUrl(query) {
       return `https://www.ldlc.com/es-es/s?q=${encodeURIComponent(query)}`;
     }
@@ -719,29 +715,61 @@
       document.getElementById('order-modal').classList.remove('flex');
     }
 
-    // ENVÍO DE CORREO DIRECTO Y REDIRECCIÓN A WHATSAPP
-    function submitOrderEmail(e) {
+    // ================= 4. ENVÍO INTEGRADO A FIREBASE & EMAIL =================
+    async function submitOrderEmail(e) {
       e.preventDefault();
       const name = document.getElementById('client-name').value.trim();
       const phone = document.getElementById('client-phone').value.trim();
       const email = document.getElementById('client-email').value.trim();
       const details = document.getElementById('order-summary-text').value;
+      const btn = document.getElementById('submit-order-btn');
 
-      // 1. Preparar correo para lobato.mo95@gmail.com
-      const mailtoSubject = `Nuevo Pedido Aceptado: ${lastGeneratedBudget.title} - ${name}`;
+      btn.disabled = true;
+      btn.innerText = "⏳ Conectando con Taller...";
+
+      // Preparar payload para Firebase Realtime Database
+      const costeTotal = lastGeneratedBudget ? parseFloat(lastGeneratedBudget.total) : 0;
+      const tituloEquipo = lastGeneratedBudget ? lastGeneratedBudget.title : "Montaje a Medida";
+
+      const payload = {
+        nombre: name,
+        telefono: phone,
+        equipo: tituloEquipo,
+        averia: `Presupuesto LDLC (${email})`,
+        coste: costeTotal,
+        fecha: new Date().toLocaleString("es-ES"),
+        estado: "Aceptado Web"
+      };
+
+      try {
+        // Enviar a Firebase Realtime Database
+        await fetch("https://tecnolobato-web-default-rtdb.firebaseio.com/presupuestos.json", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.warn("No se pudo conectar con Firebase, continuando con el correo...", err);
+      }
+
+      // Preparar correo para lobato.mo95@gmail.com
+      const mailtoSubject = `Nuevo Pedido Aceptado: ${tituloEquipo} - ${name}`;
       const mailtoBody = `DATOS DEL CLIENTE:\nNombre: ${name}\nTeléfono: ${phone}\nEmail: ${email}\n\n${details}`;
       
-      // Abrir cliente de correo
+      // Abrir cliente de correo en segundo plano
       window.open(`mailto:lobato.mo95@gmail.com?subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`, '_blank');
 
-      // 2. Notificación en pantalla y aviso en el chat con confirmación por WhatsApp
+      // Notificación en el chat
       closeOrderModal();
+      btn.disabled = false;
+      btn.innerHTML = "<span>✉️ Enviar Pedido a TecnoLobato</span>";
+
       appendMessage('bot', `
-        ✅ <strong>¡Presupuesto aceptado correctamente!</strong><br><br>
-        Se ha abierto tu aplicación de correo para enviar los datos a <strong>lobato.mo95@gmail.com</strong>.<br><br>
-        Para que Jose Angel empiece a gestionar las piezas de LDLC de inmediato, pulsa aquí abajo para avisarle por WhatsApp:<br><br>
-        <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20soy%20${encodeURIComponent(name)}%20y%20he%20aceptado%20el%20presupuesto%20de%20LDLC:%20${encodeURIComponent(lastGeneratedBudget.title)}%20por%20${lastGeneratedBudget.total}€" target="_blank" class="inline-block bg-[#25D366] hover:bg-[#1ebd59] text-white font-extrabold px-3 py-2 rounded-lg text-xs shadow">
-          💬 Confirmar pedido por WhatsApp a Jose Angel
+        ✅ <strong>¡Presupuesto aceptado y enviado al Taller!</strong><br><br>
+        La orden se ha sincronizado con la base de datos de <strong>TecnoLobato</strong>.<br><br>
+        Para confirmar de inmediato con Jose Angel por WhatsApp, haz clic aquí:<br><br>
+        <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20soy%20${encodeURIComponent(name)}%20y%20he%20aceptado%20el%20presupuesto%20de%20LDLC:%20${encodeURIComponent(tituloEquipo)}%20por%20${costeTotal}€" target="_blank" class="inline-block bg-[#25D366] hover:bg-[#1ebd59] text-white font-extrabold px-3 py-2 rounded-lg text-xs shadow">
+          💬 Avisar por WhatsApp a Jose Angel
         </a>
       `, true);
     }
