@@ -30,6 +30,106 @@
       background-color: #1e293b;
       border-radius: 4px;
     }
+
+    /* ================= TECNOLOBATO - REDISEÑO 2026 ================= */
+    :root {
+      --tl-bg: #050b12;
+      --tl-panel: rgba(13, 25, 36, .78);
+      --tl-panel-strong: #0c1722;
+      --tl-green: #10b981;
+      --tl-green-2: #34d399;
+      --tl-gold: #d4af37;
+      --tl-line: rgba(148,163,184,.14);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(circle at 12% 0%, rgba(16,185,129,.10), transparent 28rem),
+        radial-gradient(circle at 88% 8%, rgba(212,175,55,.08), transparent 26rem),
+        linear-gradient(180deg, #050b12 0%, #07111b 45%, #050b12 100%);
+    }
+
+    .tl-grid-bg {
+      background-image:
+        linear-gradient(rgba(16,185,129,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16,185,129,.045) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 82%);
+    }
+
+    .tl-glass {
+      background: linear-gradient(145deg, rgba(15,25,35,.86), rgba(7,13,20,.72));
+      border: 1px solid var(--tl-line);
+      box-shadow: 0 24px 70px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+    }
+
+    .tl-card {
+      transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+    }
+    .tl-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(16,185,129,.42);
+      box-shadow: 0 18px 45px rgba(0,0,0,.25), 0 0 0 1px rgba(16,185,129,.05);
+    }
+
+    .tl-glow {
+      box-shadow: 0 0 0 1px rgba(16,185,129,.10), 0 0 55px rgba(16,185,129,.11);
+    }
+
+    .tl-logo-orbit {
+      animation: tlFloat 5s ease-in-out infinite;
+    }
+    @keyframes tlFloat {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(.5deg); }
+    }
+
+    .tl-shimmer {
+      background: linear-gradient(90deg, #10b981, #f0d58a, #10b981);
+      background-size: 220% 100%;
+      animation: tlShimmer 4s linear infinite;
+    }
+    @keyframes tlShimmer {
+      to { background-position: 220% 0; }
+    }
+
+    .tl-section-kicker {
+      letter-spacing: .16em;
+      font-size: .68rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .tl-stat {
+      background: rgba(15,25,35,.62);
+      border: 1px solid rgba(148,163,184,.12);
+      border-radius: 1rem;
+      padding: .9rem 1rem;
+    }
+
+    .tl-mobile-menu {
+      display: none;
+    }
+    .tl-mobile-menu.open {
+      display: block;
+      animation: tlMenu .18s ease-out;
+    }
+    @keyframes tlMenu {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    }
+
+    @media (max-width: 767px) {
+      .tl-logo-orbit { max-width: 280px; }
+      #ai-chat-window { bottom: 88px; }
+    }
+
   </style>
 </head>
 <body class="bg-lobatoDark text-slate-200 font-sans antialiased selection:bg-lobatoGreen selection:text-black">
@@ -74,37 +174,125 @@
         WhatsApp
       </a>
     </div>
+    <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 flex items-center justify-center" aria-label="Abrir menú">
+      <span id="mobile-menu-icon">☰</span>
+    </button>
   </nav>
+  <div class="md:hidden sticky top-[62px] z-30 px-4">
+    <div class="tl-mobile-menu mt-3 pt-3 border-t border-slate-800" id="mobile-menu">
+      <div class="grid grid-cols-2 gap-2 text-sm font-semibold">
+        <a href="#directo" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">📺 En Directo</a>
+        <a href="#equipos" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">🖥️ Equipos</a>
+        <a href="#servicios" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">🔧 Taller</a>
+        <a href="#contacto" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">💬 Contacto</a>
+      </div>
+    </div>
+  </div>
 
   <!-- ================= HERO SECTION ================= -->
-  <header class="max-w-6xl mx-auto px-6 pt-14 pb-12 text-center flex flex-col items-center">
-    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-lobatoGreen/40 bg-emerald-950/40 text-emerald-400 text-xs font-bold tracking-wide uppercase mb-6">
-      🟢 Componentes oficiales de LDLC.com & Montaje en Twitch
+  <div class="relative overflow-hidden">
+    <div class="tl-grid-bg absolute inset-0 pointer-events-none"></div>
+    <header class="relative max-w-6xl mx-auto px-5 sm:px-6 pt-12 md:pt-16 pb-10 md:pb-12">
+      <div class="grid lg:grid-cols-[1.15fr_.85fr] gap-10 lg:gap-14 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-400/25 bg-emerald-950/50 text-emerald-300 text-[11px] font-black tracking-wider uppercase mb-6">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_12px_#10b981]"></span>
+            Servicios informáticos · Cádiz
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-[1.02]">
+            Tu PC.
+            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-amber-200">
+              A tu medida.
+            </span>
+          </h1>
+
+          <p class="mt-6 text-slate-300 text-base md:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            Montajes, reparación, mantenimiento y configuraciones gaming. Te ayudamos a elegir
+            <strong class="text-white">solo lo que necesitas</strong>, con atención directa por WhatsApp.
+          </p>
+
+          <div class="flex flex-wrap justify-center lg:justify-start gap-3 mt-8">
+            <button onclick="toggleChat()" class="bg-lobatoGreen hover:bg-emerald-300 text-black font-black px-6 py-3.5 rounded-xl transition flex items-center gap-2 shadow-lg shadow-emerald-900/40">
+              ⚡ Configurar mi PC
+            </button>
+            <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20quiero%20pedir%20presupuesto%20para%20un%20equipo" target="_blank"
+               class="bg-[#25D366] hover:bg-[#1ebd59] text-white font-black px-6 py-3.5 rounded-xl transition flex items-center gap-2 shadow-lg shadow-emerald-900/30">
+              💬 Hablar por WhatsApp
+            </a>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2.5 max-w-xl mx-auto lg:mx-0 mt-8">
+            <div class="tl-stat text-center lg:text-left">
+              <div class="text-lg font-black text-white">PC</div>
+              <div class="text-[10px] text-slate-400 uppercase tracking-wide">Gaming & Work</div>
+            </div>
+            <div class="tl-stat text-center lg:text-left">
+              <div class="text-lg font-black text-white">24/7</div>
+              <div class="text-[10px] text-slate-400 uppercase tracking-wide">Home Server</div>
+            </div>
+            <div class="tl-stat text-center lg:text-left">
+              <div class="text-lg font-black text-white">Directo</div>
+              <div class="text-[10px] text-slate-400 uppercase tracking-wide">Twitch</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center lg:justify-end">
+          <div class="relative tl-logo-orbit w-full max-w-md">
+            <div class="absolute -inset-5 rounded-full bg-emerald-500/10 blur-3xl"></div>
+            <div class="relative tl-glass tl-glow rounded-[2rem] p-4 sm:p-6">
+              <div class="flex items-center justify-between mb-4 px-1">
+                <div>
+                  <span class="tl-section-kicker text-emerald-400">TECNOLOBATO</span>
+                  <p class="text-[11px] text-slate-500 mt-1">Servicios Informáticos</p>
+                </div>
+                <span class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-300">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> ONLINE
+                </span>
+              </div>
+              <img src="logo.jpg" alt="Logo TecnoLobato" class="w-full rounded-2xl object-cover border border-white/10 shadow-2xl">
+              <div class="mt-4 grid grid-cols-2 gap-2">
+                <div class="rounded-xl bg-black/20 border border-white/5 p-3">
+                  <div class="text-xs font-bold text-white">Presupuesto</div>
+                  <div class="text-[10px] text-slate-400 mt-1">A medida</div>
+                </div>
+                <div class="rounded-xl bg-black/20 border border-white/5 p-3">
+                  <div class="text-xs font-bold text-white">Soporte</div>
+                  <div class="text-[10px] text-slate-400 mt-1">Directo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <!-- ================= PROPUESTA DE VALOR ================= -->
+  <section class="max-w-6xl mx-auto px-5 sm:px-6 pb-12">
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="tl-glass tl-card rounded-2xl p-5">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-400/20 flex items-center justify-center text-xl mb-4">🧩</div>
+        <h3 class="font-black text-white">Configuración a medida</h3>
+        <p class="text-sm text-slate-400 mt-2 leading-relaxed">Equilibramos componentes, presupuesto y uso para evitar gastar de más.</p>
+      </div>
+      <div class="tl-glass tl-card rounded-2xl p-5">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/20 flex items-center justify-center text-xl mb-4">🔧</div>
+        <h3 class="font-black text-white">Taller informático</h3>
+        <p class="text-sm text-slate-400 mt-2 leading-relaxed">Mantenimiento, diagnóstico, ampliaciones y puesta a punto de equipos.</p>
+      </div>
+      <div class="tl-glass tl-card rounded-2xl p-5">
+        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-400/20 flex items-center justify-center text-xl mb-4">🎥</div>
+        <h3 class="font-black text-white">Montajes en directo</h3>
+        <p class="text-sm text-slate-400 mt-2 leading-relaxed">Sigue el proceso de montaje y pruebas en el canal de Twitch de TecnoLobato.</p>
+      </div>
     </div>
-    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-      Presupuestos a Medida de PC <br class="hidden sm:block">
-      <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300">Generados por IA & Montados en Directo</span>
-    </h1>
-    <p class="text-slate-400 text-base md:text-lg max-w-2xl mb-8">
-      Dile a la IA qué juegos juegas o cuánto quieres gastar. Consultará componentes reales de <strong>LDLC España</strong>, te desglosará el presupuesto y se sincronizará directamente con nuestro sistema de taller.
-    </p>
-    
-    <div class="flex flex-wrap justify-center gap-3.5">
-      <button onclick="toggleChat()" class="bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold px-6 py-3.5 rounded-xl transition flex items-center gap-2.5 shadow-lg shadow-emerald-900/40 text-sm">
-        <span>⚡ Configurar PC con IA ahora</span>
-      </button>
-      <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20quiero%20pedir%20presupuesto%20para%20un%20equipo" target="_blank" class="bg-[#25D366] hover:bg-[#1ebd59] text-white font-extrabold px-6 py-3.5 rounded-xl transition flex items-center gap-2.5 shadow-lg shadow-emerald-900/40 text-sm">
-        WhatsApp Directo
-      </a>
-      <a href="#directo" class="border border-purple-500/50 hover:bg-purple-950/30 text-purple-300 font-bold px-5 py-3.5 rounded-xl transition flex items-center gap-2 text-sm">
-        📺 Ver Directo
-      </a>
-    </div>
-  </header>
+  </section>
 
   <!-- ================= TWITCH STREAM ================= -->
   <section id="directo" class="max-w-5xl mx-auto px-6 py-10">
-    <div class="bg-lobatoCard border border-slate-800 rounded-2xl p-6 shadow-2xl">
+    <div class="tl-glass rounded-2xl p-5 sm:p-6 shadow-2xl">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-slate-800 gap-3">
         <div>
           <div class="flex items-center gap-2.5">
@@ -239,6 +427,30 @@
     </div>
   </div>
 
+  <!-- ================= CÓMO FUNCIONA ================= -->
+  <section class="max-w-6xl mx-auto px-5 sm:px-6 py-10">
+    <div class="tl-glass rounded-3xl p-6 sm:p-8">
+      <div class="text-center mb-7">
+        <span class="tl-section-kicker text-emerald-400">Proceso sencillo</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white mt-2">De la idea al equipo listo</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="flex gap-4">
+          <div class="shrink-0 w-10 h-10 rounded-full tl-shimmer text-black font-black flex items-center justify-center">1</div>
+          <div><h3 class="font-bold text-white">Cuéntanos qué necesitas</h3><p class="text-xs text-slate-400 mt-1">Presupuesto, juegos, trabajo, servidor o reparación.</p></div>
+        </div>
+        <div class="flex gap-4">
+          <div class="shrink-0 w-10 h-10 rounded-full bg-slate-800 border border-emerald-500/30 text-emerald-300 font-black flex items-center justify-center">2</div>
+          <div><h3 class="font-bold text-white">Te proponemos una solución</h3><p class="text-xs text-slate-400 mt-1">Configuración equilibrada y explicada sin complicaciones.</p></div>
+        </div>
+        <div class="flex gap-4">
+          <div class="shrink-0 w-10 h-10 rounded-full bg-slate-800 border border-amber-500/30 text-amber-300 font-black flex items-center justify-center">3</div>
+          <div><h3 class="font-bold text-white">Montamos y probamos</h3><p class="text-xs text-slate-400 mt-1">Te acompañamos hasta que el equipo quede preparado.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= SERVICIOS DE TALLER ================= -->
   <section id="servicios" class="max-w-6xl mx-auto px-6 py-12 border-t border-slate-800">
     <div class="text-center mb-10">
@@ -246,25 +458,25 @@
       <p class="text-slate-400 text-sm mt-1">Limpieza térmica, sustitución de pasta y ampliaciones de hardware.</p>
     </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="bg-lobatoCard p-5 rounded-xl border border-slate-800">
+      <div class="tl-glass tl-card p-5 rounded-2xl border border-slate-800">
         <div class="text-2xl mb-2">❄️</div>
         <h4 class="font-bold text-white text-sm mb-1">Mantenimiento Térmico</h4>
         <p class="text-xs text-slate-400 mb-3">Limpieza a fondo y pasta térmica para bajar temperaturas.</p>
         <a href="https://wa.me/34687397664?text=Hola,%20necesito%20limpieza%20y%20pasta%20térmica" target="_blank" class="text-xs text-lobatoGreen hover:underline font-semibold block">Preguntar WhatsApp &rarr;</a>
       </div>
-      <div class="bg-lobatoCard p-5 rounded-xl border border-slate-800">
+      <div class="tl-glass tl-card p-5 rounded-2xl border border-slate-800">
         <div class="text-2xl mb-2">⚡</div>
         <h4 class="font-bold text-white text-sm mb-1">Diagnóstico de Fallos</h4>
         <p class="text-xs text-slate-400 mb-3">Solución a reinicios, cuelgues o problemas de encendido.</p>
         <a href="https://wa.me/34687397664?text=Hola,%20mi%20PC%20no%20enciende%20o%20falla" target="_blank" class="text-xs text-lobatoGreen hover:underline font-semibold block">Preguntar WhatsApp &rarr;</a>
       </div>
-      <div class="bg-lobatoCard p-5 rounded-xl border border-slate-800">
+      <div class="tl-glass tl-card p-5 rounded-2xl border border-slate-800">
         <div class="text-2xl mb-2">🚀</div>
         <h4 class="font-bold text-white text-sm mb-1">Ampliación SSD / RAM</h4>
         <p class="text-xs text-slate-400 mb-3">Cambio a NVMe ultra rápido clonando tu sistema.</p>
         <a href="https://wa.me/34687397664?text=Hola,%20quiero%20ampliar%20disco%20o%20RAM" target="_blank" class="text-xs text-lobatoGreen hover:underline font-semibold block">Preguntar WhatsApp &rarr;</a>
       </div>
-      <div class="bg-lobatoCard p-5 rounded-xl border border-slate-800">
+      <div class="tl-glass tl-card p-5 rounded-2xl border border-slate-800">
         <div class="text-2xl mb-2">💻</div>
         <h4 class="font-bold text-white text-sm mb-1">Formateo & Sistema</h4>
         <p class="text-xs text-slate-400 mb-3">Windows o Linux optimizado sin bloatware ni lentitud.</p>
@@ -275,7 +487,7 @@
 
   <!-- ================= CONTACTO DIRECTO ================= -->
   <section id="contacto" class="max-w-4xl mx-auto px-6 py-14">
-    <div class="bg-lobatoCard border border-slate-800 p-8 rounded-2xl text-center shadow-xl">
+    <div class="tl-glass p-8 rounded-2xl text-center shadow-xl">
       <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">¿Hablamos de tu equipo?</h2>
       <p class="text-slate-400 text-sm max-w-lg mx-auto mb-6">
         Pulsa el botón de WhatsApp para empezar una conversación inmediata o consúltale al asistente virtual.
@@ -323,9 +535,9 @@
 
     <!-- Sugerencias rápidas -->
     <div class="px-3 py-1.5 bg-slate-950 border-t border-slate-800 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap text-[10px]">
-      <button onclick="quickAsk('Presupuesto gaming de 800€ con piezas LDLC')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">PC Gaming 800€</button>
-      <button onclick="quickAsk('Presupuesto PC Gamer 1200€ LDLC')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">PC Gaming 1200€</button>
-      <button onclick="quickAsk('Home Server / NAS 600€ LDLC')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">Home Server 600€</button>
+      <button onclick="quickAsk('Quiero un PC Gaming de 800€ de presupuesto TOTAL, incluyendo mi trabajo')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">PC Gaming 800€</button>
+      <button onclick="quickAsk('Quiero un PC Gaming de 1200€ de presupuesto TOTAL, incluyendo mi trabajo')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">PC Gaming 1200€</button>
+      <button onclick="quickAsk('Home Server / NAS 600€ LDLC')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">Home Server · presupuesto orientativo</button>
     </div>
 
     <!-- Formulario -->
@@ -393,7 +605,7 @@
   </div>
 
   <!-- ================= FOOTER ================= -->
-  <footer class="border-t border-slate-800/80 py-8 text-center text-xs text-slate-500">
+  <footer class="border-t border-slate-800/80 py-10 text-center text-xs text-slate-500 bg-black/10">
     <p>© 2026 TecnoLobato - Servicios Informáticos. Todos los derechos reservados.</p>
     <div class="flex justify-center gap-6 mt-3 font-medium">
       <a href="https://twitch.tv/tecnolobato" target="_blank" class="hover:text-purple-400 transition">Twitch: /tecnolobato</a>
@@ -404,6 +616,24 @@
 
   <!-- ================= MOTOR LDLC, FIREBASE & CORREOS ================= -->
   <script>
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.getElementById('mobile-menu-icon');
+      if (!menu) return;
+      menu.classList.toggle('open');
+      if (icon) icon.textContent = menu.classList.contains('open') ? '✕' : '☰';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        if (typeof closeModal === 'function') closeModal();
+        if (typeof closeOrderModal === 'function') closeOrderModal();
+        const chat = document.getElementById('ai-chat-window');
+        if (chat && !chat.classList.contains('hidden')) chat.classList.add('hidden');
+      }
+    });
+
     // 1. Twitch Player
     document.addEventListener("DOMContentLoaded", function () {
       var currentHost = window.location.hostname;
@@ -486,7 +716,7 @@
 
     const LDLC_CATALOG = {
       gamaEntrada: {
-        rango: "550€ - 750€",
+        rango: "Desde 594.80€",
         uso: "Gaming 1080p competitivo (Fortnite, CS2, Valorant) / Ofimática veloz",
         piezas: [
           { tipo: "Procesador", nombre: "AMD Ryzen 5 5600", precio: 124.95, url: ldlcSearchUrl("Ryzen 5 5600") },
@@ -500,7 +730,7 @@
         montaje: 45.00
       },
       gamaMedia: {
-        rango: "800€ - 1.150€",
+        rango: "Desde 1.073.60€",
         uso: "Gaming 1080p/1440p Ultra & Streaming",
         piezas: [
           { tipo: "Procesador", nombre: "AMD Ryzen 5 7600 AM5", precio: 209.95, url: ldlcSearchUrl("Ryzen 5 7600") },
@@ -515,7 +745,7 @@
         montaje: 50.00
       },
       gamaAlta: {
-        rango: "1.200€ - 1.750€",
+        rango: "Desde 1.864.60€",
         uso: "Gaming 2K/4K competitivo, Edición de vídeo & Streaming",
         piezas: [
           { tipo: "Procesador", nombre: "AMD Ryzen 7 7800X3D", precio: 439.95, url: ldlcSearchUrl("Ryzen 7 7800X3D") },
@@ -574,62 +804,192 @@
       container.scrollTop = container.scrollHeight;
     }
 
-    function buildLDLCBudget(userPrompt) {
-      const p = userPrompt.toLowerCase();
-      let selected = null;
-      let title = "";
+    // ================= CONFIGURADOR: PRESUPUESTO REAL =================
+    // El presupuesto indicado por el cliente SIEMPRE incluye nuestro montaje.
+    // Nunca se devuelve una configuración cuyo total supere el presupuesto solicitado.
+    const COSTE_TRABAJO = {
+      entrada: 45.00,
+      media: 50.00,
+      alta: 60.00,
+      server: 50.00
+    };
 
-      const numbers = userPrompt.match(/\d+/g);
-      let budgetAmount = numbers ? parseInt(numbers[0]) : null;
+    function getRequestedBudget(text) {
+      // Detecta presupuestos escritos como:
+      // 1200, 1200€, 1200 €, 1.200€, 1.200 €, 1,200€, 1.200 euros...
+      // Importante: NO toma números de "2K", "1080p", "32GB", etc. como presupuesto.
+      if (!text) return null;
 
-      if (p.includes("server") || p.includes("nas") || p.includes("servidor")) {
-        selected = LDLC_CATALOG.homeServer;
-        title = "Home Server & Almacenamiento NAS LDLC";
-      } else if (budgetAmount) {
-        if (budgetAmount <= 750) {
-          selected = LDLC_CATALOG.gamaEntrada;
-          title = `Configuración Gaming Entrada (~${budgetAmount}€)`;
-        } else if (budgetAmount <= 1150) {
-          selected = LDLC_CATALOG.gamaMedia;
-          title = `Configuración Gaming Equilibrada (~${budgetAmount}€)`;
-        } else {
-          selected = LDLC_CATALOG.gamaAlta;
-          title = `Configuración Gaming Alta / Render (~${budgetAmount}€)`;
+      const normalized = text
+        .toLowerCase()
+        .replace(/\u00a0/g, " ")
+        .replace(/€/g, " € ");
+
+      // Primero buscamos una cantidad que esté claramente asociada a € / euros / eur.
+      const moneyRegex = /(\d{1,3}(?:[.\s]\d{3})*(?:,\d{1,2})?|\d+(?:[.,]\d{1,2})?)\s*(?:€|euros?|eur)\b/i;
+      const money = normalized.match(moneyRegex);
+
+      if (money) {
+        const raw = money[1].replace(/\s/g, "");
+
+        if (raw.includes(".") && raw.includes(",")) {
+          return parseFloat(raw.replace(/\./g, "").replace(",", "."));
         }
-      } else if (p.includes("alto") || p.includes("4k") || p.includes("2k") || p.includes("potente") || p.includes("render") || p.includes("gta") || p.includes("cyberpunk")) {
-        selected = LDLC_CATALOG.gamaAlta;
-        title = "Configuración Gaming de Alto Rendimiento LDLC";
-      } else if (p.includes("barato") || p.includes("economico") || p.includes("entrada") || p.includes("fortnite") || p.includes("lol") || p.includes("valorant")) {
-        selected = LDLC_CATALOG.gamaEntrada;
-        title = "Configuración Gaming Económica LDLC";
-      } else {
-        selected = LDLC_CATALOG.gamaMedia;
-        title = "Configuración Gaming Equilibrada LDLC";
+
+        // 1.200 = mil doscientos; 1200.50 = mil doscientos con céntimos.
+        if (raw.includes(".") && raw.split(".").pop().length === 3) {
+          return parseFloat(raw.replace(/\./g, ""));
+        }
+
+        return parseFloat(raw.replace(",", "."));
       }
 
-      let subtotal = selected.piezas.reduce((acc, item) => acc + item.precio, 0);
-      let total = subtotal + selected.montaje;
+      // Si el usuario no escribe € pero usa expresiones típicas de presupuesto,
+      // buscamos el número cercano a "presupuesto", "presupuesto total", "gastar", etc.
+      const budgetContext = normalized.match(
+        /(?:presupuesto(?:\s+total)?|gastar|dispongo(?:\s+de)?|tengo(?:\s+de)?|máximo|hasta)\D{0,15}(\d{3,5})(?!\d)/
+      );
+
+      if (budgetContext) return parseInt(budgetContext[1], 10);
+
+      // Caso directo: "PC 1200" / "gaming 1200".
+      const direct = normalized.match(/\b(\d{3,5})\b/);
+      return direct ? parseInt(direct[1], 10) : null;
+    }
+
+    function chooseBudgetCatalog(requestedBudget, isServer) {
+      if (isServer) {
+        const c = LDLC_CATALOG.homeServer;
+        const total = c.piezas.reduce((s, p) => s + p.precio, 0) + c.montaje;
+
+        // Un Home Server es un servicio específico. Si el presupuesto indicado
+        // no alcanza, no mostramos "insuficiente": proponemos el mínimo viable
+        // y elevamos el presupuesto al coste real de la configuración.
+        const adjustedBudget = requestedBudget != null && requestedBudget < total
+          ? total
+          : requestedBudget;
+
+        return {
+          catalog: c,
+          total,
+          title: "Home Server & Almacenamiento NAS LDLC",
+          adjustedBudget,
+          raisedBudget: requestedBudget != null && requestedBudget < total
+        };
+      }
+
+      const options = [
+        { catalog: LDLC_CATALOG.gamaEntrada, name: "Configuración Gaming Económica LDLC" },
+        { catalog: LDLC_CATALOG.gamaMedia, name: "Configuración Gaming Equilibrada LDLC" },
+        { catalog: LDLC_CATALOG.gamaAlta, name: "Configuración Gaming Alto Rendimiento LDLC" }
+      ].map(o => ({
+        ...o,
+        components: o.catalog.piezas.reduce((s, p) => s + p.precio, 0),
+        total: o.catalog.piezas.reduce((s, p) => s + p.precio, 0) + o.catalog.montaje
+      }));
+
+      // Sin presupuesto: configuración media por defecto.
+      if (requestedBudget == null || !Number.isFinite(requestedBudget)) {
+        const o = options[1];
+        return { catalog: o.catalog, total: o.total, title: o.name };
+      }
+
+      // El presupuesto del cliente YA incluye el trabajo.
+      // Elegimos la mejor configuración completa que no supere ese total.
+      const fitting = options.filter(o => o.total <= requestedBudget + 0.01);
+
+      if (fitting.length > 0) {
+        const o = fitting[fitting.length - 1];
+        return {
+          catalog: o.catalog,
+          total: o.total,
+          title: o.name,
+          requestedBudget
+        };
+      }
+
+      // Ni siquiera la configuración económica entra.
+      const cheapest = options[0];
+      return {
+        catalog: cheapest.catalog,
+        total: cheapest.total,
+        title: cheapest.name,
+        overBudget: true,
+        requestedBudget
+      };
+    }
+
+    function buildLDLCBudget(userPrompt) {
+      const p = userPrompt.toLowerCase();
+      const requestedBudget = getRequestedBudget(userPrompt);
+      const isServer = p.includes("server") || p.includes("nas") || p.includes("servidor");
+
+      const result = chooseBudgetCatalog(requestedBudget, isServer);
+      const selected = result.catalog;
+
+      // Para Home Server, si hace falta, ajustamos el presupuesto al mínimo
+      // real de la configuración en lugar de bloquear el presupuesto.
+      const effectiveBudget = result.adjustedBudget ?? requestedBudget;
+
+      if (!isServer && requestedBudget != null && result.overBudget) {
+        lastGeneratedBudget = null;
+        return `
+          <div class="border border-amber-500/40 rounded-xl p-4 bg-amber-950/20">
+            <div class="text-[10px] font-black text-amber-300 uppercase">Presupuesto insuficiente</div>
+            <h4 class="font-bold text-white text-sm mt-1">Necesitamos ajustar la configuración</h4>
+            <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">
+              Has indicado <strong>${requestedBudget.toFixed(2)} €</strong>. La configuración mínima disponible,
+              incluyendo <strong>${selected.montaje.toFixed(2)} € de montaje y trabajo</strong>, queda en
+              <strong class="text-amber-300">${result.total.toFixed(2)} €</strong>.
+            </p>
+            <p class="text-[10px] text-slate-400 mt-2">
+              No voy a recomendarte un PC que supere el presupuesto marcado.
+              Puedes aumentar el presupuesto o pedir una configuración más económica.
+            </p>
+          </div>
+        `;
+      }
+
+      const subtotal = selected.piezas.reduce((acc, item) => acc + item.precio, 0);
+      const total = subtotal + selected.montaje;
+
+      if (!isServer && requestedBudget != null && total > requestedBudget + 0.009) {
+        lastGeneratedBudget = null;
+        return `<div class="border border-red-500/40 rounded-xl p-4 bg-red-950/20 text-sm text-red-200">
+          No he generado el presupuesto porque supera el límite solicitado de ${requestedBudget.toFixed(2)} €.
+        </div>`;
+      }
+
+      const remaining = effectiveBudget != null ? effectiveBudget - total : null;
+      let title = result.title;
+      if (requestedBudget != null) title += ` · Límite ${requestedBudget.toFixed(0)}€`;
 
       lastGeneratedBudget = {
-        title: title,
+        title,
         uso: selected.uso,
         piezas: selected.piezas,
         subtotal: subtotal.toFixed(2),
         montaje: selected.montaje.toFixed(2),
-        total: total.toFixed(2)
+        total: total.toFixed(2),
+        presupuestoCliente: effectiveBudget
       };
 
       let html = `
         <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 gap-3">
             <div>
-              <span class="text-[10px] font-black text-lobatoGold uppercase">Presupuesto Referenciado LDLC</span>
+              <span class="text-[10px] font-black text-lobatoGold uppercase">Presupuesto ajustado al límite</span>
               <h4 class="font-bold text-white text-sm">${title}</h4>
             </div>
-            <span class="text-xs bg-emerald-950 border border-emerald-500/40 text-emerald-400 px-2 py-0.5 rounded font-bold">${lastGeneratedBudget.total} €</span>
+            <span class="text-xs bg-emerald-950 border border-emerald-500/40 text-emerald-400 px-2 py-0.5 rounded font-bold whitespace-nowrap">${total.toFixed(2)} €</span>
           </div>
           <p class="text-[11px] text-slate-400 my-2">Uso recomendado: ${selected.uso}</p>
-
+          ${effectiveBudget != null ? `
+          <div class="mb-2 rounded-lg border ${result.raisedBudget ? 'border-amber-500/30 bg-amber-950/20 text-amber-300' : 'border-emerald-500/20 bg-emerald-950/20 text-emerald-300'} px-2.5 py-2 text-[10px]">
+            ${result.raisedBudget
+              ? `⚠️ Para este Home Server el mínimo de la configuración es <strong>${effectiveBudget.toFixed(2)} €</strong>. He ajustado el presupuesto indicado de <strong>${requestedBudget.toFixed(2)} €</strong> para poder ofrecerte el equipo completo.`
+              : `✓ Presupuesto máximo: <strong>${effectiveBudget.toFixed(2)} €</strong>. Tu trabajo ya está incluido.`}
+          </div>` : ''}
           <div class="space-y-1.5 my-3 text-[11px] font-mono">
       `;
 
@@ -645,23 +1005,27 @@
       html += `
           </div>
           <div class="pt-2 border-t border-slate-800 text-[11px] flex justify-between text-slate-400">
-            <span>Subtotal Componentes:</span>
-            <span class="text-slate-200 font-bold">${lastGeneratedBudget.subtotal} €</span>
+            <span>Componentes:</span>
+            <span class="text-slate-200 font-bold">${subtotal.toFixed(2)} €</span>
           </div>
           <div class="text-[11px] flex justify-between text-slate-400">
-            <span>Montaje, Test de Estrés & Stream Twitch:</span>
-            <span class="text-slate-200 font-bold">${lastGeneratedBudget.montaje} €</span>
+            <span>Tu trabajo / montaje / pruebas:</span>
+            <span class="text-slate-200 font-bold">${selected.montaje.toFixed(2)} €</span>
           </div>
           <div class="pt-2 mt-1 border-t border-slate-700 text-xs flex justify-between font-bold text-white">
-            <span>TOTAL PRESUPUESTO:</span>
-            <span class="text-emerald-400 text-sm">${lastGeneratedBudget.total} €</span>
+            <span>TOTAL CLIENTE:</span>
+            <span class="text-emerald-400 text-sm">${total.toFixed(2)} €</span>
           </div>
-
+          ${requestedBudget != null ? `
+          <div class="mt-2 text-[10px] text-slate-500 flex justify-between">
+            <span>${result.raisedBudget ? "Presupuesto ajustado:" : "Límite indicado:"}</span>
+            <span>${effectiveBudget.toFixed(2)} € · Disponible: ${remaining.toFixed(2)} €</span>
+          </div>` : ''}
           <div class="mt-4 pt-3 border-t border-slate-800 flex flex-col gap-2">
             <button onclick="openOrderModal()" class="w-full py-2.5 bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold text-xs rounded-lg transition shadow flex items-center justify-center gap-1.5">
               <span>✅ Aceptar y Enviar Pedido a TecnoLobato</span>
             </button>
-            <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20la%20IA%20me%20ha%20hecho%20este%20presupuesto:%20${encodeURIComponent(title)}%20por%20${lastGeneratedBudget.total}€" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center">
+            <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20la%20IA%20me%20ha%20hecho%20este%20presupuesto:%20${encodeURIComponent(title)}%20por%20${total.toFixed(2)}€" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center">
               💬 Consultar o Modificar en WhatsApp
             </a>
           </div>
@@ -680,7 +1044,7 @@
       appendMessage('user', text);
       input.value = '';
 
-      appendMessage('bot', 'Consultando componentes y stock en catálogo LDLC.com... 🐺');
+      appendMessage('bot', 'Calculando componentes y reservando primero el coste de tu trabajo... 🐺');
       const container = document.getElementById('chat-messages');
       const loadingNode = container.lastChild;
 
@@ -773,6 +1137,10 @@
         </a>
       `, true);
     }
+  </script>
+
+</body>
+</html>
   </script>
 
 </body>
