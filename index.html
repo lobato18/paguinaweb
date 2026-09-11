@@ -10,6 +10,12 @@
   <meta name="theme-color" content="#0f1923">
   <link rel="canonical" href="https://lobato18.github.io/paguinaweb/">
   <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TecnoLobato">
+  <link rel="apple-touch-icon" href="logo.jpg">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="TecnoLobato">
@@ -191,6 +197,16 @@
       color: #10b981;
     }
 
+    #cookie-banner { animation: tlBannerUp .4s ease; z-index: 60; }
+    @keyframes tlBannerUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #legal-modal { z-index: 70; }
+    #legal-modal .legal-body::-webkit-scrollbar { width: 5px; }
+    #legal-modal .legal-body::-webkit-scrollbar-thumb { background-color: #1e293b; border-radius: 4px; }
+
   </style>
 </head>
 <body class="bg-lobatoDark text-slate-200 font-sans antialiased selection:bg-lobatoGreen selection:text-black">
@@ -224,6 +240,7 @@
       <a href="#directo" class="hover:text-lobatoGreen transition">En Directo</a>
       <a href="#equipos" class="hover:text-lobatoGreen transition">Galería Equipos</a>
       <a href="#servicios" class="hover:text-lobatoGreen transition">Taller</a>
+      <a href="#seguimiento" class="hover:text-lobatoGreen transition">Seguimiento</a>
       <a href="#precios" class="hover:text-lobatoGold transition">Precios</a>
       <a href="#faq" class="hover:text-lobatoGreen transition">FAQ</a>
       <a href="#contacto" class="hover:text-lobatoGreen transition">Contacto</a>
@@ -247,6 +264,7 @@
         <a href="#directo" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">📺 En Directo</a>
         <a href="#equipos" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">🖥️ Equipos</a>
         <a href="#servicios" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">🔧 Taller</a>
+        <a href="#seguimiento" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">🔍 Seguimiento</a>
         <a href="#precios" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-amber-300">💰 Precios</a>
         <a href="#faq" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">❓ FAQ</a>
         <a href="#contacto" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">💬 Contacto</a>
@@ -641,7 +659,7 @@
     </div>
 
     <p class="text-center text-[11px] text-slate-500 mt-6">
-      * Precios orientativos. El presupuesto final se cierra antes de empezar, sin coste adicional.
+      * Precios finales con IVA incluido. Presupuesto orientativo que se cierra antes de empezar, sin coste adicional.
     </p>
   </section>
 
@@ -709,6 +727,117 @@
         </p>
       </details>
 
+    </div>
+  </section>
+
+  <!-- ================= SEGUIMIENTO DE REPARACIÓN / PRESUPUESTO ================= -->
+  <section id="seguimiento" class="max-w-3xl mx-auto px-6 py-12 border-t border-slate-800 scroll-mt-24">
+    <div class="text-center mb-8">
+      <span class="tl-section-kicker text-emerald-400">Reparaciones & presupuestos</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Sigue tu reparación</h2>
+      <p class="text-slate-400 text-sm mt-2 max-w-xl mx-auto">
+        Si ya nos has dejado un equipo en el taller o has aceptado un presupuesto en la web,
+        escribe el <strong class="text-slate-200">teléfono o WhatsApp</strong> que nos diste para consultar su estado.
+      </p>
+    </div>
+
+    <div class="tl-glass rounded-2xl p-5 sm:p-6">
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input id="track-phone" type="tel" inputmode="tel" placeholder="Tu teléfono o WhatsApp · 687 000 000"
+          class="flex-1 bg-slate-900 border border-slate-700 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-lobatoGreen">
+        <button onclick="consultarSeguimiento()" class="bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold text-xs px-6 py-3 rounded-xl transition whitespace-nowrap">
+          🔍 Consultar estado
+        </button>
+      </div>
+      <p class="text-[10px] text-slate-500 mt-2">Sin contraseñas ni registros: solo te mostraremos los encargos asociados a ese número.</p>
+      <div id="track-results" class="mt-4 space-y-3"></div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIOS ================= -->
+  <section id="testimonios" class="max-w-6xl mx-auto px-6 py-12 border-t border-slate-800 scroll-mt-24">
+    <div class="text-center mb-8">
+      <span class="tl-section-kicker text-lobatoGold">Confianza real</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Lo que dicen nuestros clientes</h2>
+      <p class="text-slate-400 text-sm mt-2 max-w-xl mx-auto">Trabajo garantizado, trato directo y presupuesto cerrado antes de empezar.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="tl-glass tl-card rounded-2xl p-5" data-reveal>
+        <div class="flex gap-0.5 text-amber-400 text-sm mb-3">★★★★★</div>
+        <p class="text-xs text-slate-300 leading-relaxed">"Me montaron un PC gaming dentro de mi presupuesto sin inflar ni una sola pieza. El montaje lo pude seguir en directo por Twitch. Genial."</p>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-xs font-black text-emerald-300">A</div>
+          <div>
+            <div class="text-xs font-bold text-white">Cliente de Cádiz</div>
+            <div class="text-[10px] text-slate-500">Presupuesto a medida</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-glass tl-card rounded-2xl p-5" data-reveal>
+        <div class="flex gap-0.5 text-amber-400 text-sm mb-3">★★★★★</div>
+        <p class="text-xs text-slate-300 leading-relaxed">"El portátil iba muy lento y con formateo + cambio a SSD quedó como nuevo. Explicó todo antes de empezar y sin sustos en el precio."</p>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-xs font-black text-amber-300">M</div>
+          <div>
+            <div class="text-xs font-bold text-white">Cliente de Cádiz</div>
+            <div class="text-[10px] text-slate-500">Formateo + SSD</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-glass tl-card rounded-2xl p-5" data-reveal>
+        <div class="flex gap-0.5 text-amber-400 text-sm mb-3">★★★★★</div>
+        <p class="text-xs text-slate-300 leading-relaxed">"Montaron un Home Server para las copias de seguridad de mi negocio, 24/7 y silencioso. Soporte directo por WhatsApp cuando lo he necesitado."</p>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-xs font-black text-blue-300">J</div>
+          <div>
+            <div class="text-xs font-bold text-white">Cliente de Cádiz</div>
+            <div class="text-[10px] text-slate-500">Home Server / NAS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-8">
+      <a href="https://www.google.com/search?q=TecnoLobato+C%C3%A1diz+inform%C3%A1tica" target="_blank" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-5 py-3 rounded-xl transition">
+        <span class="text-amber-400">★</span> Deja tu reseña en Google
+      </a>
+    </div>
+
+    <p class="text-center text-[10px] text-slate-600 mt-3">Testimonios orientativos del taller · Cádiz.</p>
+  </section>
+
+  <!-- ================= UBICACIÓN, HORARIO Y CITA PREVIA ================= -->
+  <section id="ubicacion" class="max-w-6xl mx-auto px-6 py-12 border-t border-slate-800 scroll-mt-24">
+    <div class="grid lg:grid-cols-2 gap-6 items-stretch">
+      <div class="tl-glass rounded-2xl overflow-hidden flex flex-col">
+        <iframe
+          title="Mapa TecnoLobato - Cádiz"
+          src="https://maps.google.com/maps?q=C%2F%20C%C3%A1diz%2C%20Espa%C3%B1a&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          class="w-full flex-1 min-h-[280px] border-0"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="tl-glass rounded-2xl p-6 sm:p-7 flex flex-col justify-center">
+        <span class="tl-section-kicker text-emerald-400">¿Dónde estamos?</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white mt-2">Taller en Cádiz, atención en toda España</h2>
+        <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+          El taller es de <strong class="text-slate-200">Cádiz</strong>, pero la atención es directa por WhatsApp y trabajamos
+          con envíos protegidos. Presupuesto, diagnóstico guiado y seguimiento de reparación, todo a distancia.
+        </p>
+        <div class="mt-4 rounded-xl bg-slate-900/60 border border-slate-800 p-4 text-xs space-y-1.5">
+          <div class="flex justify-between"><span class="text-slate-400">🕐 Lunes a Sábado</span><span class="text-white font-bold">Cita previa</span></div>
+          <div class="flex justify-between"><span class="text-slate-400">📱 WhatsApp</span><span class="text-emerald-400 font-bold whitespace-nowrap">687 397 664</span></div>
+          <div class="flex justify-between"><span class="text-slate-400">✉️ Correo</span><span class="text-slate-200 font-bold">lobato.mo95@gmail.com</span></div>
+        </div>
+        <div class="mt-5 flex flex-col sm:flex-row gap-3">
+          <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20quiero%20reservar%20una%20CITA%20PREVIA%20para%20una%20reparaci%C3%B3n%20o%20presupuesto" target="_blank" class="flex-1 text-center bg-[#25D366] hover:bg-[#1ebd59] text-white font-extrabold text-xs px-5 py-3 rounded-xl transition">
+            📅 Reservar cita previa
+          </a>
+          <a href="https://wa.me/34687397664" target="_blank" class="flex-1 text-center bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-5 py-3 rounded-xl transition">
+            💬 WhatsApp
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -845,7 +974,39 @@
       <a href="https://www.youtube.com/results?search_query=TecnoLobato" target="_blank" class="hover:text-red-400 transition">YouTube: TecnoLobato</a>
       <a href="https://wa.me/34687397664" target="_blank" class="hover:text-waGreen transition">WhatsApp: 687 397 664</a>
     </div>
+    <div class="flex justify-center gap-5 mt-4 font-medium">
+      <button onclick="openLegal('aviso')" class="hover:text-emerald-400 transition">Aviso Legal</button>
+      <button onclick="openLegal('privacidad')" class="hover:text-emerald-400 transition">Política de Privacidad</button>
+      <button onclick="openLegal('cookies')" class="hover:text-emerald-400 transition">Política de Cookies</button>
+    </div>
+    <p class="mt-4 text-[10px] text-slate-600 max-w-md mx-auto">Presupuestos y precios con IVA incluido. Trabajamos por cita previa en Cádiz.</p>
   </footer>
+
+  <!-- ================= BANNER DE COOKIES ================= -->
+  <div id="cookie-banner" class="fixed bottom-0 inset-x-0 hidden bg-slate-950/95 backdrop-blur border-t border-slate-800 p-4 sm:p-5">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center gap-4">
+      <p class="flex-1 text-[11px] text-slate-300 leading-relaxed">
+        🍪 Usamos almacenamiento local únicamente para recordar tus preferencias (por ejemplo, el consentimiento de privacidad).
+        No instalamos cookies de seguimiento ni de publicidad. Puedes leer nuestra
+        <button onclick="openLegal('cookies')" class="text-emerald-400 hover:underline font-semibold">política de cookies</button>.
+      </p>
+      <div class="flex items-center gap-2.5 shrink-0">
+        <button onclick="setCookieConsent('rejected')" class="text-slate-400 hover:text-white text-xs font-semibold px-3 py-2 rounded-lg transition">Rechazar</button>
+        <button onclick="setCookieConsent('accepted')" class="bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold text-xs px-5 py-2.5 rounded-xl transition">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL LEGAL (AVISO / PRIVACIDAD / COOKIES) ================= -->
+  <div id="legal-modal" class="fixed inset-0 hidden bg-black/85 backdrop-blur-sm items-center justify-center p-4">
+    <div class="bg-lobatoCard border border-slate-700 max-w-xl w-full rounded-2xl shadow-2xl flex flex-col max-h-[85vh]">
+      <div class="px-5 py-4 border-b border-slate-800 flex items-center justify-between">
+        <h3 id="legal-title" class="text-base font-black text-white"></h3>
+        <button onclick="closeLegal()" class="text-slate-400 hover:text-white text-base p-1">✕</button>
+      </div>
+      <div id="legal-content" class="legal-body flex-1 overflow-y-auto px-5 py-4 text-xs text-slate-300 leading-relaxed space-y-3"></div>
+    </div>
+  </div>
 
   <!-- ================= MOTOR DE PRESUPUESTOS, FIREBASE & CORREOS ================= -->
   <script>
@@ -1280,6 +1441,7 @@
             <span>TOTAL CLIENTE:</span>
             <span class="text-emerald-400 text-sm">${total.toFixed(2)} €</span>
           </div>
+          <div class="mt-1 text-[10px] text-slate-500">Todos los precios con IVA incluido (21 %). Sin sorpresas.</div>
           ${requestedBudget != null ? `
           <div class="mt-2 text-[10px] text-slate-500 flex justify-between">
             <span>${result.raisedBudget ? "Presupuesto ajustado:" : "Límite indicado:"}</span>
@@ -1392,7 +1554,7 @@
             <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-300">💻 Formateo e instalación</span><span class="text-white font-bold">desde 40€</span></div>
             <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-300">🖥️ Home Server / NAS</span><span class="text-white font-bold">montaje desde 50€</span></div>
           </div>
-          <p class="text-[10px] text-slate-500 mt-2">Precios orientativos; presupuesto cerrado antes de empezar.</p>
+          <p class="text-[10px] text-slate-500 mt-2">Precios finales con IVA incluido. Presupuesto cerrado antes de empezar, sin coste adicional.</p>
           <div class="mt-3 flex flex-col gap-2">
             <a href="${wa}" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center block">💬 Pedir presupuesto por WhatsApp</a>
           <div class="w-full flex flex-wrap gap-1.5 justify-center">${chip("PC 500€", "Quiero un PC de 500€ de presupuesto TOTAL")}${chip("Gaming 800€", "Quiero un PC Gaming de 800€ de presupuesto TOTAL")}${chip("Gaming 1200€", "Quiero un PC Gaming de 1200€ de presupuesto TOTAL")}</div>
@@ -1609,6 +1771,157 @@
           💬 Avisar por WhatsApp a Jose Angel
         </a>
       `, true);
+    }
+  </script>
+
+  <!-- ================= PRIVACIDAD, LEGAL, SEGUIMIENTO Y PWA ================= -->
+  <script>
+    const LEGAL = {
+      aviso: {
+        t: "Aviso Legal",
+        c: [
+          "<strong>Titular del sitio.</strong><br>TecnoLobato · Jose Ángel · Servicios informáticos · Cádiz, España.<br>Contacto: WhatsApp 687 397 664 · lobato.mo95@gmail.com.",
+          "Este sitio tiene carácter informativo y comercial de los servicios ofrecidos (montaje, reparación, mantenimiento, ampliaciones y presupuestos de equipos informáticos).",
+          "Los presupuestos generados por el asistente son orientativos y se cierran definitivamente antes de comprar o prestar el servicio.",
+          "Queda prohibido el uso fraudulento de los formularios o de los datos publicados. TecnoLobato no se hace responsable del mal uso de la información mostrada ni del contenido de los enlaces a sitios de terceros."
+        ]
+      },
+      privacidad: {
+        t: "Política de Privacidad",
+        c: [
+          "<strong>¿Qué datos tratamos?</strong>",
+          "Los que nos facilitas voluntariamente al enviar un presupuesto desde la web: nombre, teléfono/WhatsApp y correo electrónico, junto con el resumen de tu presupuesto.",
+          "<strong>¿Para qué los usamos?</strong>",
+          "Únicamente para preparar y gestionar tu presupuesto, coordinar la reparación o el montaje y comunicarnos contigo por el canal que elijas.",
+          "<strong>¿Con quién se comparten?</strong>",
+          "Los datos se almacenan en la base de datos de Firebase (Google) y se notifican por correo al propio taller. No se ceden ni se venden a terceros.",
+          "<strong>Tus derechos</strong>",
+          "Puedes solicitar acceso, rectificación o supresión de tus datos escribiendo a lobato.mo95@gmail.com. Tratamos los datos conforme al Reglamento General de Protección de Datos (UE) 2016/679."
+        ]
+      },
+      cookies: {
+        t: "Política de Cookies",
+        c: [
+          "Esta página <strong>no utiliza cookies de seguimiento ni de publicidad</strong>.",
+          "Usa el <strong>almacenamiento local de tu navegador</strong> para recordar tu elección de consentimiento y el estado del asistente. Esa información permanece en tu dispositivo.",
+          "Servicios externos (Tailwind CDN, reproductor de Twitch y Google Maps) pueden instalar sus propias cookies; consulta sus políticas antes de usarlos.",
+          "Puedes borrar los datos de este sitio desde los ajustes de privacidad de tu navegador en cualquier momento."
+        ]
+      }
+    };
+
+    function openLegal(key) {
+      const item = LEGAL[key];
+      if (!item) return;
+      document.getElementById('legal-title').textContent = item.t;
+      document.getElementById('legal-content').innerHTML = item.c.map(par => `<p>${par}</p>`).join('');
+      const m = document.getElementById('legal-modal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    }
+    function closeLegal() {
+      const m = document.getElementById('legal-modal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+    function setCookieConsent(v) {
+      try { localStorage.setItem('tl-consent', v); } catch (e) {}
+      document.getElementById('cookie-banner').classList.add('hidden');
+    }
+    function maybeShowCookieBanner() {
+      let consent = null;
+      try { consent = localStorage.getItem('tl-consent'); } catch (e) {}
+      if (consent === null) {
+        const b = document.getElementById('cookie-banner');
+        if (b) b.classList.remove('hidden');
+      }
+    }
+    document.addEventListener("DOMContentLoaded", maybeShowCookieBanner);
+
+    function normalizePhone(raw) {
+      return String(raw || '').replace(/[^\d]/g, '');
+    }
+
+    async function consultarSeguimiento() {
+      const phoneRaw = document.getElementById('track-phone').value;
+      const digits = normalizePhone(phoneRaw);
+      const box = document.getElementById('track-results');
+
+      if (digits.length < 6) {
+        box.innerHTML = `<div class="rounded-xl border border-amber-500/30 bg-amber-950/20 text-amber-300 text-xs p-3">Escribe un teléfono válido (mínimo 6 dígitos).</div>`;
+        return;
+      }
+
+      box.innerHTML = `<div class="rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 text-xs p-3">Consultando con el taller… 🔍</div>`;
+
+      let data = null;
+      try {
+        const res = await fetch("https://tecnolobato-web-default-rtdb.firebaseio.com/presupuestos.json");
+        if (res.ok) data = await res.json();
+      } catch (err) {
+        data = null;
+      }
+
+      if (!data) {
+        box.innerHTML = `
+          <div class="rounded-xl border border-amber-500/30 bg-amber-950/20 text-xs text-amber-300 p-4 leading-relaxed">
+            No he podido contactar con la base de datos ahora mismo.<br>Escríbenos por WhatsApp y te decimos el estado de tu equipo en cuanto podamos.
+          </div>
+          <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20quiero%20saber%20el%20estado%20de%20mi%20reparaci%C3%B3n%2Fpresupuesto%20(tel%C3%A9fono:%20${encodeURIComponent(digits)})" target="_blank"
+             class="inline-block bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs px-5 py-3 rounded-xl transition">💬 Consultar por WhatsApp</a>`;
+        return;
+      }
+
+      const found = [];
+      Object.entries(data || {}).forEach(([id, item]) => {
+        if (!item) return;
+        const p = normalizePhone(item.telefono);
+        if (p === digits || (p && digits.includes(p)) || (p && p.includes(digits))) {
+          found.push({ id, item });
+        }
+      });
+
+      if (found.length === 0) {
+        box.innerHTML = `
+          <div class="rounded-xl border border-slate-800 bg-slate-900/60 text-xs text-slate-300 p-4 leading-relaxed">
+            No hay ningún encargo registrado con ese número en la web. Si dejaste un equipo en el taller, puede estar registrado con otro teléfono y lo confirmamos por WhatsApp.
+          </div>
+          <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20no%20encuentro%20mi%20encargo%20en%20la%20web%20(tel%C3%A9fono:%20${encodeURIComponent(digits)})" target="_blank"
+             class="inline-block bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs px-5 py-3 rounded-xl transition">💬 Preguntar por WhatsApp</a>`;
+        return;
+      }
+
+      const estadoClases = {
+        "aceptado web": "text-emerald-300 border-emerald-500/40 bg-emerald-950/20"
+      };
+      const rows = found.slice(0, 5).map(({ id, item }) => {
+        const est = String(item.estado || "Pendiente");
+        const cls = estadoClases[est.toLowerCase()] || "text-amber-300 border-amber-500/30 bg-amber-950/20";
+        let coste = item.coste != null ? parseFloat(item.coste).toFixed(2) + " €" : "—";
+        return `
+          <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+            <div class="flex items-center justify-between gap-3 flex-wrap">
+              <div class="text-xs font-bold text-white">${item.equipo || "Encargo"}</div>
+              <span class="text-[10px] font-black uppercase px-2.5 py-1 rounded-md border ${cls}">${est}</span>
+            </div>
+            <div class="mt-2 grid sm:grid-cols-2 gap-1 text-[11px] text-slate-400">
+              <span>📅 ${item.fecha || "—"}</span>
+              <span>💰 ${coste}</span>
+            </div>
+          </div>`;
+      }).join("");
+
+      box.innerHTML = rows + `
+        <div class="text-[11px] text-slate-500 flex items-center gap-2 justify-center pt-1">
+          <span>¿Quieres más detalle?</span>
+          <a href="https://wa.me/34687397664" target="_blank" class="text-emerald-400 hover:underline font-semibold">Escríbenos por WhatsApp</a>
+        </div>`;
+    }
+
+    if ("serviceWorker" in navigator && /^https?:$/i.test(location.protocol)) {
+      window.addEventListener("load", function () {
+        try { navigator.serviceWorker.register("sw.js").catch(function () {}); } catch (e) {}
+      });
     }
   </script>
 
