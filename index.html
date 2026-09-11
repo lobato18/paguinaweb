@@ -4,11 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TecnoLobato | Presupuestos a Medida & Taller en Directo</title>
+
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preconnect" href="https://player.twitch.tv" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="preconnect" href="https://maps.google.com" crossorigin>
+  <link rel="preconnect" href="https://tecnolobato-web-default-rtdb.firebaseio.com">
+  <link rel="preload" as="image" href="logo.jpg" fetchpriority="high">
   <meta name="description" content="Montajes, reparación, mantenimiento y configuraciones gaming en Cádiz. Presupuestos personalizados a medida, taller informático y montajes en directo por Twitch.">
   <meta name="keywords" content="montaje PC, reparación ordenadores, mantenimiento informático, PC gaming, home server, presupuesto a medida, Cádiz, TecnoLobato">
   <meta name="author" content="TecnoLobato">
   <meta name="theme-color" content="#0f1923">
-  <link rel="canonical" href="https://lobato18.github.io/paguinaweb/">
+  <link rel="canonical" href="https://tecnolobato.one/">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="mobile-web-app-capable" content="yes">
@@ -21,14 +28,14 @@
   <meta property="og:site_name" content="TecnoLobato">
   <meta property="og:title" content="TecnoLobato | Presupuestos a Medida & Taller en Directo">
   <meta property="og:description" content="Montajes, reparación, mantenimiento y configuraciones gaming en Cádiz. Presupuestos a medida y taller en directo por Twitch.">
-  <meta property="og:url" content="https://lobato18.github.io/paguinaweb/">
-  <meta property="og:image" content="https://lobato18.github.io/paguinaweb/logo.jpg">
+  <meta property="og:url" content="https://tecnolobato.one/">
+  <meta property="og:image" content="https://tecnolobato.one/logo.jpg">
   <meta property="og:locale" content="es_ES">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="TecnoLobato | Presupuestos a Medida & Taller en Directo">
   <meta name="twitter:description" content="Montajes, reparación, mantenimiento y configuraciones gaming en Cádiz.">
-  <meta name="twitter:image" content="https://lobato18.github.io/paguinaweb/logo.jpg">
+  <meta name="twitter:image" content="https://tecnolobato.one/logo.jpg">
 
   <script type="application/ld+json">
   {
@@ -36,8 +43,8 @@
     "@type": "ProfessionalService",
     "name": "TecnoLobato",
     "description": "Servicios informáticos en Cádiz: montaje de PC, reparación, mantenimiento y configuraciones gaming a medida.",
-    "url": "https://lobato18.github.io/paguinaweb/",
-    "image": "https://lobato18.github.io/paguinaweb/logo.jpg",
+    "url": "https://tecnolobato.one/",
+    "image": "https://tecnolobato.one/logo.jpg",
     "telephone": "+34687397664",
     "email": "lobato.mo95@gmail.com",
     "priceRange": "€€",
@@ -55,7 +62,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- SDK Oficial de Twitch -->
-  <script src="https://player.twitch.tv/js/v1.js"></script>
+  <script src="https://player.twitch.tv/js/v1.js" defer></script>
   <script>
     tailwind.config = {
       theme: {
@@ -246,7 +253,7 @@
       <a href="#contacto" class="hover:text-lobatoGreen transition">Contacto</a>
     </div>
     <div class="flex items-center gap-2.5">
-      <button onclick="toggleChat()" class="bg-emerald-950/80 border border-emerald-500/50 hover:bg-emerald-900/60 text-emerald-300 font-bold text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 transition">
+      <button id="chat-nav-btn" onclick="toggleChat()" aria-expanded="false" aria-controls="ai-chat-window" class="bg-emerald-950/80 border border-emerald-500/50 hover:bg-emerald-900/60 text-emerald-300 font-bold text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 transition">
         🤖 Presupuesto IA
       </button>
       <a href="https://wa.me/34687397664?text=Hola%20TecnoLobato,%20quiero%20pedir%20presupuesto" target="_blank" class="bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs px-3.5 py-2 rounded-lg flex items-center gap-2 shadow-lg shadow-emerald-900/30 transition">
@@ -882,7 +889,7 @@
     </div>
 
     <!-- Mensajes -->
-    <div id="chat-messages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs bg-lobatoDark/80">
+    <div id="chat-messages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs bg-lobatoDark/80" aria-live="polite">
       <div class="bg-slate-900/95 border border-slate-800 text-slate-200 p-3.5 rounded-xl rounded-tl-none leading-relaxed">
         ¡Hola! 👋 Soy el configurador inteligente de <strong>TecnoLobato</strong> Te ayudo con presupuestos a medida y con todos los servicios del taller.<br><br>
         Indícame tu <strong>presupuesto</strong> (ej. 500€, 800€, 1200€) y qué uso le darás (Gaming, Ofimática, Edición o Servidor). Te desglosaré las piezas con enlaces directos y, al aceptarlo, <strong>se enviará directamente a nuestro taller informático</strong>.
@@ -957,7 +964,7 @@
 
   <!-- ================= BOTONES FLOTANTES (IA + WHATSAPP) ================= -->
   <div class="fixed bottom-6 right-4 sm:right-6 z-40 flex items-center gap-2.5">
-    <button onclick="toggleChat()" class="bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-500/40 p-3.5 rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition" title="Consultar Presupuesto con IA">
+    <button id="chat-fab" onclick="toggleChat()" aria-expanded="false" aria-controls="ai-chat-window" class="bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-500/40 p-3.5 rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition" title="Consultar Presupuesto con IA">
       <span class="text-xl">🤖</span>
     </button>
     <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20he%20visto%20tu%20web%20y%20quiero%20hacerte%20una%20consulta" target="_blank" class="bg-[#25D366] hover:bg-[#1ebd59] text-white px-4 py-3 rounded-full shadow-2xl flex items-center gap-2 border-2 border-emerald-300/40 hover:scale-105 transition">
@@ -965,6 +972,12 @@
       <span class="font-extrabold text-xs hidden sm:inline">WhatsApp</span>
     </a>
   </div>
+
+  <!-- ================= BOTÓN VOLVER ARRIBA ================= -->
+  <button id="back-to-top" aria-label="Volver arriba" title="Volver arriba"
+    class="fixed bottom-6 left-4 sm:left-6 z-40 w-11 h-11 rounded-full bg-lobatoCard border border-slate-700 text-emerald-400 shadow-2xl flex items-center justify-center hover:bg-emerald-950 hover:border-emerald-500/50 hover:scale-110 transition opacity-0 pointer-events-none">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
 
   <!-- ================= FOOTER ================= -->
   <footer class="border-t border-slate-800/80 py-10 text-center text-xs text-slate-500 bg-black/10">
@@ -1202,7 +1215,12 @@
     function toggleChat() {
       const chatWin = document.getElementById('ai-chat-window');
       chatWin.classList.toggle('hidden');
-      if (!chatWin.classList.contains('hidden')) {
+      const isOpen = !chatWin.classList.contains('hidden');
+      const navBtn = document.getElementById('chat-nav-btn');
+      const fab = document.getElementById('chat-fab');
+      if (navBtn) navBtn.setAttribute('aria-expanded', String(isOpen));
+      if (fab) fab.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen) {
         document.getElementById('chat-input').focus();
       }
     }
@@ -1923,6 +1941,79 @@
         try { navigator.serviceWorker.register("sw.js").catch(function () {}); } catch (e) {}
       });
     }
+  </script>
+
+  <!-- ================= MEJORAS DE UX, RENDIMIENTO Y ACCESIBILIDAD ================= -->
+  <script>
+    function onDomReady(cb) {
+      if (document.readyState !== "loading") cb();
+      else document.addEventListener("DOMContentLoaded", cb);
+    }
+
+    onDomReady(function () {
+      // 1. Seguridad: garantiza rel="noopener" en todos los enlaces con target="_blank"
+      document.querySelectorAll('a[target="_blank"]').forEach(function (a) {
+        if (!a.rel) a.setAttribute("rel", "noopener");
+        else if (a.rel.indexOf("noopener") === -1) a.setAttribute("rel", a.rel + " noopener");
+      });
+
+      // 2. Fallback de imágenes de la galería -> logo local si un CDN falla
+      document.querySelectorAll('.gallery-item img').forEach(function (img) {
+        img.addEventListener('error', function () {
+          if (img.dataset.fallback) return;
+          img.dataset.fallback = '1';
+          img.src = 'logo.jpg';
+        });
+      });
+
+      // 3. Botón "volver arriba"
+      var btt = document.getElementById('back-to-top');
+      if (btt) {
+        window.addEventListener('scroll', function () {
+          var show = window.scrollY > 560;
+          btt.classList.toggle('opacity-0', !show);
+          btt.classList.toggle('pointer-events-none', !show);
+        }, { passive: true });
+        btt.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // 4. Scroll-spy: resalta la sección activa en la navegación
+      var spySections = ['directo', 'equipos', 'servicios', 'seguimiento', 'precios', 'faq', 'testimonios', 'ubicacion', 'contacto'];
+      var spyLinks = {};
+      document.querySelectorAll('nav a[href^="#"]').forEach(function (a) {
+        var id = a.getAttribute('href').slice(1);
+        if (spySections.indexOf(id) !== -1 && !spyLinks[id]) spyLinks[id] = a;
+      });
+
+      var spyStyle = document.createElement('style');
+      spyStyle.textContent = 'a.nav-active { color: #10b981 !important; }';
+      document.head.appendChild(spyStyle);
+
+      var inSpy = {};
+      function updateSpy() {
+        var current = null;
+        spySections.forEach(function (id) {
+          if (inSpy[id] === true) { if (!current) current = id; }
+        });
+        Object.keys(spyLinks).forEach(function (id) {
+          spyLinks[id].classList.toggle('nav-active', id === current);
+        });
+      }
+      if ("IntersectionObserver" in window) {
+        var spyIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            inSpy[entry.target.id] = entry.isIntersecting;
+            updateSpy();
+          });
+        }, { rootMargin: '-40% 0px -55% 0px' });
+        spySections.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) spyIO.observe(el);
+        });
+      }
+    });
   </script>
 
 </body>
