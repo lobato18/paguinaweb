@@ -4,6 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TecnoLobato | Presupuestos a Medida LDLC & Taller en Directo</title>
+  <meta name="description" content="Montajes, reparación, mantenimiento y configuraciones gaming en Cádiz. Presupuestos personalizados con componentes LDLC, taller informático y montajes en directo por Twitch.">
+  <meta name="keywords" content="montaje PC, reparación ordenadores, mantenimiento informático, PC gaming, home server, presupuesto LDLC, Cádiz, TecnoLobato">
+  <meta name="author" content="TecnoLobato">
+  <meta name="theme-color" content="#0f1923">
+  <link rel="canonical" href="https://lobato18.github.io/paguinaweb/">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TecnoLobato">
+  <meta property="og:title" content="TecnoLobato | Presupuestos a Medida LDLC & Taller en Directo">
+  <meta property="og:description" content="Montajes, reparación, mantenimiento y configuraciones gaming en Cádiz. Presupuestos con componentes LDLC y taller en directo por Twitch.">
+  <meta property="og:url" content="https://lobato18.github.io/paguinaweb/">
+  <meta property="og:image" content="https://lobato18.github.io/paguinaweb/logo.jpg">
+  <meta property="og:locale" content="es_ES">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TecnoLobato | Presupuestos a Medida LDLC & Taller en Directo">
+  <meta name="twitter:description" content="Montajes, reparación, mantenimiento y configuraciones gaming en Cádiz.">
+  <meta name="twitter:image" content="https://lobato18.github.io/paguinaweb/logo.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "TecnoLobato",
+    "description": "Servicios informáticos en Cádiz: montaje de PC, reparación, mantenimiento y configuraciones gaming con componentes LDLC.",
+    "url": "https://lobato18.github.io/paguinaweb/",
+    "image": "https://lobato18.github.io/paguinaweb/logo.jpg",
+    "telephone": "+34687397664",
+    "email": "lobato.mo95@gmail.com",
+    "priceRange": "€€",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Cádiz",
+      "addressCountry": "ES"
+    },
+    "sameAs": [
+      "https://twitch.tv/tecnolobato"
+    ],
+    "areaServed": "Cádiz"
+  }
+  </script>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- SDK Oficial de Twitch -->
   <script src="https://player.twitch.tv/js/v1.js"></script>
@@ -130,6 +173,24 @@
       #ai-chat-window { bottom: 88px; }
     }
 
+    .tl-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .tl-reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tl-faq summary::-webkit-details-marker { display: none; }
+    .tl-faq summary { list-style: none; cursor: pointer; }
+    .tl-faq[open] .tl-faq-chevron { transform: rotate(45deg); }
+    .tl-faq-chevron {
+      transition: transform .2s ease;
+      color: #10b981;
+    }
+
   </style>
 </head>
 <body class="bg-lobatoDark text-slate-200 font-sans antialiased selection:bg-lobatoGreen selection:text-black">
@@ -159,10 +220,12 @@
         <span class="block text-[10px] tracking-widest text-slate-400 font-semibold uppercase">Servicios Informáticos</span>
       </div>
     </div>
-    <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+    <div class="hidden lg:flex items-center gap-6 text-sm font-medium">
       <a href="#directo" class="hover:text-lobatoGreen transition">En Directo</a>
       <a href="#equipos" class="hover:text-lobatoGreen transition">Galería Equipos</a>
       <a href="#servicios" class="hover:text-lobatoGreen transition">Taller</a>
+      <a href="#precios" class="hover:text-lobatoGold transition">Precios</a>
+      <a href="#faq" class="hover:text-lobatoGreen transition">FAQ</a>
       <a href="#contacto" class="hover:text-lobatoGreen transition">Contacto</a>
     </div>
     <div class="flex items-center gap-2.5">
@@ -184,6 +247,8 @@
         <a href="#directo" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">📺 En Directo</a>
         <a href="#equipos" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">🖥️ Equipos</a>
         <a href="#servicios" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">🔧 Taller</a>
+        <a href="#precios" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-amber-300">💰 Precios</a>
+        <a href="#faq" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">❓ FAQ</a>
         <a href="#contacto" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">💬 Contacto</a>
       </div>
     </div>
@@ -272,17 +337,17 @@
   <!-- ================= PROPUESTA DE VALOR ================= -->
   <section class="max-w-6xl mx-auto px-5 sm:px-6 pb-12">
     <div class="grid md:grid-cols-3 gap-4">
-      <div class="tl-glass tl-card rounded-2xl p-5">
+      <div class="tl-glass tl-card rounded-2xl p-5" data-reveal>
         <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-400/20 flex items-center justify-center text-xl mb-4">🧩</div>
         <h3 class="font-black text-white">Configuración a medida</h3>
         <p class="text-sm text-slate-400 mt-2 leading-relaxed">Equilibramos componentes, presupuesto y uso para evitar gastar de más.</p>
       </div>
-      <div class="tl-glass tl-card rounded-2xl p-5">
+      <div class="tl-glass tl-card rounded-2xl p-5" data-reveal>
         <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/20 flex items-center justify-center text-xl mb-4">🔧</div>
         <h3 class="font-black text-white">Taller informático</h3>
         <p class="text-sm text-slate-400 mt-2 leading-relaxed">Mantenimiento, diagnóstico, ampliaciones y puesta a punto de equipos.</p>
       </div>
-      <div class="tl-glass tl-card rounded-2xl p-5">
+      <div class="tl-glass tl-card rounded-2xl p-5" data-reveal>
         <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-400/20 flex items-center justify-center text-xl mb-4">🎥</div>
         <h3 class="font-black text-white">Montajes en directo</h3>
         <p class="text-sm text-slate-400 mt-2 leading-relaxed">Sigue el proceso de montaje y pruebas en el canal de Twitch de TecnoLobato.</p>
@@ -291,7 +356,7 @@
   </section>
 
   <!-- ================= TWITCH STREAM ================= -->
-  <section id="directo" class="max-w-5xl mx-auto px-6 py-10">
+  <section id="directo" class="max-w-5xl mx-auto px-6 py-10 scroll-mt-24">
     <div class="tl-glass rounded-2xl p-5 sm:p-6 shadow-2xl">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-slate-800 gap-3">
         <div>
@@ -313,7 +378,7 @@
   </section>
 
   <!-- ================= LIBRERÍA DE IMÁGENES: EQUIPOS A LA CARTA ================= -->
-  <section id="equipos" class="max-w-6xl mx-auto px-6 py-14">
+  <section id="equipos" class="max-w-6xl mx-auto px-6 py-14 scroll-mt-24">
     <div class="text-center mb-8">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-lobatoGold/30 bg-amber-950/20 text-lobatoGold text-xs font-bold tracking-wide uppercase mb-3">
         📸 Galería de Montajes Reales
@@ -338,7 +403,7 @@
       <div class="gallery-item gaming bg-lobatoCard border border-slate-800 rounded-2xl overflow-hidden hover:border-lobatoGreen transition duration-300 group cursor-pointer flex flex-col justify-between"
            onclick="openModal('Montaje Gaming Beast RTX', 'Montaje enfocado en altas tasas de cuadros y resolución 2K/4K. Refrigeración líquida optimizada y cable management limpio realizado en streaming.', 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=1000&q=80', 'Gaming')">
         <div class="relative h-56 overflow-hidden bg-black">
-          <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=700&q=80" alt="PC Gaming Beast" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=700&q=80" alt="PC Gaming Beast" width="700" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
           <span class="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md shadow">Gaming</span>
         </div>
         <div class="p-5 flex-1 flex flex-col justify-between">
@@ -357,7 +422,7 @@
       <div class="gallery-item custom bg-lobatoCard border border-lobatoGold/50 rounded-2xl overflow-hidden hover:border-lobatoGold transition duration-300 group cursor-pointer flex flex-col justify-between shadow-lg shadow-amber-500/5"
            onclick="openModal('Setup a Medida - Presupuesto Ajustado', 'Configuración ajustada al céntimo referenciada en catálogo LDLC.', 'https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=1000&q=80', 'Custom')">
         <div class="relative h-56 overflow-hidden bg-black">
-          <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=700&q=80" alt="Setup a Medida" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=700&q=80" alt="Setup a Medida" width="700" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
           <span class="absolute top-3 left-3 bg-lobatoGold text-black text-[10px] font-black uppercase px-2.5 py-1 rounded-md shadow">Top Presupuesto</span>
         </div>
         <div class="p-5 flex-1 flex flex-col justify-between">
@@ -376,7 +441,7 @@
       <div class="gallery-item server bg-lobatoCard border border-slate-800 rounded-2xl overflow-hidden hover:border-lobatoGreen transition duration-300 group cursor-pointer flex flex-col justify-between"
            onclick="openModal('Home Server NAS & Virtualización', 'Servidor doméstico silencioso de bajo consumo con discos NAS y Linux.', 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1000&q=80', 'Server')">
         <div class="relative h-56 overflow-hidden bg-black">
-          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=700&q=80" alt="Home Server" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=700&q=80" alt="Home Server" width="700" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
           <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md shadow">Server</span>
         </div>
         <div class="p-5 flex-1 flex flex-col justify-between">
@@ -435,15 +500,15 @@
         <h2 class="text-2xl sm:text-3xl font-black text-white mt-2">De la idea al equipo listo</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-5">
-        <div class="flex gap-4">
+        <div class="flex gap-4" data-reveal>
           <div class="shrink-0 w-10 h-10 rounded-full tl-shimmer text-black font-black flex items-center justify-center">1</div>
           <div><h3 class="font-bold text-white">Cuéntanos qué necesitas</h3><p class="text-xs text-slate-400 mt-1">Presupuesto, juegos, trabajo, servidor o reparación.</p></div>
         </div>
-        <div class="flex gap-4">
+        <div class="flex gap-4" data-reveal>
           <div class="shrink-0 w-10 h-10 rounded-full bg-slate-800 border border-emerald-500/30 text-emerald-300 font-black flex items-center justify-center">2</div>
           <div><h3 class="font-bold text-white">Te proponemos una solución</h3><p class="text-xs text-slate-400 mt-1">Configuración equilibrada y explicada sin complicaciones.</p></div>
         </div>
-        <div class="flex gap-4">
+        <div class="flex gap-4" data-reveal>
           <div class="shrink-0 w-10 h-10 rounded-full bg-slate-800 border border-amber-500/30 text-amber-300 font-black flex items-center justify-center">3</div>
           <div><h3 class="font-bold text-white">Montamos y probamos</h3><p class="text-xs text-slate-400 mt-1">Te acompañamos hasta que el equipo quede preparado.</p></div>
         </div>
@@ -452,7 +517,7 @@
   </section>
 
   <!-- ================= SERVICIOS DE TALLER ================= -->
-  <section id="servicios" class="max-w-6xl mx-auto px-6 py-12 border-t border-slate-800">
+  <section id="servicios" class="max-w-6xl mx-auto px-6 py-12 border-t border-slate-800 scroll-mt-24">
     <div class="text-center mb-10">
       <h2 class="text-3xl font-extrabold text-white">Mantenimiento & Reparación</h2>
       <p class="text-slate-400 text-sm mt-1">Limpieza térmica, sustitución de pasta y ampliaciones de hardware.</p>
@@ -485,8 +550,170 @@
     </div>
   </section>
 
+  <!-- ================= PRECIOS ORIENTATIVOS ================= -->
+  <section id="precios" class="max-w-6xl mx-auto px-6 py-12 border-t border-slate-800 scroll-mt-24">
+    <div class="text-center mb-10">
+      <span class="tl-section-kicker text-lobatoGold">Precios transparentes</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Precios orientativos del taller</h2>
+      <p class="text-slate-400 text-sm mt-1 max-w-xl mx-auto">Presupuestos cerrados y sin sorpresas. El precio final depende del equipo, pero así te haces una idea antes de escribirnos.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <div class="tl-glass tl-card p-6 rounded-2xl border border-lobatoGold/30 bg-gradient-to-b from-amber-950/20 to-transparent" data-reveal>
+        <div class="flex items-start justify-between gap-3">
+          <div class="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-400/20 flex items-center justify-center text-2xl">🖥️</div>
+          <div class="text-right">
+            <div class="text-xl font-black text-lobatoGold">Gratis</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wide">sin compromiso</div>
+          </div>
+        </div>
+        <h3 class="font-black text-white mt-4">Presupuesto a medida LDLC</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">Te configuramos el PC equilibrado con componentes reales de LDLC y enlaces directos, sin coste.</p>
+        <button onclick="toggleChat(); quickAsk('Quiero un presupuesto a medida con piezas de LDLC')" class="mt-5 w-full text-center bg-lobatoGold hover:bg-amber-300 text-black font-extrabold text-xs px-4 py-2.5 rounded-xl transition">🤖 Pedirlo con la IA</button>
+      </div>
+
+      <div class="tl-glass tl-card p-6 rounded-2xl border border-slate-800" data-reveal>
+        <div class="flex items-start justify-between gap-3">
+          <div class="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-400/20 flex items-center justify-center text-2xl">🔧</div>
+          <div class="text-right">
+            <div class="text-xl font-black text-white">Desde 45€</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wide">montaje + pruebas</div>
+          </div>
+        </div>
+        <h3 class="font-black text-white mt-4">Montaje de PC completo</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">Cable gestionado, pruebas de estrés y puesta a punto en directo de Twitch si lo prefieres.</p>
+        <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20quiero%20el%20precio%20de%20montaje%20de%20PC%20completo" target="_blank" class="mt-5 w-full block text-center bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold text-xs px-4 py-2.5 rounded-xl transition">Solicitar presupuesto</a>
+      </div>
+
+      <div class="tl-glass tl-card p-6 rounded-2xl border border-slate-800" data-reveal>
+        <div class="flex items-start justify-between gap-3">
+          <div class="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-400/20 flex items-center justify-center text-2xl">❄️</div>
+          <div class="text-right">
+            <div class="text-xl font-black text-white">Desde 30€</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wide">limpieza + pasta</div>
+          </div>
+        </div>
+        <h3 class="font-black text-white mt-4">Mantenimiento térmico</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">Limpieza a fondo, pasta térmica nueva y medición de temperaturas para bajar el ruido y alargar la vida.</p>
+        <a href="https://wa.me/34687397664?text=Hola,%20necesito%20limpieza%20y%20pasta%20térmica" target="_blank" class="mt-5 w-full block text-center bg-slate-800 hover:bg-slate-700 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition">Preguntar por WhatsApp</a>
+      </div>
+
+      <div class="tl-glass tl-card p-6 rounded-2xl border border-slate-800" data-reveal>
+        <div class="flex items-start justify-between gap-3">
+          <div class="w-11 h-11 rounded-xl bg-purple-500/10 border border-purple-400/20 flex items-center justify-center text-2xl">⚡</div>
+          <div class="text-right">
+            <div class="text-xl font-black text-white">Desde 25€</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wide">diagnóstico</div>
+          </div>
+        </div>
+        <h3 class="font-black text-white mt-4">Diagnóstico de fallos</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">Te decimos exactamente qué le pasa a tu equipo antes de tocar nada. Reinicios, cuelgues o que no enciende.</p>
+        <a href="https://wa.me/34687397664?text=Hola,%20mi%20PC%20no%20enciende%20o%20falla" target="_blank" class="mt-5 w-full block text-center bg-slate-800 hover:bg-slate-700 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition">Preguntar por WhatsApp</a>
+      </div>
+
+      <div class="tl-glass tl-card p-6 rounded-2xl border border-slate-800" data-reveal>
+        <div class="flex items-start justify-between gap-3">
+          <div class="w-11 h-11 rounded-xl bg-teal-500/10 border border-teal-400/20 flex items-center justify-center text-2xl">🚀</div>
+          <div class="text-right">
+            <div class="text-xl font-black text-white">Desde 20€</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wide">+ hardware aparte</div>
+          </div>
+        </div>
+        <h3 class="font-black text-white mt-4">Ampliación SSD / RAM</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">Instalación y clonado a NVMe ultra rápido para dejar tu sistema como nuevo en marcha.</p>
+        <a href="https://wa.me/34687397664?text=Hola,%20quiero%20ampliar%20disco%20o%20RAM" target="_blank" class="mt-5 w-full block text-center bg-slate-800 hover:bg-slate-700 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition">Preguntar por WhatsApp</a>
+      </div>
+
+      <div class="tl-glass tl-card p-6 rounded-2xl border border-slate-800" data-reveal>
+        <div class="flex items-start justify-between gap-3">
+          <div class="w-11 h-11 rounded-xl bg-rose-500/10 border border-rose-400/20 flex items-center justify-center text-2xl">💻</div>
+          <div class="text-right">
+            <div class="text-xl font-black text-white">Desde 40€</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wide">instalación</div>
+          </div>
+        </div>
+        <h3 class="font-black text-white mt-4">Formateo e instalación</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">Windows o Linux optimizado, sin bloatware ni ralentizaciones, con tus datos respaldados.</p>
+        <a href="https://wa.me/34687397664?text=Hola,%20necesito%20formatear%20mi%20ordenador" target="_blank" class="mt-5 w-full block text-center bg-slate-800 hover:bg-slate-700 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition">Preguntar por WhatsApp</a>
+      </div>
+
+    </div>
+
+    <p class="text-center text-[11px] text-slate-500 mt-6">
+      * Precios orientativos. El presupuesto final se cierra antes de empezar, sin coste adicional.
+    </p>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section id="faq" class="max-w-3xl mx-auto px-6 py-12 border-t border-slate-800 scroll-mt-24">
+    <div class="text-center mb-8">
+      <span class="tl-section-kicker text-emerald-400">Resolvemos tus dudas</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Preguntas frecuentes</h2>
+    </div>
+
+    <div class="space-y-3">
+
+      <details class="tl-glass tl-faq rounded-2xl overflow-hidden" data-reveal>
+        <summary class="flex items-center justify-between gap-4 p-5 text-sm font-bold text-white">
+          <span>¿Trabajáis fuera de Cádiz?</span>
+          <span class="tl-faq-chevron text-lg leading-none">＋</span>
+        </summary>
+        <p class="px-5 pb-5 text-xs text-slate-400 leading-relaxed">
+          El taller es de Cádiz y la atención es directa por WhatsApp. Hoy en día casi todo se hace a distancia:
+          presupuestos LDLC online, diagnóstico guiado paso a paso y envíos protegidos si tienes algún equipo para reparar.
+        </p>
+      </details>
+
+      <details class="tl-glass tl-faq rounded-2xl overflow-hidden" data-reveal>
+        <summary class="flex items-center justify-between gap-4 p-5 text-sm font-bold text-white">
+          <span>¿Cuánto tarda un montaje de PC?</span>
+          <span class="tl-faq-chevron text-lg leading-none">＋</span>
+        </summary>
+        <p class="px-5 pb-5 text-xs text-slate-400 leading-relaxed">
+          La mayoría de montajes quedan listos en 2-5 días hábiles, incluida la instalación del sistema y las pruebas de estrés.
+          Puedes seguirlos en directo por Twitch si quieres ver cómo queda tu equipo antes de recibirlo.
+        </p>
+      </details>
+
+      <details class="tl-glass tl-faq rounded-2xl overflow-hidden" data-reveal>
+        <summary class="flex items-center justify-between gap-4 p-5 text-sm font-bold text-white">
+          <span>¿Me hacéis un presupuesto sin compromiso?</span>
+          <span class="tl-faq-chevron text-lg leading-none">＋</span>
+        </summary>
+        <p class="px-5 pb-5 text-xs text-slate-400 leading-relaxed">
+          Sí, el presupuesto es totalmente gratis y sin compromiso. Puedes pedirlo por WhatsApp o usando la IA de LDLC,
+          que te desglosa las piezas con enlaces directos antes de aceptar nada.
+        </p>
+      </details>
+
+      <details class="tl-glass tl-faq rounded-2xl overflow-hidden" data-reveal>
+        <summary class="flex items-center justify-between gap-4 p-5 text-sm font-bold text-white">
+          <span>¿Qué hacéis antes de entregar el equipo?</span>
+          <span class="tl-faq-chevron text-lg leading-none">＋</span>
+        </summary>
+        <p class="px-5 pb-5 text-xs text-slate-400 leading-relaxed">
+          Instalamos y actualizamos el sistema, revisamos temperaturas y estabilidad con pruebas de estrés, y dejamos el
+          cable management limpio. Te acompañamos con soporte hasta que todo esté a punto.
+        </p>
+      </details>
+
+      <details class="tl-glass tl-faq rounded-2xl overflow-hidden" data-reveal>
+        <summary class="flex items-center justify-between gap-4 p-5 text-sm font-bold text-white">
+          <span>¿Trabajáis con piezas que yo ya tengo?</span>
+          <span class="tl-faq-chevron text-lg leading-none">＋</span>
+        </summary>
+        <p class="px-5 pb-5 text-xs text-slate-400 leading-relaxed">
+          Claro. Hacemos ampliaciones de RAM y SSD, reformateos, limpiezas y cambios de componentes aprovechando tu equipo,
+          recomendándote siempre solo lo que realmente necesites.
+        </p>
+      </details>
+
+    </div>
+  </section>
+
   <!-- ================= CONTACTO DIRECTO ================= -->
-  <section id="contacto" class="max-w-4xl mx-auto px-6 py-14">
+  <section id="contacto" class="max-w-4xl mx-auto px-6 py-14 scroll-mt-24">
     <div class="tl-glass p-8 rounded-2xl text-center shadow-xl">
       <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">¿Hablamos de tu equipo?</h2>
       <p class="text-slate-400 text-sm max-w-lg mx-auto mb-6">
@@ -625,6 +852,23 @@
       if (icon) icon.textContent = menu.classList.contains('open') ? '✕' : '☰';
     }
 
+    document.addEventListener("DOMContentLoaded", function () {
+      const revealEls = document.querySelectorAll("[data-reveal]");
+      if (!("IntersectionObserver" in window)) {
+        revealEls.forEach(el => el.classList.add("in-view"));
+      } else {
+        const io = new IntersectionObserver(function (entries) {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => io.observe(el));
+      }
+    });
+
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         if (typeof closeModal === 'function') closeModal();
@@ -663,7 +907,7 @@
           channel: "tecnolobato",
           parent: parentDomains,
           autoplay: true,
-          muted: false
+          muted: true
         });
       }
     });
@@ -1137,10 +1381,6 @@
         </a>
       `, true);
     }
-  </script>
-
-</body>
-</html>
   </script>
 
 </body>
