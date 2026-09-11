@@ -762,9 +762,15 @@
 
     <!-- Sugerencias rápidas -->
     <div class="px-3 py-1.5 bg-slate-950 border-t border-slate-800 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap text-[10px]">
-      <button onclick="quickAsk('Quiero un PC Gaming de 800€ de presupuesto TOTAL, incluyendo mi trabajo')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">PC Gaming 800€</button>
-      <button onclick="quickAsk('Quiero un PC Gaming de 1200€ de presupuesto TOTAL, incluyendo mi trabajo')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">PC Gaming 1200€</button>
-      <button onclick="quickAsk('Home Server / NAS 600€ LDLC')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">Home Server · presupuesto orientativo</button>
+      <button onclick="quickAsk('Quiero un PC de 500€ de presupuesto TOTAL')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">💻 PC 500€</button>
+      <button onclick="quickAsk('Quiero un PC Gaming de 800€ de presupuesto TOTAL, incluyendo mi trabajo')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">🎮 Gaming 800€</button>
+      <button onclick="quickAsk('Quiero un PC Gaming de 1200€ de presupuesto TOTAL, incluyendo mi trabajo')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">🚀 Gaming 1200€</button>
+      <button onclick="quickAsk('Home Server / NAS 600€ LDLC')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">🖥️ Home Server 600€</button>
+      <button onclick="quickAsk('¿Cuánto cuesta una limpieza y pasta térmica?')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">❄️ Limpieza</button>
+      <button onclick="quickAsk('Mi PC no enciende o falla')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">⚡ No enciende</button>
+      <button onclick="quickAsk('¿Cuánto cuesta formatear e instalar Windows?')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">💿 Formateo</button>
+      <button onclick="quickAsk('Quiero ampliar RAM o SSD')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">🚀 SSD / RAM</button>
+      <button onclick="quickAsk('Ver todos los precios del taller')" class="bg-slate-900 hover:bg-amber-950 text-slate-300 hover:text-amber-300 px-2 py-1 rounded border border-slate-800 transition">💰 Precios</button>
     </div>
 
     <!-- Formulario -->
@@ -959,6 +965,19 @@
     }
 
     const LDLC_CATALOG = {
+      gamaBasica: {
+        rango: "Desde 424.70€",
+        uso: "Gaming 1080p ligero (Valorant, LoL, CS2), Ofimática, estudio y WhatsApp + navegación rapidísima",
+        piezas: [
+          { tipo: "Procesador", nombre: "AMD Ryzen 5 5600G (con gráficos integrados)", precio: 154.95, url: ldlcSearchUrl("Ryzen 5 5600G") },
+          { tipo: "Placa Base", nombre: "ASRock A520M-HDV/M.2", precio: 64.95, url: ldlcSearchUrl("ASRock A520M-HDV") },
+          { tipo: "Memoria RAM", nombre: "Kingston FURY DDR4 16GB (2x8GB) 3200MHz", precio: 42.95, url: ldlcSearchUrl("Kingston DDR4 16GB 3200") },
+          { tipo: "Almacenamiento", nombre: "Kingston NV2 500GB NVMe PCIe", precio: 36.95, url: ldlcSearchUrl("Kingston NV2 500GB") },
+          { tipo: "Fuente", nombre: "Corsair CV450 450W Bronze", precio: 44.95, url: ldlcSearchUrl("Corsair CV450") },
+          { tipo: "Caja", nombre: "Nfortec Sagitta Cristal Templado", precio: 34.95, url: ldlcSearchUrl("Nfortec Sagitta") }
+        ],
+        montaje: 45.00
+      },
       gamaEntrada: {
         rango: "Desde 594.80€",
         uso: "Gaming 1080p competitivo (Fortnite, CS2, Valorant) / Ofimática veloz",
@@ -1123,7 +1142,8 @@
       }
 
       const options = [
-        { catalog: LDLC_CATALOG.gamaEntrada, name: "Configuración Gaming Económica LDLC" },
+        { catalog: LDLC_CATALOG.gamaBasica, name: "Configuración Gaming Económica LDLC" },
+        { catalog: LDLC_CATALOG.gamaEntrada, name: "Configuración Gaming 1080p Competitiva LDLC" },
         { catalog: LDLC_CATALOG.gamaMedia, name: "Configuración Gaming Equilibrada LDLC" },
         { catalog: LDLC_CATALOG.gamaAlta, name: "Configuración Gaming Alto Rendimiento LDLC" }
       ].map(o => ({
@@ -1279,6 +1299,215 @@
       return html;
     }
 
+    // ================= LOBOBOT: SERVICIOS Y PRESUPUESTOS =================
+
+    function makeServiceCard(cfg) {
+      return `
+        <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 gap-3">
+            <div>
+              <span class="text-[10px] font-black text-lobatoGold uppercase">Servicio del taller</span>
+              <h4 class="font-bold text-white text-sm">${cfg.emoji} ${cfg.titulo}${cfg.precio ? ' · <span class="text-lobatoGold whitespace-nowrap">' + cfg.precio + '</span>' : ''}</h4>
+            </div>
+          </div>
+          ${cfg.desc ? `<p class="text-[11px] text-slate-400 my-2 leading-relaxed">${cfg.desc}</p>` : ''}
+          ${cfg.tips || ''}
+          <div class="mt-3 flex flex-col gap-2">
+            <a href="${cfg.wa}" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center block">💬 ${cfg.waLabel || 'Pedir este servicio por WhatsApp'}</a>
+            ${cfg.extra || ''}
+          </div>
+        </div>`;
+    }
+
+    function detectService(t) {
+      if (["limpiez", "pasta", "termic", "térmic", "mantenimiento", "refrigeración"].some(w => t.includes(w))) return "termico";
+      if (["diagnost", "no enciende", "reinicia", "cuelga", "se bloquea", "se apaga", "pantalla azul", "pantalla negra", "averi", "falla", "fallo", "ruido", "overheat", "muy caliente", "temperaturas altas", "trabaja menos"].some(w => t.includes(w))) return "diagnostico";
+      if (["amplia", "nvme", "clon", "duplic", "poner mas ram", "poner más ram", "instalar ram", "más memoria", "mas memoria", "cambiar el disco", "ssd nuevo", "añadir un ssd", "agregar un ssd"].some(w => t.includes(w))) return "ampliacion";
+      if (["formate", "windows", "linux", "virus", "borrar", "bloatware", "muy lento", "va lento", "instalar el sistema", "instalación del sistema"].some(w => t.includes(w))) return "formateo";
+      if (["server", "servidor", "nas", "raid", "docker", "proxmox", "truenas", "maquina virtual", "máquina virtual", "vm", "copias de seguridad", "almacenamiento", "24/7"].some(w => t.includes(w))) return "server";
+      return null;
+    }
+
+    function chip(label, msg) {
+      return `<button onclick="quickAsk('${msg.replace(/'/g, "\\'")}')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition text-[10px]">${label}</button>`;
+    }
+
+    function serviceAnswer(key) {
+      const wa = "https://wa.me/34687397664?text=";
+      const configs = {
+        termico: {
+          emoji: "❄️", titulo: "Mantenimiento térmico", precio: "desde 30€",
+          desc: "Limpieza a fondo, pasta térmica nueva y comprobación de temperaturas. Baja el calor, el ruido y alarga la vida de tu equipo.",
+          tips: `<div class="mt-2 rounded-lg bg-slate-900/60 border border-slate-800 p-2 text-[10px] text-slate-400">
+            Ideal si: el ventilador ruge, el PC se apaga solo, lleva más de un año sin limpieza o tiene >85º en juego.
+          </div>`,
+          wa: wa + "Hola,%20necesito%20limpieza%20y%20pasta%20térmica"
+        },
+        diagnostico: {
+          emoji: "⚡", titulo: "Diagnóstico de fallos", precio: "desde 25€",
+          desc: "Si no enciende, se reinicia, da pantalla azul o va raro: te digo exactamente qué le pasa antes de tocar nada.",
+          tips: `<div class="mt-2 rounded-lg bg-slate-900/60 border border-slate-800 p-2 text-[10px] text-slate-400">
+            Antes de traerlo puedes probar:<br>• Deja solo lo esencial (un cable, sin periféricos).<br>• Prueba la RAM en otro slot.<br>• Comprueba que los ventiladores giran al encender.
+          </div>`,
+          wa: wa + "Hola,%20mi%20PC%20no%20enciende%20o%20falla"
+        },
+        ampliacion: {
+          emoji: "🚀", titulo: "Ampliación SSD / RAM", precio: "desde 20€ + hardware",
+          desc: "Cambio a NVMe ultra rápido clonando tu sistema, o más memoria para que el equipo respire. Hardware aparte, montaje desde 20€.",
+          wa: wa + "Hola,%20quiero%20ampliar%20disco%20o%20RAM"
+        },
+        formateo: {
+          emoji: "💻", titulo: "Formateo e instalación", precio: "desde 40€",
+          desc: "Windows o Linux optimizado, sin bloatware ni programas de más, con tus datos respaldados antes de empezar.",
+          wa: wa + "Hola,%20necesito%20formatear%20mi%20ordenador"
+        }
+      };
+      const cfg = configs[key];
+      if (cfg) return makeServiceCard(cfg);
+
+      if (key === "server") {
+        return makeServiceCard({
+          emoji: "🖥️", titulo: "Home Server / NAS", precio: "montaje desde 50€",
+          desc: "Servidor casero de bajo consumo para almacenamiento central, copias de seguridad, Docker y máquinas virtuales 24/7.",
+          wa: wa + "Hola,%20quiero%20información%20sobre%20un%20Home%20Server%20o%20NAS",
+          waLabel: "Consultar Home Server por WhatsApp",
+          extra: `<div class="w-full flex flex-wrap gap-1.5 justify-center">${chip("Home Server 500€", "Home Server / NAS 500€ LDLC")}${chip("Home Server 850€", "Home Server / NAS 850€ LDLC")}</div>`
+        });
+      }
+      return helpCard();
+    }
+
+    function priceListCard() {
+      const wa = "https://wa.me/34687397664?text=Hola,%20quiero%20un%20presupuesto";
+      return `
+        <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
+          <span class="text-[10px] font-black text-lobatoGold uppercase">Precios del taller</span>
+          <h4 class="font-bold text-white text-sm mt-1">Tarifas orientativas 💰</h4>
+          <div class="mt-2 grid grid-cols-1 gap-1.5 text-[11px]">
+            <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-300">🤖 Presupuesto a medida LDLC</span><span class="text-emerald-400 font-bold">Gratis</span></div>
+            <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-300">🔧 Montaje de PC completo</span><span class="text-white font-bold">desde 45€</span></div>
+            <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-300">❄️ Mantenimiento térmico</span><span class="text-white font-bold">desde 30€</span></div>
+            <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-300">⚡ Diagnóstico de fallos</span><span class="text-white font-bold">desde 25€</span></div>
+            <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-300">🚀 Ampliación SSD / RAM</span><span class="text-white font-bold">desde 20€</span></div>
+            <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-300">💻 Formateo e instalación</span><span class="text-white font-bold">desde 40€</span></div>
+            <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-300">🖥️ Home Server / NAS</span><span class="text-white font-bold">montaje desde 50€</span></div>
+          </div>
+          <p class="text-[10px] text-slate-500 mt-2">Precios orientativos; presupuesto cerrado antes de empezar.</p>
+          <div class="mt-3 flex flex-col gap-2">
+            <a href="${wa}" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center block">💬 Pedir presupuesto por WhatsApp</a>
+          <div class="w-full flex flex-wrap gap-1.5 justify-center">${chip("PC 500€", "Quiero un PC de 500€ de presupuesto TOTAL")}${chip("Gaming 800€", "Quiero un PC Gaming de 800€ de presupuesto TOTAL")}${chip("Gaming 1200€", "Quiero un PC Gaming de 1200€ de presupuesto TOTAL")}</div>
+          </div>
+        </div>`;
+    }
+
+    function budgetGuideCard() {
+      return `
+        <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
+          <span class="text-[10px] font-black text-lobatoGold uppercase">Presupuesto a medida</span>
+          <h4 class="font-bold text-white text-sm mt-1">¿Qué presupuesto tienes?</h4>
+          <p class="text-[11px] text-slate-400 my-2 leading-relaxed">Dime un importe y el uso (gaming, ofimática, edición, servidor) y te genero la configuración con piezas reales de LDLC. Incluye siempre tu trabajo y montaje.</p>
+          <div class="w-full flex flex-wrap gap-1.5 justify-center">${chip("PC 500€", "Quiero un PC de 500€ de presupuesto TOTAL")}${chip("Gaming 800€", "Quiero un PC Gaming de 800€ de presupuesto TOTAL")}${chip("Gaming 1200€", "Quiero un PC Gaming de 1200€ de presupuesto TOTAL")}${chip("Home Server 600€", "Home Server / NAS 600€ LDLC")}</div>
+        </div>`;
+    }
+
+    function helpCard() {
+      const wa = "https://wa.me/34687397664";
+      return `
+        <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
+          <span class="text-[10px] font-black text-lobatoGold uppercase">LoboBot · TecnoLobato</span>
+          <h4 class="font-bold text-white text-sm mt-1">¿En qué te ayudo? 🐺</h4>
+          <p class="text-[11px] text-slate-400 my-2 leading-relaxed">Puedo ayudarte con presupuestos de PC (escríbeme un importe, por ejemplo <strong>500</strong>, <strong>800</strong> o <strong>1200€</strong>) y con todos los servicios del taller:</p>
+          <div class="w-full flex flex-wrap gap-1.5 justify-center">
+            ${chip("💻 PC 500€", "Quiero un PC de 500€ de presupuesto TOTAL")}
+            ${chip("🎮 Gaming 800€", "Quiero un PC Gaming de 800€ de presupuesto TOTAL")}
+            ${chip("🖥️ Home Server", "Home Server / NAS 600€ LDLC")}
+            ${chip("❄️ Limpieza", "¿Cuánto cuesta una limpieza y pasta térmica?")}
+            ${chip("⚡ No enciende", "Mi PC no enciende o falla")}
+            ${chip("🚀 SSD / RAM", "Quiero ampliar RAM o SSD")}
+            ${chip("💿 Formateo", "¿Cuánto cuesta formatear e instalar Windows?")}
+            ${chip("💰 Precios", "Ver todos los precios del taller")}
+            ${chip("💬 WhatsApp", "General")}
+          </div>
+          <div class="mt-2 text-center"><a href="${wa}" target="_blank" class="text-emerald-400 underline text-[11px] font-bold">Contactarme por WhatsApp directamente</a></div>
+        </div>`;
+    }
+
+    function twitchCard() {
+      return `
+        <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
+          <span class="text-[10px] font-black text-lobatoGold uppercase">En directo</span>
+          <h4 class="font-bold text-white text-sm mt-1">📺 TecnoLobato en Twitch</h4>
+          <p class="text-[11px] text-slate-400 my-2 leading-relaxed">Sigo montajes y pruebas de estrés de los equipos en vivo en <strong>twitch.tv/tecnolobato</strong>.</p>
+          <a href="https://twitch.tv/tecnolobato" target="_blank" class="w-full py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs rounded-lg transition text-center block">🔴 Abrir Twitch</a>
+        </div>`;
+    }
+
+    function contactCard() {
+      return `
+        <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
+          <span class="text-[10px] font-black text-lobatoGold uppercase">Contacto</span>
+          <h4 class="font-bold text-white text-sm mt-1">💬 Habla con Jose Angel</h4>
+          <p class="text-[11px] text-slate-400 my-2 leading-relaxed">Atención directa y sin líos por WhatsApp o correo:</p>
+          <div class="flex flex-col gap-2">
+            <a href="https://wa.me/34687397664" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center block">WhatsApp · 687 397 664</a>
+            <a href="mailto:lobato.mo95@gmail.com" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-lg transition text-center block">✉️ lobato.mo95@gmail.com</a>
+            <a href="tel:687397664" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-lg transition text-center block">📞 687 397 664</a>
+          </div>
+        </div>`;
+    }
+
+    function greetingCard() {
+      return helpCard();
+    }
+
+    function botReply(text) {
+      const t = text.toLowerCase().replace(/\u00a0/g, " ").trim();
+      const money = getRequestedBudget(text);
+      const sv = detectService(t);
+      const pcIntent = /(presupuesto|configur|gaming|para jugar|juego|jugar|un pc|mi pc|nuevo pc|pc gaming|ofimat|edici|grabar|streaming|montar|ordenador|para estudiar|para trabajar)/.test(t);
+
+      // 1. Presupuesto numérico: siempre que sea sobre un PC (nunca un simple céntimo suelto de otro tema)
+      if (money != null && (pcIntent || !sv)) {
+        return buildLDLCBudget(text);
+      }
+
+      // 2. Servicios del taller
+      if (sv) {
+        if (sv === "server" && (money != null || /presupuesto/.test(t))) return buildLDLCBudget(text);
+        return serviceAnswer(sv);
+      }
+
+      // 3. Pedir un PC sin importe -> guía rápida
+      if (pcIntent) return budgetGuideCard();
+
+      // 4. Temas de la web
+      if (/precios|tarifas|servicios|que haceis|qué hacéis|cuanto cuestan/.test(t)) return priceListCard();
+      if (/twitch|directo|stream|en vivo|canal/.test(t)) return twitchCard();
+      if (/contacto|telefono|teléfono|whatsapp|hablar|escribir|ubica|donde estas/.test(t)) return contactCard();
+      if (/hola|buenas|buenos dias|buenos días|buenas tardes|hey|que tal|qué tal/.test(t)) return greetingCard();
+      if (/horario|horas|cuando abri/.test(t)) {
+        return `
+          <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
+            <span class="text-[10px] font-black text-lobatoGold uppercase">Horario</span>
+            <h4 class="font-bold text-white text-sm mt-1">🕐 Atención por WhatsApp</h4>
+            <p class="text-[11px] text-slate-400 my-2 leading-relaxed">Te atienden por WhatsApp de <strong>lunes a sábado</strong>. Escríbenos y te contestamos en cuanto podamos.</p>
+            <a href="https://wa.me/34687397664" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center block">Abrir WhatsApp</a>
+          </div>`;
+      }
+      if (/garant|confianza|seguro|probamos|fiabilidad|devolucion/.test(t)) {
+        return `
+          <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
+            <span class="text-[10px] font-black text-lobatoGold uppercase">Confianza</span>
+            <h4 class="font-bold text-white text-sm mt-1">🔒 Trabajo garantizado</h4>
+            <p class="text-[11px] text-slate-400 my-2 leading-relaxed">Cada equipo se prueba a fondo antes de entregarse (temperaturas, estabilidad y arranque) y te acompaño hasta dejarlo a punto.</p>
+            <a href="https://wa.me/34687397664" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center block">Consultar por WhatsApp</a>
+          </div>`;
+      }
+
+      // 5. No entendido -> menú de ayuda
+      return helpCard();
+    }
+
     function handleChatSubmit(e) {
       e.preventDefault();
       const input = document.getElementById('chat-input');
@@ -1288,14 +1517,14 @@
       appendMessage('user', text);
       input.value = '';
 
-      appendMessage('bot', 'Calculando componentes y reservando primero el coste de tu trabajo... 🐺');
+      appendMessage('bot', 'Pensando... 🐺');
       const container = document.getElementById('chat-messages');
       const loadingNode = container.lastChild;
 
       setTimeout(() => {
-        loadingNode.innerHTML = buildLDLCBudget(text);
+        loadingNode.innerHTML = botReply(text);
         container.scrollTop = container.scrollHeight;
-      }, 600);
+      }, 500);
     }
 
     function openOrderModal() {
