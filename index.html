@@ -892,7 +892,7 @@
     <div id="chat-messages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs bg-lobatoDark/80" aria-live="polite">
       <div class="bg-slate-900/95 border border-slate-800 text-slate-200 p-3.5 rounded-xl rounded-tl-none leading-relaxed">
         ¡Hola! 👋 Soy el configurador inteligente de <strong>TecnoLobato</strong> Te ayudo con presupuestos a medida y con todos los servicios del taller.<br><br>
-        Indícame tu <strong>presupuesto</strong> (ej. 500€, 800€, 1200€) y qué uso le darás (Gaming, Ofimática, Edición o Servidor). Te desglosaré las piezas con enlaces directos y, al aceptarlo, <strong>se enviará directamente a nuestro taller informático</strong>.
+        Indícame tu <strong>presupuesto</strong> (ej. 1000€, 2000€, 3000€… la cantidad que quieras) y qué uso le darás (Gaming, Ofimática, Edición o Servidor). Te desglosaré las piezas con enlaces directos aprovechando el importe al máximo y, al aceptarlo, <strong>se enviará directamente a nuestro taller informático</strong>.
       </div>
     </div>
 
@@ -901,6 +901,8 @@
       <button onclick="quickAsk('Quiero un PC de 500€ de presupuesto TOTAL')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">💻 PC 500€</button>
       <button onclick="quickAsk('Quiero un PC Gaming de 800€ de presupuesto TOTAL, incluyendo mi trabajo')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">🎮 Gaming 800€</button>
       <button onclick="quickAsk('Quiero un PC Gaming de 1200€ de presupuesto TOTAL, incluyendo mi trabajo')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">🚀 Gaming 1200€</button>
+      <button onclick="quickAsk('Quiero un PC Gaming de 2000€ de presupuesto TOTAL, incluyendo mi trabajo')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">🔥 Gaming 2000€</button>
+      <button onclick="quickAsk('Quiero un PC Gaming de 3000€ de presupuesto TOTAL, incluyendo mi trabajo')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">🤖 Gaming 3000€</button>
       <button onclick="quickAsk('Home Server / NAS 600€')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">🖥️ Home Server 600€</button>
       <button onclick="quickAsk('¿Cuánto cuesta una limpieza y pasta térmica?')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">❄️ Limpieza</button>
       <button onclick="quickAsk('Mi PC no enciende o falla')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">⚡ No enciende</button>
@@ -1138,78 +1140,92 @@
       return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
     }
 
-    const CATALOGO = {
-      gamaBasica: {
-        rango: "Desde 424.70€",
-        uso: "Gaming 1080p ligero (Valorant, LoL, CS2), Ofimática, estudio y WhatsApp + navegación rapidísima",
-        piezas: [
-          { tipo: "Procesador", nombre: "AMD Ryzen 5 5600G (con gráficos integrados)", precio: 154.95, url: storeSearchUrl("Ryzen 5 5600G") },
-          { tipo: "Placa Base", nombre: "ASRock A520M-HDV/M.2", precio: 64.95, url: storeSearchUrl("ASRock A520M-HDV") },
-          { tipo: "Memoria RAM", nombre: "Kingston FURY DDR4 16GB (2x8GB) 3200MHz", precio: 42.95, url: storeSearchUrl("Kingston DDR4 16GB 3200") },
-          { tipo: "Almacenamiento", nombre: "Kingston NV2 500GB NVMe PCIe", precio: 36.95, url: storeSearchUrl("Kingston NV2 500GB") },
-          { tipo: "Fuente", nombre: "Corsair CV450 450W Bronze", precio: 44.95, url: storeSearchUrl("Corsair CV450") },
-          { tipo: "Caja", nombre: "Nfortec Sagitta Cristal Templado", precio: 34.95, url: storeSearchUrl("Nfortec Sagitta") }
+    // Librería de piezas por niveles: permite rellenar CUALQUIER presupuesto
+    // combinando componentes sin quedarse con "presupuesto sin gastar".
+    const COMPONENTES = {
+      cpu: [
+        { key: 1, nombre: "AMD Ryzen 5 5600G (con gráficos integrados)", precio: 154.95, plataforma: "am4", disipador: "stock" },
+        { key: 2, nombre: "AMD Ryzen 5 5600", precio: 124.95, plataforma: "am4", disipador: "stock" },
+        { key: 3, nombre: "AMD Ryzen 5 7600 AM5", precio: 209.95, plataforma: "am5", disipador: "air" },
+        { key: 4, nombre: "AMD Ryzen 7 7700 AM5", precio: 329.95, plataforma: "am5", disipador: "air" },
+        { key: 5, nombre: "AMD Ryzen 7 7800X3D", precio: 439.95, plataforma: "am5", disipador: "liquid240" },
+        { key: 6, nombre: "AMD Ryzen 9 7950X", precio: 549.95, plataforma: "am5", disipador: "liquid240" },
+        { key: 7, nombre: "AMD Ryzen 9 9950X", precio: 699.95, plataforma: "am5", disipador: "liquid360" }
+      ],
+      gpu: [
+        { key: 0, watts: 0,   nombre: "Gráficos Integrados AMD Radeon", precio: 0 },
+        { key: 1, watts: 130, nombre: "Radeon RX 6600 8GB GDDR6", precio: 219.95 },
+        { key: 2, watts: 115, nombre: "GeForce RTX 4060 8GB GDDR6", precio: 319.95 },
+        { key: 3, watts: 245, nombre: "Radeon RX 7700 XT 12GB", precio: 449.95 },
+        { key: 4, watts: 220, nombre: "GeForce RTX 4070 SUPER 12GB", precio: 659.95 },
+        { key: 5, watts: 315, nombre: "Radeon RX 7900 XT 20GB", precio: 789.95 },
+        { key: 6, watts: 320, nombre: "GeForce RTX 4080 SUPER 16GB", precio: 1099.95 },
+        { key: 7, watts: 450, nombre: "GeForce RTX 4090 24GB", precio: 1899.95 }
+      ],
+      board: {
+        am4: [
+          { nombre: "ASRock A520M-HDV/M.2", precio: 64.95 },
+          { nombre: "Gigabyte B550M DS3H", precio: 94.95 }
         ],
-        montaje: 45.00
+        am5: [
+          { nombre: "MSI PRO B650M-P DDR5", precio: 129.95 },
+          { nombre: "Gigabyte B650 Gaming X AX (WiFi)", precio: 179.95 },
+          { nombre: "Asus TUF Gaming X670E-Plus WiFi", precio: 349.95 }
+        ]
       },
-      gamaEntrada: {
-        rango: "Desde 594.80€",
-        uso: "Gaming 1080p competitivo (Fortnite, CS2, Valorant) / Ofimática veloz",
-        piezas: [
-          { tipo: "Procesador", nombre: "AMD Ryzen 5 5600", precio: 124.95, url: storeSearchUrl("Ryzen 5 5600") },
-          { tipo: "Placa Base", nombre: "Gigabyte B550M DS3H", precio: 94.95, url: storeSearchUrl("Gigabyte B550M DS3H") },
-          { tipo: "Memoria RAM", nombre: "Corsair Vengeance LPX 16GB (2x8GB) DDR4 3200", precio: 45.95, url: storeSearchUrl("Corsair Vengeance LPX DDR4 16GB") },
-          { tipo: "Tarjeta Gráfica", nombre: "Radeon RX 6600 8GB GDDR6", precio: 219.95, url: storeSearchUrl("Radeon RX 6600") },
-          { tipo: "Almacenamiento", nombre: "Kingston NV2 1TB NVMe PCIe 4.0", precio: 64.95, url: storeSearchUrl("Kingston NV2 1TB") },
-          { tipo: "Fuente", nombre: "MSI MAG A650BN 650W Bronze", precio: 59.95, url: storeSearchUrl("MSI MAG A650BN") },
-          { tipo: "Caja", nombre: "Aerocool Hexform RGB Cristal Templado", precio: 39.95, url: storeSearchUrl("Aerocool Hexform") }
+      ram: {
+        am4: [
+          { nombre: "Corsair Vengeance LPX 16GB (2x8GB) DDR4 3200", precio: 45.95 },
+          { nombre: "Corsair Vengeance LPX 32GB (2x16GB) DDR4 3200", precio: 69.95 },
+          { nombre: "Corsair Vengeance LPX 64GB (2x32GB) DDR4 3200", precio: 119.95 }
         ],
-        montaje: 45.00
+        am5: [
+          { nombre: "Kingston FURY Beast 32GB (2x16GB) DDR5 6000", precio: 124.95 },
+          { nombre: "Kingston FURY Beast 64GB (2x32GB) DDR5 6000", precio: 219.95 }
+        ]
       },
-      gamaMedia: {
-        rango: "Desde 1.073.60€",
-        uso: "Gaming 1080p/1440p Ultra & Streaming",
-        piezas: [
-          { tipo: "Procesador", nombre: "AMD Ryzen 5 7600 AM5", precio: 209.95, url: storeSearchUrl("Ryzen 5 7600") },
-          { tipo: "Disipador", nombre: "Thermalright Assassin King 120 SE ARGB", precio: 28.95, url: storeSearchUrl("Thermalright Assassin King 120") },
-          { tipo: "Placa Base", nombre: "MSI PRO B650M-P DDR5", precio: 129.95, url: storeSearchUrl("MSI PRO B650M-P") },
-          { tipo: "Memoria RAM", nombre: "Kingston FURY Beast DDR5 32GB (2x16GB) 6000MHz", precio: 124.95, url: storeSearchUrl("Kingston FURY Beast DDR5 32GB 6000") },
-          { tipo: "Tarjeta Gráfica", nombre: "GeForce RTX 4060 8GB GDDR6", precio: 319.95, url: storeSearchUrl("RTX 4060 8GB") },
-          { tipo: "Almacenamiento", nombre: "Crucial P3 Plus 1TB M.2 NVMe", precio: 79.95, url: storeSearchUrl("Crucial P3 Plus 1TB") },
-          { tipo: "Fuente", nombre: "Corsair CX650 650W Bronze", precio: 69.95, url: storeSearchUrl("Corsair CX650") },
-          { tipo: "Caja", nombre: "DeepCool CC560 V2 Airflow 4x Fan", precio: 59.95, url: storeSearchUrl("DeepCool CC560") }
-        ],
-        montaje: 50.00
-      },
-      gamaAlta: {
-        rango: "Desde 1.864.60€",
-        uso: "Gaming 2K/4K competitivo, Edición de vídeo & Streaming",
-        piezas: [
-          { tipo: "Procesador", nombre: "AMD Ryzen 7 7800X3D", precio: 439.95, url: storeSearchUrl("Ryzen 7 7800X3D") },
-          { tipo: "Refrigeración", nombre: "Liquid Cooler 240 ARGB", precio: 74.95, url: storeSearchUrl("Refrigeracion liquida 240") },
-          { tipo: "Placa Base", nombre: "Gigabyte B650 GAMING X AX V2 (WiFi)", precio: 179.95, url: storeSearchUrl("Gigabyte B650 GAMING X AX") },
-          { tipo: "Memoria RAM", nombre: "Corsair Vengeance DDR5 32GB 6000MHz", precio: 139.95, url: storeSearchUrl("Corsair Vengeance DDR5 32GB 6000") },
-          { tipo: "Tarjeta Gráfica", nombre: "GeForce RTX 4070 SUPER 12GB", precio: 659.95, url: storeSearchUrl("RTX 4070 SUPER") },
-          { tipo: "Almacenamiento", nombre: "Samsung 990 PRO 1TB NVMe PCIe 4.0", precio: 109.95, url: storeSearchUrl("Samsung 990 PRO 1TB") },
-          { tipo: "Fuente", nombre: "750W 80 Plus Gold Modular", precio: 114.95, url: storeSearchUrl("Fuente 750W Gold") },
-          { tipo: "Caja", nombre: "Corsair 3000D Airflow Cristal Templado", precio: 84.95, url: storeSearchUrl("Corsair 3000D Airflow") }
-        ],
-        montaje: 60.00
-      },
-      homeServer: {
-        rango: "500€ - 850€",
-        uso: "Servidor casero 24/7, NAS, copias de seguridad RAID & Docker",
-        piezas: [
-          { tipo: "Procesador", nombre: "Intel Core i5-12400", precio: 149.95, url: storeSearchUrl("Intel Core i5-12400") },
-          { tipo: "Placa Base", nombre: "ASRock B760M-HDV/M.2", precio: 89.95, url: storeSearchUrl("ASRock B760M-HDV") },
-          { tipo: "Memoria RAM", nombre: "Crucial Pro DDR4 32GB (2x16GB) 3200MHz", precio: 69.95, url: storeSearchUrl("Crucial DDR4 32GB 3200") },
-          { tipo: "Almacenamiento SO", nombre: "SSD 500GB NVMe M.2", precio: 39.95, url: storeSearchUrl("SSD 500GB NVMe") },
-          { tipo: "Almacenamiento Datos", nombre: "2x Western Digital WD Red Plus 4TB NAS", precio: 219.90, url: storeSearchUrl("WD Red Plus 4TB") },
-          { tipo: "Fuente", nombre: "be quiet! 450W 80 Plus Silenciosa", precio: 49.95, url: storeSearchUrl("be quiet System Power 450W") },
-          { tipo: "Caja", nombre: "Fractal Design Focus G", precio: 64.95, url: storeSearchUrl("Fractal Focus G") }
-        ],
-        montaje: 50.00
+      ssd: [
+        { nombre: "Kingston NV2 500GB NVMe PCIe", precio: 36.95 },
+        { nombre: "Kingston NV2 1TB NVMe PCIe", precio: 64.95 },
+        { nombre: "Crucial P3 Plus 2TB NVMe", precio: 119.95 },
+        { nombre: "Crucial P3 Plus 4TB NVMe", precio: 279.95 }
+      ],
+      psu: [
+        { watts: 450,  precio: 44.95,  nombre: "Corsair CV450 450W Bronze" },
+        { watts: 550,  precio: 54.95,  nombre: "550W 80 Plus Bronze" },
+        { watts: 650,  precio: 59.95,  nombre: "MSI MAG A650BN 650W Bronze" },
+        { watts: 750,  precio: 114.95, nombre: "750W 80 Plus Gold" },
+        { watts: 850,  precio: 144.95, nombre: "850W 80 Plus Gold" },
+        { watts: 1000, precio: 189.95, nombre: "1000W 80 Plus Gold" }
+      ],
+      caja: [
+        { nombre: "Nfortec Sagitta Cristal Templado", precio: 34.95 },
+        { nombre: "Aerocool Hexform RGB Cristal Templado", precio: 39.95 },
+        { nombre: "DeepCool CC560 V2 Airflow 4x Fan", precio: 59.95 },
+        { nombre: "Corsair 3000D Airflow", precio: 84.95 },
+        { nombre: "Corsair 5000D Airflow", precio: 159.95 }
+      ],
+      cooler: {
+        stock:     { nombre: "Disipador de stock incluido", precio: 0 },
+        air:       { nombre: "Thermalright Assassin King 120 SE ARGB", precio: 28.95 },
+        liquid240: { nombre: "Refrigeración Líquida 240 ARGB", precio: 74.95 },
+        liquid360: { nombre: "Refrigeración Líquida 360 ARGB", precio: 129.95 }
       }
+    };
+
+    const CATALOGO_HOME_SERVER = {
+      rango: "500€ - 850€",
+      uso: "Servidor casero 24/7, NAS, copias de seguridad RAID & Docker",
+      piezas: [
+        { tipo: "Procesador", nombre: "Intel Core i5-12400", precio: 149.95, url: storeSearchUrl("Intel Core i5-12400") },
+        { tipo: "Placa Base", nombre: "ASRock B760M-HDV/M.2", precio: 89.95, url: storeSearchUrl("ASRock B760M-HDV") },
+        { tipo: "Memoria RAM", nombre: "Crucial Pro DDR4 32GB (2x16GB) 3200MHz", precio: 69.95, url: storeSearchUrl("Crucial DDR4 32GB 3200") },
+        { tipo: "Almacenamiento SO", nombre: "SSD 500GB NVMe M.2", precio: 39.95, url: storeSearchUrl("SSD 500GB NVMe") },
+        { tipo: "Almacenamiento Datos", nombre: "2x Western Digital WD Red Plus 4TB NAS", precio: 219.90, url: storeSearchUrl("WD Red Plus 4TB") },
+        { tipo: "Fuente", nombre: "be quiet! 450W 80 Plus Silenciosa", precio: 49.95, url: storeSearchUrl("be quiet System Power 450W") },
+        { tipo: "Caja", nombre: "Fractal Design Focus G", precio: 64.95, url: storeSearchUrl("Fractal Focus G") }
+      ],
+      montaje: 50.00
     };
 
     function toggleChat() {
@@ -1250,11 +1266,131 @@
     // El presupuesto indicado por el cliente SIEMPRE incluye nuestro montaje.
     // Nunca se devuelve una configuración cuyo total supere el presupuesto solicitado.
     const COSTE_TRABAJO = {
-      entrada: 45.00,
-      media: 50.00,
-      alta: 60.00,
+      basico: 45.00,
+      medio: 50.00,
+      alto: 60.00,
       server: 50.00
     };
+
+    // Presupuesto mínimo viable (Ryzen 5600G con gráficos integrados + montaje).
+    function presupuestoMinimo() {
+      const c = COMPONENTES;
+      return (
+        c.cpu[0].precio +
+        c.board.am4[0].precio +
+        c.ram.am4[0].precio +
+        c.ssd[0].precio +
+        c.psu[0].precio +
+        c.caja[0].precio +
+        c.cooler.stock.precio
+      ) + COSTE_TRABAJO.basico;
+    }
+
+    function psuParaWatts(necesarios) {
+      for (const p of COMPONENTES.psu) if (p.watts >= necesarios) return p;
+      return COMPONENTES.psu[COMPONENTES.psu.length - 1];
+    }
+
+    // Pareo coherente: cada GPU exige como mínimo una CPU que no la estrangule.
+    // Índices de COMPONENTES.cpu: 0=5600G 1=5600 2=7600 3=7700 4=7800X3D 5=7950X 6=9950X
+    const GPU_CPU_MIN = { 0: 0, 1: 1, 2: 1, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4 };
+
+    function usoPara(gpuKey, cpuKey, isServer) {
+      if (isServer) return "Servidor casero 24/7, NAS, copias de seguridad RAID & Docker";
+      if (gpuKey >= 6) return "Gaming 4K Ultra, edición de vídeo pesada y streaming sin concesiones";
+      if (gpuKey >= 4) return "Gaming 2K/4K competitivo, edición de vídeo y streaming";
+      if (gpuKey >= 2) return "Gaming 1080p/1440p Ultra & streaming";
+      if (gpuKey >= 1) return "Gaming 1080p competitivo (Fortnite, CS2, Valorant) y ofimática veloz";
+      return "Gaming 1080p ligero (Valorant, LoL, CS2), ofimática, estudio y navegación rapidísima";
+    }
+
+    // Ensambla la mejor configuración que se aproxima al presupuesto del cliente.
+    // El presupuesto SIEMPRE incluye nuestro montaje y nunca superamos el límite.
+    function ensamblarPC(budget) {
+      const c = COMPONENTES;
+      const montaje = budget < 600 ? COSTE_TRABAJO.basico : budget <= 1700 ? COSTE_TRABAJO.medio : COSTE_TRABAJO.alto;
+      const partes = budget - montaje;
+      // La GPU debería rondar ~el 42 % del presupuesto de piezas para que
+      // la configuración quede equilibrada y no se dispare hacia cuellos de botella.
+      const gpuObjetivo = partes * 0.42;
+      let mejor = null;
+      let mejorGap = Infinity;
+
+      for (let iCpu = 0; iCpu < c.cpu.length; iCpu++) {
+        for (let iGpu = 0; iGpu < c.gpu.length; iGpu++) {
+          const cpu = c.cpu[iCpu];
+          const gpu = c.gpu[iGpu];
+
+          // Los gráficos integrados solo tienen sentido en la CPU con APU.
+          if (gpu.key === 0 && cpu.key !== 1) continue;
+          // Con presupuesto de piezas ≥650 € exigimos tarjeta gráfica dedicada.
+          if (gpu.key === 0 && partes >= 650) continue;
+          if (iGpu > 0 && iCpu < GPU_CPU_MIN[gpu.key]) continue;
+
+          const boards = c.board[cpu.plataforma];
+          const ramList = c.ram[cpu.plataforma];
+          const coolerBase = c.cooler[cpu.disipador];
+          // Fuente con margen real: consumo de la GPU + ~350W de cabeza.
+          const psuBase = psuParaWatts(gpu.watts + 350);
+
+          // Coste mínimo con esta CPU+GPU y lo justo del resto.
+          const minimo =
+            cpu.precio + gpu.precio + boards[0].precio + ramList[0].precio +
+            c.ssd[0].precio + psuBase.precio + coolerBase.precio + c.caja[0].precio;
+
+          if (minimo > partes + 0.01) continue;
+
+          // Relleno greedy: cada vuelta aplica el upgrade MÁS CARO que quepa,
+          // para agotar el presupuesto y dejar el menor margen posible.
+          let iBoard = 0, iRam = 0, iSsd = 0, iPsu = c.psu.indexOf(psuBase), iCase = 0;
+          let total = minimo;
+          const grupos = () => [
+            { lista: boards, get: () => iBoard, set: v => { iBoard = v; } },
+            { lista: ramList, get: () => iRam, set: v => { iRam = v; } },
+            { lista: c.ssd, get: () => iSsd, set: v => { iSsd = v; } },
+            { lista: c.psu, get: () => iPsu, set: v => { iPsu = v; } },
+            { lista: c.caja, get: () => iCase, set: v => { iCase = v; } }
+          ];
+
+          for (let pass = 0; pass < 12; pass++) {
+            let mejorUp = null;
+            for (const g of grupos()) {
+              const idx = g.get();
+              if (idx < g.lista.length - 1) {
+                const coste = g.lista[idx + 1].precio - g.lista[idx].precio;
+                if (total + coste <= partes + 0.01 && (!mejorUp || coste > mejorUp.coste)) {
+                  mejorUp = { g, coste };
+                }
+              }
+            }
+            if (!mejorUp) break;
+            mejorUp.g.set(mejorUp.g.get() + 1);
+            total += mejorUp.coste;
+          }
+
+          const piezas = [];
+          piezas.push({ tipo: "Procesador", nombre: cpu.nombre, precio: cpu.precio, url: storeSearchUrl(cpu.nombre) });
+          if (coolerBase.precio > 0) {
+            const coolerUsado = cpu.disipador;
+            piezas.push({ tipo: "Refrigeración", nombre: c.cooler[coolerUsado].nombre, precio: c.cooler[coolerUsado].precio, url: storeSearchUrl(c.cooler[coolerUsado].nombre) });
+          }
+          piezas.push({ tipo: "Placa Base", nombre: boards[iBoard].nombre, precio: boards[iBoard].precio, url: storeSearchUrl(boards[iBoard].nombre) });
+          piezas.push({ tipo: "Memoria RAM", nombre: ramList[iRam].nombre, precio: ramList[iRam].precio, url: storeSearchUrl(ramList[iRam].nombre) });
+          if (gpu.key > 0) piezas.push({ tipo: "Tarjeta Gráfica", nombre: gpu.nombre, precio: gpu.precio, url: storeSearchUrl(gpu.nombre) });
+          piezas.push({ tipo: "Almacenamiento", nombre: c.ssd[iSsd].nombre, precio: c.ssd[iSsd].precio, url: storeSearchUrl(c.ssd[iSsd].nombre) });
+          piezas.push({ tipo: "Fuente", nombre: c.psu[iPsu].nombre, precio: c.psu[iPsu].precio, url: storeSearchUrl(c.psu[iPsu].nombre) });
+          piezas.push({ tipo: "Caja", nombre: c.caja[iCase].nombre, precio: c.caja[iCase].precio, url: storeSearchUrl(c.caja[iCase].nombre) });
+
+          const gap = Math.abs(gpu.precio - gpuObjetivo);
+          if (gap < mejorGap - 0.01 || (gap <= mejorGap && total >= (mejor ? mejor.subtotal : -1) - 0.01)) {
+            mejorGap = gap;
+            mejor = { total: total + montaje, piezas, subtotal: total, montaje, cpu, gpu, uso: usoPara(gpu.key, cpu.key, false), iCpu, iGpu };
+          }
+        }
+      }
+
+      return mejor;
+    }
 
     function getRequestedBudget(text) {
       // Detecta presupuestos escritos como:
@@ -1299,82 +1435,89 @@
       return direct ? parseInt(direct[1], 10) : null;
     }
 
-    function chooseBudgetCatalog(requestedBudget, isServer) {
-      if (isServer) {
-        const c = CATALOGO.homeServer;
-        const total = c.piezas.reduce((s, p) => s + p.precio, 0) + c.montaje;
-
-        // Un Home Server es un servicio específico. Si el presupuesto indicado
-        // no alcanza, no mostramos "insuficiente": proponemos el mínimo viable
-        // y elevamos el presupuesto al coste real de la configuración.
-        const adjustedBudget = requestedBudget != null && requestedBudget < total
-          ? total
-          : requestedBudget;
-
-        return {
-          catalog: c,
-          total,
-          title: "Home Server & Almacenamiento NAS",
-          adjustedBudget,
-          raisedBudget: requestedBudget != null && requestedBudget < total
-        };
-      }
-
-      const options = [
-        { catalog: CATALOGO.gamaBasica, name: "Configuración Gaming Económica" },
-        { catalog: CATALOGO.gamaEntrada, name: "Configuración Gaming 1080p Competitiva" },
-        { catalog: CATALOGO.gamaMedia, name: "Configuración Gaming Equilibrada" },
-        { catalog: CATALOGO.gamaAlta, name: "Configuración Gaming Alto Rendimiento" }
-      ].map(o => ({
-        ...o,
-        components: o.catalog.piezas.reduce((s, p) => s + p.precio, 0),
-        total: o.catalog.piezas.reduce((s, p) => s + p.precio, 0) + o.catalog.montaje
-      }));
-
-      // Sin presupuesto: configuración media por defecto.
-      if (requestedBudget == null || !Number.isFinite(requestedBudget)) {
-        const o = options[1];
-        return { catalog: o.catalog, total: o.total, title: o.name };
-      }
-
-      // El presupuesto del cliente YA incluye el trabajo.
-      // Elegimos la mejor configuración completa que no supere ese total.
-      const fitting = options.filter(o => o.total <= requestedBudget + 0.01);
-
-      if (fitting.length > 0) {
-        const o = fitting[fitting.length - 1];
-        return {
-          catalog: o.catalog,
-          total: o.total,
-          title: o.name,
-          requestedBudget
-        };
-      }
-
-      // Ni siquiera la configuración económica entra.
-      const cheapest = options[0];
-      return {
-        catalog: cheapest.catalog,
-        total: cheapest.total,
-        title: cheapest.name,
-        overBudget: true,
-        requestedBudget
-      };
-    }
-
     function buildBudget(userPrompt) {
       const p = userPrompt.toLowerCase();
       const requestedBudget = getRequestedBudget(userPrompt);
       const isServer = p.includes("server") || p.includes("nas") || p.includes("servidor");
 
-      const result = chooseBudgetCatalog(requestedBudget, isServer);
-      const selected = result.catalog;
+      // ---- Home Server / NAS: configuración específica ----
+      if (isServer) {
+        const c = CATALOGO_HOME_SERVER;
+        const total = c.piezas.reduce((s, x) => s + x.precio, 0) + c.montaje;
+        const raisedBudget = requestedBudget != null && requestedBudget < total;
+        const effectiveBudget = raisedBudget ? total : requestedBudget;
 
-      // Para Home Server, si hace falta, ajustamos el presupuesto al mínimo
-      // real de la configuración en lugar de bloquear el presupuesto.
-      const effectiveBudget = result.adjustedBudget ?? requestedBudget;
+        lastGeneratedBudget = {
+          title: "Home Server & Almacenamiento NAS",
+          uso: c.uso,
+          piezas: c.piezas,
+          subtotal: (total - c.montaje).toFixed(2),
+          montaje: c.montaje.toFixed(2),
+          total: total.toFixed(2),
+          presupuestoCliente: effectiveBudget
+        };
 
-      if (!isServer && requestedBudget != null && result.overBudget) {
+        let html = `
+          <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-800 gap-3">
+              <div>
+                <span class="text-[10px] font-black text-lobatoGold uppercase">Presupuesto a medida</span>
+                <h4 class="font-bold text-white text-sm">Home Server & Almacenamiento NAS</h4>
+              </div>
+              <span class="text-xs bg-emerald-950 border border-emerald-500/40 text-emerald-400 px-2 py-0.5 rounded font-bold whitespace-nowrap">${total.toFixed(2)} €</span>
+            </div>
+            <p class="text-[11px] text-slate-400 my-2">Uso recomendado: ${c.uso}</p>
+            ${raisedBudget ? `
+            <div class="mb-2 rounded-lg border border-amber-500/30 bg-amber-950/20 text-amber-300 px-2.5 py-2 text-[10px]">
+              ⚠️ Para este Home Server el mínimo de la configuración es <strong>${total.toFixed(2)} €</strong>. He ajustado el presupuesto indicado de <strong>${requestedBudget.toFixed(2)} €</strong> para poder ofrecerte el equipo completo.
+            </div>` : (requestedBudget != null ? `
+            <div class="mb-2 rounded-lg border border-emerald-500/20 bg-emerald-950/20 text-emerald-300 px-2.5 py-2 text-[10px]">
+              ✓ Presupuesto máximo: <strong>${effectiveBudget.toFixed(2)} €</strong>. Tu trabajo ya está incluido.
+            </div>` : '')}
+            <div class="space-y-1.5 my-3 text-[11px] font-mono">
+        `;
+        c.piezas.forEach(p => {
+          html += `
+            <div class="flex items-start justify-between gap-2 border-b border-slate-900 pb-1">
+              <span class="text-slate-300">• <a href="${p.url}" target="_blank" title="Ver en la tienda" class="text-slate-200 hover:text-emerald-400 underline">${p.tipo}: ${p.nombre} 🔗</a></span>
+              <span class="text-emerald-400 font-bold whitespace-nowrap">${p.precio.toFixed(2)}€</span>
+            </div>
+          `;
+        });
+        html += `
+            </div>
+            <div class="pt-2 border-t border-slate-800 text-[11px] flex justify-between text-slate-400">
+              <span>Componentes:</span>
+              <span class="text-slate-200 font-bold">${(total - c.montaje).toFixed(2)} €</span>
+            </div>
+            <div class="text-[11px] flex justify-between text-slate-400">
+              <span>Tu trabajo / montaje / pruebas:</span>
+              <span class="text-slate-200 font-bold">${c.montaje.toFixed(2)} €</span>
+            </div>
+            <div class="pt-2 mt-1 border-t border-slate-700 text-xs flex justify-between font-bold text-white">
+              <span>TOTAL CLIENTE:</span>
+              <span class="text-emerald-400 text-sm">${total.toFixed(2)} €</span>
+            </div>
+            <div class="mt-1 text-[10px] text-slate-500">Todos los precios con IVA incluido (21 %). Sin sorpresas.</div>
+            <div class="mt-4 pt-3 border-t border-slate-800 flex flex-col gap-2">
+              <button onclick="openOrderModal()" class="w-full py-2.5 bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold text-xs rounded-lg transition shadow flex items-center justify-center gap-1.5">
+                <span>✅ Aceptar y Enviar Pedido a TecnoLobato</span>
+              </button>
+              <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20la%20IA%20me%20ha%20hecho%20este%20presupuesto:%20Home%20Server%20${total.toFixed(2)}€" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center">
+                💬 Consultar o Modificar en WhatsApp
+              </a>
+            </div>
+          </div>
+        `;
+        return html;
+      }
+
+      // ---- PC Gaming / trabajo: ensamblaje dinámico al presupuesto ----
+      const minimo = presupuestoMinimo();
+      const defaultBudget = requestedBudget != null && Number.isFinite(requestedBudget) ? requestedBudget : 800;
+      const effectiveBudget = Math.max(defaultBudget, minimo);
+
+      if (requestedBudget != null && requestedBudget < minimo) {
         lastGeneratedBudget = null;
         return `
           <div class="border border-amber-500/40 rounded-xl p-4 bg-amber-950/20">
@@ -1382,8 +1525,8 @@
             <h4 class="font-bold text-white text-sm mt-1">Necesitamos ajustar la configuración</h4>
             <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">
               Has indicado <strong>${requestedBudget.toFixed(2)} €</strong>. La configuración mínima disponible,
-              incluyendo <strong>${selected.montaje.toFixed(2)} € de montaje y trabajo</strong>, queda en
-              <strong class="text-amber-300">${result.total.toFixed(2)} €</strong>.
+              incluyendo el <strong>montaje y trabajo</strong>, queda en
+              <strong class="text-amber-300">${minimo.toFixed(2)} €</strong>.
             </p>
             <p class="text-[10px] text-slate-400 mt-2">
               No voy a recomendarte un PC que supere el presupuesto marcado.
@@ -1393,50 +1536,54 @@
         `;
       }
 
-      const subtotal = selected.piezas.reduce((acc, item) => acc + item.precio, 0);
-      const total = subtotal + selected.montaje;
+      const b = ensamblarPC(effectiveBudget);
+      if (!b) {
+        lastGeneratedBudget = null;
+        return `<div class="border border-red-500/40 rounded-xl p-4 bg-red-950/20 text-sm text-red-200">
+          No he podido ensamblar ninguna configuración para ese presupuesto. Prueba con otro importe.
+        </div>`;
+      }
 
-      if (!isServer && requestedBudget != null && total > requestedBudget + 0.009) {
+      if (requestedBudget != null && b.total > requestedBudget + 0.009) {
         lastGeneratedBudget = null;
         return `<div class="border border-red-500/40 rounded-xl p-4 bg-red-950/20 text-sm text-red-200">
           No he generado el presupuesto porque supera el límite solicitado de ${requestedBudget.toFixed(2)} €.
         </div>`;
       }
 
-      const remaining = effectiveBudget != null ? effectiveBudget - total : null;
-      let title = result.title;
+      const remaining = requestedBudget != null ? requestedBudget - b.total : null;
+      let title = "Configuración a medida";
       if (requestedBudget != null) title += ` · Límite ${requestedBudget.toFixed(0)}€`;
 
       lastGeneratedBudget = {
         title,
-        uso: selected.uso,
-        piezas: selected.piezas,
-        subtotal: subtotal.toFixed(2),
-        montaje: selected.montaje.toFixed(2),
-        total: total.toFixed(2),
+        uso: b.uso,
+        piezas: b.piezas,
+        subtotal: b.subtotal.toFixed(2),
+        montaje: b.montaje.toFixed(2),
+        total: b.total.toFixed(2),
         presupuestoCliente: effectiveBudget
       };
+
+      const agotadoTop = b.gpu.key >= 7 && b.cpu.key >= 6 && requestedBudget != null && remaining > 40;
+      const aprovechado = requestedBudget != null
+        ? Math.round((b.total / requestedBudget) * 100)
+        : null;
 
       let html = `
         <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
           <div class="flex items-center justify-between pb-2 border-b border-slate-800 gap-3">
             <div>
-              <span class="text-[10px] font-black text-lobatoGold uppercase">Presupuesto ajustado al límite</span>
+              <span class="text-[10px] font-black text-lobatoGold uppercase">Presupuesto a medida</span>
               <h4 class="font-bold text-white text-sm">${title}</h4>
             </div>
-            <span class="text-xs bg-emerald-950 border border-emerald-500/40 text-emerald-400 px-2 py-0.5 rounded font-bold whitespace-nowrap">${total.toFixed(2)} €</span>
+            <span class="text-xs bg-emerald-950 border border-emerald-500/40 text-emerald-400 px-2 py-0.5 rounded font-bold whitespace-nowrap">${b.total.toFixed(2)} €</span>
           </div>
-          <p class="text-[11px] text-slate-400 my-2">Uso recomendado: ${selected.uso}</p>
-          ${effectiveBudget != null ? `
-          <div class="mb-2 rounded-lg border ${result.raisedBudget ? 'border-amber-500/30 bg-amber-950/20 text-amber-300' : 'border-emerald-500/20 bg-emerald-950/20 text-emerald-300'} px-2.5 py-2 text-[10px]">
-            ${result.raisedBudget
-              ? `⚠️ Para este Home Server el mínimo de la configuración es <strong>${effectiveBudget.toFixed(2)} €</strong>. He ajustado el presupuesto indicado de <strong>${requestedBudget.toFixed(2)} €</strong> para poder ofrecerte el equipo completo.`
-              : `✓ Presupuesto máximo: <strong>${effectiveBudget.toFixed(2)} €</strong>. Tu trabajo ya está incluido.`}
-          </div>` : ''}
+          <p class="text-[11px] text-slate-400 my-2">Uso recomendado: ${b.uso}</p>
           <div class="space-y-1.5 my-3 text-[11px] font-mono">
       `;
 
-      selected.piezas.forEach(p => {
+      b.piezas.forEach(p => {
         html += `
           <div class="flex items-start justify-between gap-2 border-b border-slate-900 pb-1">
             <span class="text-slate-300">• <a href="${p.url}" target="_blank" title="Ver en la tienda" class="text-slate-200 hover:text-emerald-400 underline">${p.tipo}: ${p.nombre} 🔗</a></span>
@@ -1449,27 +1596,33 @@
           </div>
           <div class="pt-2 border-t border-slate-800 text-[11px] flex justify-between text-slate-400">
             <span>Componentes:</span>
-            <span class="text-slate-200 font-bold">${subtotal.toFixed(2)} €</span>
+            <span class="text-slate-200 font-bold">${b.subtotal.toFixed(2)} €</span>
           </div>
           <div class="text-[11px] flex justify-between text-slate-400">
             <span>Tu trabajo / montaje / pruebas:</span>
-            <span class="text-slate-200 font-bold">${selected.montaje.toFixed(2)} €</span>
+            <span class="text-slate-200 font-bold">${b.montaje.toFixed(2)} €</span>
           </div>
           <div class="pt-2 mt-1 border-t border-slate-700 text-xs flex justify-between font-bold text-white">
             <span>TOTAL CLIENTE:</span>
-            <span class="text-emerald-400 text-sm">${total.toFixed(2)} €</span>
+            <span class="text-emerald-400 text-sm">${b.total.toFixed(2)} €</span>
           </div>
           <div class="mt-1 text-[10px] text-slate-500">Todos los precios con IVA incluido (21 %). Sin sorpresas.</div>
           ${requestedBudget != null ? `
-          <div class="mt-2 text-[10px] text-slate-500 flex justify-between">
-            <span>${result.raisedBudget ? "Presupuesto ajustado:" : "Límite indicado:"}</span>
-            <span>${effectiveBudget.toFixed(2)} € · Disponible: ${remaining.toFixed(2)} €</span>
-          </div>` : ''}
+          <div class="mt-2 rounded-lg border border-emerald-500/20 bg-emerald-950/20 text-emerald-300 px-2.5 py-2 text-[10px] flex flex-wrap items-center justify-between gap-2">
+            <span>Presupuesto indicado: <strong>${requestedBudget.toFixed(0)} €</strong></span>
+            <span>Presupuesto aprovechado: <strong>${b.total.toFixed(2)} €</strong>${aprovechado != null ? ` (${aprovechado}%)` : ''}</span>
+          </div>
+          ${remaining != null && remaining > 0.01 ? `
+          <div class="mt-1 text-[10px] text-slate-500">
+            ${agotadoTop
+              ? `Ya estamos en el máximo rendimiento real del mercado (RTX 4090 + Ryzen 9). No tiene sentido añadir más piezas: ${remaining.toFixed(2)} € quedarían de margen para periféricos o mejor refrigeración.`
+              : `Margen sin gastar: ${remaining.toFixed(2)} € (se queda como colchón o subiendo algún componente más caro del enlace).`}
+          </div>` : ''}` : ''}
           <div class="mt-4 pt-3 border-t border-slate-800 flex flex-col gap-2">
             <button onclick="openOrderModal()" class="w-full py-2.5 bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold text-xs rounded-lg transition shadow flex items-center justify-center gap-1.5">
               <span>✅ Aceptar y Enviar Pedido a TecnoLobato</span>
             </button>
-            <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20la%20IA%20me%20ha%20hecho%20este%20presupuesto:%20${encodeURIComponent(title)}%20por%20${total.toFixed(2)}€" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center">
+            <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20la%20IA%20me%20ha%20hecho%20este%20presupuesto:%20${encodeURIComponent(title)}%20por%20${b.total.toFixed(2)}€" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center">
               💬 Consultar o Modificar en WhatsApp
             </a>
           </div>
@@ -1575,7 +1728,7 @@
           <p class="text-[10px] text-slate-500 mt-2">Precios finales con IVA incluido. Presupuesto cerrado antes de empezar, sin coste adicional.</p>
           <div class="mt-3 flex flex-col gap-2">
             <a href="${wa}" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center block">💬 Pedir presupuesto por WhatsApp</a>
-          <div class="w-full flex flex-wrap gap-1.5 justify-center">${chip("PC 500€", "Quiero un PC de 500€ de presupuesto TOTAL")}${chip("Gaming 800€", "Quiero un PC Gaming de 800€ de presupuesto TOTAL")}${chip("Gaming 1200€", "Quiero un PC Gaming de 1200€ de presupuesto TOTAL")}</div>
+          <div class="w-full flex flex-wrap gap-1.5 justify-center">${chip("PC 500€", "Quiero un PC de 500€ de presupuesto TOTAL")}${chip("Gaming 800€", "Quiero un PC Gaming de 800€ de presupuesto TOTAL")}${chip("Gaming 1200€", "Quiero un PC Gaming de 1200€ de presupuesto TOTAL")}${chip("Gaming 3000€", "Quiero un PC Gaming de 3000€ de presupuesto TOTAL")}</div>
           </div>
         </div>`;
     }
@@ -1586,7 +1739,7 @@
           <span class="text-[10px] font-black text-lobatoGold uppercase">Presupuesto a medida</span>
           <h4 class="font-bold text-white text-sm mt-1">¿Qué presupuesto tienes?</h4>
           <p class="text-[11px] text-slate-400 my-2 leading-relaxed">Dime un importe y el uso (gaming, ofimática, edición, servidor) y te genero la configuración con piezas reales y precios actualizados. Incluye siempre tu trabajo y montaje.</p>
-          <div class="w-full flex flex-wrap gap-1.5 justify-center">${chip("PC 500€", "Quiero un PC de 500€ de presupuesto TOTAL")}${chip("Gaming 800€", "Quiero un PC Gaming de 800€ de presupuesto TOTAL")}${chip("Gaming 1200€", "Quiero un PC Gaming de 1200€ de presupuesto TOTAL")}${chip("Home Server 600€", "Home Server / NAS 600€")}</div>
+          <div class="w-full flex flex-wrap gap-1.5 justify-center">${chip("PC 500€", "Quiero un PC de 500€ de presupuesto TOTAL")}${chip("Gaming 800€", "Quiero un PC Gaming de 800€ de presupuesto TOTAL")}${chip("Gaming 1200€", "Quiero un PC Gaming de 1200€ de presupuesto TOTAL")}${chip("Gaming 3000€", "Quiero un PC Gaming de 3000€ de presupuesto TOTAL")}${chip("Home Server 600€", "Home Server / NAS 600€")}</div>
         </div>`;
     }
 
@@ -1596,10 +1749,11 @@
         <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
           <span class="text-[10px] font-black text-lobatoGold uppercase">LoboBot · TecnoLobato</span>
           <h4 class="font-bold text-white text-sm mt-1">¿En qué te ayudo? 🐺</h4>
-          <p class="text-[11px] text-slate-400 my-2 leading-relaxed">Puedo ayudarte con presupuestos de PC (escríbeme un importe, por ejemplo <strong>500</strong>, <strong>800</strong> o <strong>1200€</strong>) y con todos los servicios del taller:</p>
+          <p class="text-[11px] text-slate-400 my-2 leading-relaxed">Puedo ayudarte con presupuestos de PC: escríbeme <strong>cualquier importe</strong> (500, 1000, 2000, 3000€… la cantidad que quieras) y te lo desgloso en piezas reales con enlaces directos, aprovechando el presupuesto al máximo. También te ayudo con todos los servicios del taller:</p>
           <div class="w-full flex flex-wrap gap-1.5 justify-center">
             ${chip("💻 PC 500€", "Quiero un PC de 500€ de presupuesto TOTAL")}
-            ${chip("🎮 Gaming 800€", "Quiero un PC Gaming de 800€ de presupuesto TOTAL")}
+            ${chip("🎮 Gaming 2000€", "Quiero un PC Gaming de 2000€ de presupuesto TOTAL")}
+            ${chip("🤖 Gaming 3000€", "Quiero un PC Gaming de 3000€ de presupuesto TOTAL")}
             ${chip("🖥️ Home Server", "Home Server / NAS 600€")}
             ${chip("❄️ Limpieza", "¿Cuánto cuesta una limpieza y pasta térmica?")}
             ${chip("⚡ No enciende", "Mi PC no enciende o falla")}
