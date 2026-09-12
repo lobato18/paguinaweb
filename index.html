@@ -1026,6 +1026,19 @@
   <!-- ================= MOTOR DE PRESUPUESTOS, FIREBASE & CORREOS ================= -->
   <script>
 
+    // ================= LOBOBOT IA (núcleo de chat) =================
+    // Cuando una pregunta no entra en ninguna plantilla del taller,
+    // LoboBot responde con IA vía el endpoint de Open WebUI del taller.
+    const LOBO_AI = {
+      enabled: true,
+      // OJO: URL del túnel temporal (trycloudflare). Sustitúyela por la definitiva
+      // (p.ej. https://ia.tecnolobato.one) cuando exista el registro DNS.
+      url: "https://echo-dogs-remembered-transport.trycloudflare.com/api/chat/completions",
+      model: "gemma2:9b",
+      key: "sk-ce545fa2ea0846f0884c262f1f5834a3",
+      timeoutMs: 45000
+    };
+
     function toggleMobileMenu() {
       const menu = document.getElementById('mobile-menu');
       const icon = document.getElementById('mobile-menu-icon');
@@ -1794,7 +1807,7 @@
       return helpCard();
     }
 
-    function botReply(text) {
+    async function botReply(text) {
       const t = text.toLowerCase().replace(/\u00a0/g, " ").trim();
       const money = getRequestedBudget(text);
       const sv = detectService(t);
@@ -1838,8 +1851,45 @@
           </div>`;
       }
 
-      // 5. No entendido -> menú de ayuda
-      return helpCard();
+      // 5. No entendido -> Intenta la IA (y si falla, menú de ayuda)
+      const aiHtml = await aiReply(text);
+      return aiHtml || helpCard();
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    async function aiReply(userText) {
+      if (!LOBO_AI.enabled || !LOBO_AI.url) return null;
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), LOBO_AI.timeoutMs);
+      try {
+        const res = await fetch(LOBO_AI.url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": "Bearer " + LOBO_AI.key },
+          body: JSON.stringify({
+            model: LOBO_AI.model,
+            stream: false,
+            messages: [
+              { role: "system", content: "Eres LoboBot, el asistente virtual del taller informático TecnoLobato de Jose Angel (Montilla). Responde siempre en español, breve, cercano y profesional, en texto plano sin markdown. El taller ofrece: presupuestos de PC a medida (el cliente escribe el importe, ej. 'PC de 1200€'), montaje y pruebas (45-60€), limpieza y pasta térmica, formateo e instalación de Windows, ampliaciones (RAM/SSD), home servers/NAS y reparaciones. Contacto: WhatsApp 687 397 664 (web wa.me/34687397664) y web tecnolobato.one. Si te piden un presupuesto, explica que escriban exactamente el importe que quieren gastar (p. ej. 'PC gaming de 2000€'). No inventes precios de componentes concretos." },
+              { role: "user", content: userText }
+            ]
+          })
+        });
+        clearTimeout(timer);
+        if (!res.ok) return null;
+        const data = await res.json();
+        const content = data && data.choices && data.choices[0] && data.choices[0].message
+          ? String(data.choices[0].message.content || "").trim()
+          : "";
+        if (!content) return null;
+        return `<div class="text-slate-200 whitespace-pre-wrap text-xs">${escapeHtml(content)}</div>
+          <div class="mt-2 text-center"><a href="https://wa.me/34687397664" target="_blank" class="text-emerald-400 underline text-[10px] font-bold">¿Seguimos por WhatsApp? Hablemos sin prisa</a></div>`;
+      } catch (err) {
+        clearTimeout(timer);
+        return null;
+      }
     }
 
     function handleChatSubmit(e) {
@@ -1855,10 +1905,10 @@
       const container = document.getElementById('chat-messages');
       const loadingNode = container.lastChild;
 
-      setTimeout(() => {
-        loadingNode.innerHTML = botReply(text);
+      setTimeout(async () => {
+        loadingNode.innerHTML = await botReply(text);
         container.scrollTop = container.scrollHeight;
-      }, 500);
+      }, 400);
     }
 
     function openOrderModal() {
