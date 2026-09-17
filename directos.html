@@ -303,16 +303,34 @@
           "Pasta térmica",
           "Limpieza a fondo"
         ]
+      },
+      {
+        titulo: "Limpieza y Pasta Térmica",
+        categoria: "Mantenimiento",
+        fecha: "17/09/2026",
+        duracion: "1 h 30 min",
+        foto: "fotos/limpieza.jpg",
+        videos: [],
+        twitch: "https://twitch.tv/tecnolobato",
+        resumen: "Limpieza interior a fondo y renovación de pasta térmica para bajar temperaturas y ruido del equipo.",
+        piezas: [
+          "Limpieza de ventiladores y disipadores",
+          "Pasta térmica nueva",
+          "Medición de temperaturas en carga"
+        ]
       }
     ];
 
-    const CATEGORIAS_TRABAJOS = ["Todos", "Gaming", "Servidor"];
+    const CATEGORIAS_TRABAJOS = ["Todos", "Gaming", "Mantenimiento", "Servidor"];
 
     // ---------- Filtros ----------
     const filtros = document.getElementById('work-filters');
     CATEGORIAS_TRABAJOS.forEach((cat, i) => {
       const btn = document.createElement('button');
-      btn.textContent = cat === 'Todos' ? '🎬 Todos los trabajos' : (cat === 'Gaming' ? '🎮 ' + cat : '🖥️ ' + cat);
+      btn.textContent = cat === 'Todos' ? '🎬 Todos los trabajos'
+        : cat === 'Gaming' ? '🎮 ' + cat
+        : cat === 'Mantenimiento' ? '🧼 ' + cat
+        : '🖥️ ' + cat;
       btn.className = (i === 0 ? 'active bg-lobatoGreen text-black font-extrabold ' : 'bg-slate-900 border border-slate-700 text-slate-300 hover:border-lobatoGreen ') +
         'text-xs px-4 py-2 rounded-lg transition';
       btn.onclick = () => filterWork(cat, btn);
@@ -345,7 +363,9 @@
           ? 'bg-emerald-600'
           : t.categoria === 'Servidor'
             ? 'bg-blue-600'
-            : 'bg-lobatoGold text-black';
+            : t.categoria === 'Mantenimiento'
+              ? 'bg-amber-500'
+              : 'bg-lobatoGold text-black';
 
         const card = document.createElement('article');
         card.className = 'work-card tl-card bg-lobatoCard border border-slate-800 rounded-2xl overflow-hidden hover:border-lobatoGreen cursor-pointer flex flex-col justify-between';
@@ -376,7 +396,13 @@
 
     // ---------- Modal de detalle ----------
     function openWorkModal(t) {
-      const tagColor = t.categoria === 'Gaming' ? 'background:#10b981' : 'background:#2563eb';
+      const tagColor = t.categoria === 'Gaming'
+        ? 'background:#10b981'
+        : t.categoria === 'Servidor'
+          ? 'background:#2563eb'
+          : t.categoria === 'Mantenimiento'
+            ? 'background:#f59e0b'
+            : 'background:#d4af37';
 
       document.getElementById('work-modal-img').src = t.foto;
       document.getElementById('work-modal-img').alt = t.titulo;
