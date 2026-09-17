@@ -246,6 +246,11 @@
           <ul id="work-modal-parts" class="space-y-1.5"></ul>
         </div>
 
+        <div id="work-modal-videos" class="mt-5">
+          <div class="text-xs font-black uppercase tracking-widest text-lobatoGold mb-2">🎥 Vídeos del directo</div>
+          <div id="work-modal-video-list" class="space-y-3"></div>
+        </div>
+
         <div class="mt-6 pt-4 border-t border-slate-800">
           <a id="work-modal-vod" href="#" target="_blank" class="bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs px-5 py-2.5 rounded-lg flex items-center justify-center gap-2 transition shadow-lg shadow-purple-900/30">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M2.149 0l-1.612 4.119v16.8h5.683v3.081h3.25l3.082-3.081h4.636l6.812-6.812v-14.107h-21.85zm19.539 13.064l-3.805 3.805h-5.124l-3.082 3.082v-3.082h-4.394v-14.557h16.405v10.752zm-10.228-6.195h2.278v6.522h-2.278v-6.522zm5.729 0h2.279v6.522h-2.279v-6.522z"/></svg>
@@ -281,57 +286,22 @@
     // AÑADIR TRABAJOS: copia un bloque en TRABAJOS_DIRECTOS y el archivo se actualiza solo.
     // - twitch: URL del VOD o clip de Twitch ("https://www.twitch.tv/videos/XXXX")
     // - piezas: lista de componentes del equipo
-    // - foto: imagen del montaje (recomendado 700x400)
+    // - foto: imagen del montaje (guárdala en /fotos, p.ej. "fotos/mi-trabajo.jpg")
+    // - videos: lista de vídeos del directo (opcional, también en /fotos)
     const TRABAJOS_DIRECTOS = [
       {
-        titulo: "Montaje Gaming Beast RTX",
+        titulo: "Cambio de Ventiladores",
         categoria: "Gaming",
-        fecha: "12/09/2026",
-        duracion: "3 h 20 min",
-        foto: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=700&q=80",
-        twitch: "https://twitch.tv/tecnolobato",
-        resumen: "Equipo gaming montado en streaming con refrigeración líquida, pruebas de estrés y gestión de cables en directo.",
+        fecha: "16/09/2026",
+        duracion: "2 h 30 min",
+        foto: "fotos/cambio-ventiladores.jpg",
+        videos: ["fotos/cambio-ventiladores-video.mp4", "fotos/cambio-ventiladores-video2.mp4"],
+        twitch: "https://www.twitch.tv/videos/2875753451",
+        resumen: "Sustitución de ventiladores por modelos silenciosos y renovación de pasta térmica, realizado en directo con pruebas de temperatura.",
         piezas: [
-          "AMD Ryzen 7 7800X3D",
-          "NVIDIA RTX 4070 SUPER 12GB",
-          "32GB DDR5 6000MHz CL30",
-          "SSD NVMe 2TB Gen4",
-          "Refrigeración líquida 240mm",
-          "Fuente 850W 80+ Gold"
-        ]
-      },
-      {
-        titulo: "Home Server NAS / Linux",
-        categoria: "Servidor",
-        fecha: "05/09/2026",
-        duracion: "2 h 45 min",
-        foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=700&q=80",
-        twitch: "https://twitch.tv/tecnolobato",
-        resumen: "Servidor doméstico silencioso con virtualización y almacenamiento centralizado, configurado entero en directo.",
-        piezas: [
-          "AMD Ryzen 5 5600G",
-          "16GB DDR4 3200MHz",
-          "Caja microATX bajo consumo",
-          "4x HDD NAS 4TB (RAID)",
-          "SSD sistema 500GB",
-          "Fuente 350W 80+ Bronze"
-        ]
-      },
-      {
-        titulo: "PC Gaming Competitivo",
-        categoria: "Gaming",
-        fecha: "28/08/2026",
-        duracion: "4 h 10 min",
-        foto: "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=700&q=80",
-        twitch: "https://twitch.tv/tecnolobato",
-        resumen: "Configuración orientada a eSports con altas tasas de cuadros en 1080p/2K, optimizada y probada en directo.",
-        piezas: [
-          "AMD Ryzen 5 7600 AM5",
-          "NVIDIA RTX 4060 Ti 8GB",
-          "16GB DDR5 6000MHz",
-          "SSD NVMe 1TB Gen4",
-          "Caja con flujo frontal",
-          "Fuente 650W 80+ Gold"
+          "Ventiladores silenciosos",
+          "Pasta térmica",
+          "Limpieza a fondo"
         ]
       }
     ];
@@ -424,6 +394,19 @@
            <span class="text-lobatoGreen mt-0.5">▸</span> ${p}
          </li>`
       ).join('');
+
+      const videosWrap = document.getElementById('work-modal-videos');
+      const videoList = document.getElementById('work-modal-video-list');
+      if (t.videos && t.videos.length) {
+        videosWrap.classList.remove('hidden');
+        videoList.innerHTML = t.videos.map((v, i) => `
+          <video controls preload="metadata" class="w-full rounded-xl border border-slate-800 bg-black aspect-video"
+                 src="${v}" poster="${t.foto}"></video>
+        `).join('');
+      } else {
+        videosWrap.classList.add('hidden');
+        videoList.innerHTML = '';
+      }
 
       document.getElementById('work-modal-vod').href = t.twitch;
       document.getElementById('work-modal-wa').href =
