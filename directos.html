@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trabajos en Directo | TecnoLobato</title>
+  <meta name="description" content="Galería de montajes y trabajos realizados en directo por TecnoLobato. Sigue los equipos montados en streaming con sus piezas, duración y vídeo.">
+  <meta name="author" content="TecnoLobato">
+  <meta name="theme-color" content="#0f1923">
+  <link rel="canonical" href="https://tecnolobato.one/directos.html">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TecnoLobato">
+  <link rel="apple-touch-icon" href="logo.jpg">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TecnoLobato">
+  <meta property="og:title" content="Trabajos en Directo | TecnoLobato">
+  <meta property="og:description" content="Montajes realizados en streaming: piezas, duración y vídeo del directo.">
+  <meta property="og:url" content="https://tecnolobato.one/directos.html">
+  <meta property="og:image" content="https://tecnolobato.one/logo.jpg">
+  <meta property="og:locale" content="es_ES">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            lobatoDark: '#070d14',
+            lobatoCard: '#0f1923',
+            lobatoGreen: '#10b981',
+            lobatoGold: '#d4af37',
+            waGreen: '#25D366'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --tl-bg: #050b12;
+      --tl-panel: rgba(13, 25, 36, .78);
+      --tl-panel-strong: #0c1722;
+      --tl-green: #10b981;
+      --tl-green-2: #34d399;
+      --tl-gold: #d4af37;
+      --tl-line: rgba(148,163,184,.14);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(circle at 12% 0%, rgba(16,185,129,.10), transparent 28rem),
+        radial-gradient(circle at 88% 8%, rgba(212,175,55,.08), transparent 26rem),
+        linear-gradient(180deg, #050b12 0%, #07111b 45%, #050b12 100%);
+    }
+
+    .tl-grid-bg {
+      background-image:
+        linear-gradient(rgba(16,185,129,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16,185,129,.045) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 82%);
+    }
+
+    .tl-glass {
+      background: linear-gradient(145deg, rgba(15,25,35,.86), rgba(7,13,20,.72));
+      border: 1px solid var(--tl-line);
+      box-shadow: 0 24px 70px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+    }
+
+    .tl-card {
+      transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+    }
+    .tl-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(16,185,129,.42);
+      box-shadow: 0 18px 45px rgba(0,0,0,.25), 0 0 0 1px rgba(16,185,129,.05);
+    }
+
+    .tl-glow {
+      box-shadow: 0 0 0 1px rgba(16,185,129,.10), 0 0 55px rgba(16,185,129,.11);
+    }
+
+    .tl-logo-orbit { animation: tlFloat 5s ease-in-out infinite; }
+    @keyframes tlFloat {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(.5deg); }
+    }
+
+    .tl-shimmer {
+      background: linear-gradient(90deg, #10b981, #f0d58a, #10b981);
+      background-size: 220% 100%;
+      animation: tlShimmer 4s linear infinite;
+    }
+    @keyframes tlShimmer { to { background-position: 220% 0; } }
+
+    .tl-section-kicker { letter-spacing: .16em; font-size: .68rem; font-weight: 900; text-transform: uppercase; }
+
+    .tl-reveal { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
+    .tl-reveal.in-view { opacity: 1; transform: translateY(0); }
+
+    .work-hover-layer { opacity: 0; transition: opacity .3s ease; }
+    .work-card:hover .work-hover-layer { opacity: 1; }
+
+    #work-modal { z-index: 70; }
+    #work-modal .work-body::-webkit-scrollbar { width: 5px; }
+    #work-modal .work-body::-webkit-scrollbar-thumb { background-color: #1e293b; border-radius: 4px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body class="bg-lobatoDark text-slate-200 font-sans antialiased selection:bg-lobatoGreen selection:text-black">
+
+  <!-- ================= BARRA SUPERIOR DE CONTACTO ================= -->
+  <div class="bg-lobatoCard border-b border-slate-800 px-4 sm:px-8 py-2.5 text-xs text-slate-300 flex flex-wrap justify-between items-center gap-3">
+    <div class="flex items-center gap-4">
+      <a href="https://wa.me/34687397664?text=Hola%20TecnoLobato,%20quiero%20hacerte%20una%20consulta" target="_blank" class="hover:text-waGreen transition flex items-center gap-1.5 font-semibold text-emerald-400">
+        💬 <span>WhatsApp: 687 397 664</span>
+      </a>
+      <a href="mailto:lobato.mo95@gmail.com" class="hidden sm:flex hover:text-lobatoGreen transition items-center gap-1.5">
+        ✉️ <span>lobato.mo95@gmail.com</span>
+      </a>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <span class="text-slate-400">Presupuestos con precios actualizados</span>
+    </div>
+  </div>
+
+  <!-- ================= NAVEGACIÓN ================= -->
+  <nav class="sticky top-0 z-40 bg-lobatoDark/95 backdrop-blur border-b border-slate-800 px-4 sm:px-8 py-3.5 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="logo.jpg" alt="TecnoLobato" class="h-11 w-11 rounded-full border-2 border-lobatoGold object-cover shadow-md">
+      <div>
+        <span class="text-xl font-black tracking-wider text-white">TECNO<span class="text-lobatoGreen">LOBATO</span></span>
+        <span class="block text-[10px] tracking-widest text-slate-400 font-semibold uppercase">Servicios Informáticos</span>
+      </div>
+    </a>
+    <div class="hidden lg:flex items-center gap-6 text-sm font-medium">
+      <a href="index.html" class="hover:text-lobatoGreen transition">Inicio</a>
+      <a href="index.html#equipos" class="hover:text-lobatoGreen transition">Galería Equipos</a>
+      <a href="index.html#servicios" class="hover:text-lobatoGreen transition">Taller</a>
+      <a href="index.html#precios" class="hover:text-lobatoGold transition">Precios</a>
+      <a href="index.html#contacto" class="hover:text-lobatoGreen transition">Contacto</a>
+    </div>
+    <div class="flex items-center gap-2.5">
+      <a href="https://wa.me/34687397664?text=Hola%20TecnoLobato,%20quiero%20pedir%20presupuesto" target="_blank" class="bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs px-3.5 py-2 rounded-lg flex items-center gap-2 shadow-lg shadow-emerald-900/30 transition">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <div class="relative overflow-hidden">
+    <div class="tl-grid-bg absolute inset-0 pointer-events-none"></div>
+    <header class="relative max-w-6xl mx-auto px-5 sm:px-6 pt-14 md:pt-20 pb-12 text-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-400/25 bg-emerald-950/50 text-emerald-300 text-[11px] font-black tracking-wider uppercase mb-6">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_12px_#10b981]"></span>
+        Taller en Directo · Twitch
+      </div>
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-[1.02]">
+        Trabajos
+        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-amber-200">
+          en Directo
+        </span>
+      </h1>
+      <p class="mt-5 text-slate-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        Cada equipo que montamos en streaming queda archivado aquí: <strong class="text-white">fotos, piezas, fecha, duración y el vídeo</strong> del directo completo.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 mt-8">
+        <a href="https://twitch.tv/tecnolobato" target="_blank" class="bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs px-4 py-3 rounded-lg transition flex items-center gap-2 shadow-lg shadow-purple-900/30">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M2.149 0l-1.612 4.119v16.8h5.683v3.081h3.25l3.082-3.081h4.636l6.812-6.812v-14.107h-21.85zm19.539 13.064l-3.805 3.805h-5.124l-3.082 3.082v-3.082h-4.394v-14.557h16.405v10.752zm-10.228-6.195h2.278v6.522h-2.278v-6.522zm5.729 0h2.279v6.522h-2.279v-6.522z"/></svg>
+          Ver canal de Twitch
+        </a>
+        <a href="#archivo" class="bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold text-xs px-4 py-3 rounded-lg transition flex items-center gap-2 shadow-lg shadow-emerald-900/40">
+          📁 Ver archivo de montajes
+        </a>
+      </div>
+    </header>
+  </div>
+
+  <!-- ================= ARCHIVO DE TRABAJOS EN DIRECTO ================= -->
+  <section id="archivo" class="max-w-6xl mx-auto px-5 sm:px-6 py-10 scroll-mt-28">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+      <div>
+        <div class="tl-section-kicker text-lobatoGreen mb-2">Archivo de montajes</div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Publicados en streaming</h2>
+        <p class="text-slate-400 text-sm mt-1">Haz clic en cualquier trabajo para ver sus piezas, duración y el directo completo.</p>
+      </div>
+      <div class="flex flex-wrap gap-2" id="work-filters"></div>
+    </div>
+
+    <div id="work-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <div id="work-empty" class="hidden text-center py-16">
+      <div class="text-4xl mb-3">🔧</div>
+      <p class="text-slate-400 text-sm">Todavía no hay trabajos publicados en esta categoría.</p>
+    </div>
+  </section>
+
+  <!-- ================= CTA FINAL ================= -->
+  <section class="max-w-4xl mx-auto px-5 sm:px-6 py-10">
+    <div class="tl-glass rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+      <div>
+        <h3 class="text-xl font-bold text-white">¿Quieres ser el próximo montaje en directo?</h3>
+        <p class="text-slate-400 text-xs sm:text-sm mt-1">Encarga tu equipo y sigue el proceso de montaje y pruebas en streaming.</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20quiero%20que%20montes%20mi%20PC%20en%20directo" target="_blank" class="bg-[#25D366] hover:bg-[#1ebd59] text-white font-extrabold px-5 py-3 rounded-xl transition text-xs whitespace-nowrap shadow-lg shadow-emerald-900/30">
+          💬 Reservar por WhatsApp
+        </a>
+        <a href="index.html" class="bg-slate-900 border border-slate-700 hover:border-lobatoGreen text-slate-300 font-bold px-5 py-3 rounded-xl transition text-xs whitespace-nowrap">
+          ← Volver al inicio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MODAL DETALLE TRABAJO ================= -->
+  <div id="work-modal" class="fixed inset-0 hidden bg-black/85 backdrop-blur-sm items-center justify-center p-4" style="z-index:70">
+    <div class="bg-lobatoCard border border-slate-700 max-w-2xl w-full rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden relative">
+      <button onclick="closeWorkModal()" class="absolute top-3 right-3 bg-black/60 hover:bg-black text-white w-9 h-9 rounded-full flex items-center justify-center z-20 transition">✕</button>
+      <div class="relative h-64 sm:h-80 w-full bg-black shrink-0">
+        <img id="work-modal-img" src="" alt="" class="w-full h-full object-cover">
+        <span id="work-modal-tag" class="absolute top-4 left-4 text-black text-xs font-black uppercase px-3 py-1 rounded-md shadow"></span>
+      </div>
+      <div class="work-body flex-1 overflow-y-auto px-6 py-5">
+        <h3 id="work-modal-title" class="text-2xl font-bold text-white"></h3>
+        <div class="flex flex-wrap gap-2 mt-3 text-[11px]">
+          <span id="work-modal-date" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-slate-300"></span>
+          <span id="work-modal-duration" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-slate-300"></span>
+        </div>
+        <p id="work-modal-desc" class="text-slate-300 text-sm mt-4 leading-relaxed"></p>
+
+        <div id="work-modal-specs" class="mt-5">
+          <div class="text-xs font-black uppercase tracking-widest text-lobatoGold mb-2">Piezas del equipo</div>
+          <ul id="work-modal-parts" class="space-y-1.5"></ul>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-800">
+          <a id="work-modal-vod" href="#" target="_blank" class="bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs px-5 py-2.5 rounded-lg flex items-center justify-center gap-2 transition shadow-lg shadow-purple-900/30">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M2.149 0l-1.612 4.119v16.8h5.683v3.081h3.25l3.082-3.081h4.636l6.812-6.812v-14.107h-21.85zm19.539 13.064l-3.805 3.805h-5.124l-3.082 3.082v-3.082h-4.394v-14.557h16.405v10.752zm-10.228-6.195h2.278v6.522h-2.278v-6.522zm5.729 0h2.279v6.522h-2.279v-6.522z"/></svg>
+            Ver el directo completo en Twitch
+          </a>
+          <a id="work-modal-wa" href="#" target="_blank" class="mt-2.5 bg-[#25D366] hover:bg-[#1ebd59] text-white font-extrabold text-xs px-5 py-2.5 rounded-lg flex items-center justify-center gap-2 transition shadow-lg shadow-emerald-900/30">
+            💬 Consultar este montaje por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= BOTÓN VOLVER ARRIBA ================= -->
+  <button id="back-to-top" aria-label="Volver arriba" title="Volver arriba"
+    class="fixed bottom-6 left-4 sm:left-6 z-40 w-11 h-11 rounded-full bg-lobatoCard border border-slate-700 text-emerald-400 shadow-2xl flex items-center justify-center hover:bg-emerald-950 hover:border-emerald-500/50 hover:scale-110 transition opacity-0 pointer-events-none">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-slate-800/80 py-10 text-center text-xs text-slate-500 bg-black/10">
+    <p>© 2026 TecnoLobato - Servicios Informáticos. Todos los derechos reservados.</p>
+    <div class="flex justify-center gap-6 mt-3 font-medium">
+      <a href="https://twitch.tv/tecnolobato" target="_blank" class="hover:text-purple-400 transition">Twitch: /tecnolobato</a>
+      <a href="https://www.youtube.com/results?search_query=TecnoLobato" target="_blank" class="hover:text-red-400 transition">YouTube: TecnoLobato</a>
+      <a href="https://wa.me/34687397664" target="_blank" class="hover:text-waGreen transition">WhatsApp: 687 397 664</a>
+    </div>
+    <p class="mt-4 text-[10px] text-slate-600 max-w-md mx-auto">Presupuestos y precios con IVA incluido. Trabajamos por cita previa en Cádiz.</p>
+  </footer>
+
+  <!-- ================= DATOS Y RENDERIZADO ================= -->
+  <script>
+    // AÑADIR TRABAJOS: copia un bloque en TRABAJOS_DIRECTOS y el archivo se actualiza solo.
+    // - twitch: URL del VOD o clip de Twitch ("https://www.twitch.tv/videos/XXXX")
+    // - piezas: lista de componentes del equipo
+    // - foto: imagen del montaje (recomendado 700x400)
+    const TRABAJOS_DIRECTOS = [
+      {
+        titulo: "Montaje Gaming Beast RTX",
+        categoria: "Gaming",
+        fecha: "12/09/2026",
+        duracion: "3 h 20 min",
+        foto: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=700&q=80",
+        twitch: "https://twitch.tv/tecnolobato",
+        resumen: "Equipo gaming montado en streaming con refrigeración líquida, pruebas de estrés y gestión de cables en directo.",
+        piezas: [
+          "AMD Ryzen 7 7800X3D",
+          "NVIDIA RTX 4070 SUPER 12GB",
+          "32GB DDR5 6000MHz CL30",
+          "SSD NVMe 2TB Gen4",
+          "Refrigeración líquida 240mm",
+          "Fuente 850W 80+ Gold"
+        ]
+      },
+      {
+        titulo: "Home Server NAS / Linux",
+        categoria: "Servidor",
+        fecha: "05/09/2026",
+        duracion: "2 h 45 min",
+        foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=700&q=80",
+        twitch: "https://twitch.tv/tecnolobato",
+        resumen: "Servidor doméstico silencioso con virtualización y almacenamiento centralizado, configurado entero en directo.",
+        piezas: [
+          "AMD Ryzen 5 5600G",
+          "16GB DDR4 3200MHz",
+          "Caja microATX bajo consumo",
+          "4x HDD NAS 4TB (RAID)",
+          "SSD sistema 500GB",
+          "Fuente 350W 80+ Bronze"
+        ]
+      },
+      {
+        titulo: "PC Gaming Competitivo",
+        categoria: "Gaming",
+        fecha: "28/08/2026",
+        duracion: "4 h 10 min",
+        foto: "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=700&q=80",
+        twitch: "https://twitch.tv/tecnolobato",
+        resumen: "Configuración orientada a eSports con altas tasas de cuadros en 1080p/2K, optimizada y probada en directo.",
+        piezas: [
+          "AMD Ryzen 5 7600 AM5",
+          "NVIDIA RTX 4060 Ti 8GB",
+          "16GB DDR5 6000MHz",
+          "SSD NVMe 1TB Gen4",
+          "Caja con flujo frontal",
+          "Fuente 650W 80+ Gold"
+        ]
+      }
+    ];
+
+    const CATEGORIAS_TRABAJOS = ["Todos", "Gaming", "Servidor"];
+
+    // ---------- Filtros ----------
+    const filtros = document.getElementById('work-filters');
+    CATEGORIAS_TRABAJOS.forEach((cat, i) => {
+      const btn = document.createElement('button');
+      btn.textContent = cat === 'Todos' ? '🎬 Todos los trabajos' : (cat === 'Gaming' ? '🎮 ' + cat : '🖥️ ' + cat);
+      btn.className = (i === 0 ? 'active bg-lobatoGreen text-black font-extrabold ' : 'bg-slate-900 border border-slate-700 text-slate-300 hover:border-lobatoGreen ') +
+        'text-xs px-4 py-2 rounded-lg transition';
+      btn.onclick = () => filterWork(cat, btn);
+      filtros.appendChild(btn);
+    });
+
+    let currentFilter = 'Todos';
+    function filterWork(cat, btn) {
+      currentFilter = cat;
+      document.querySelectorAll('#work-filters button').forEach(b => {
+        b.className = (b === btn ? 'active bg-lobatoGreen text-black font-extrabold ' : 'bg-slate-900 border border-slate-700 text-slate-300 ') +
+          'text-xs px-4 py-2 rounded-lg transition';
+      });
+      renderWorkGrid();
+    }
+
+    // ---------- Tarjetas ----------
+    const grid = document.getElementById('work-grid');
+    const empty = document.getElementById('work-empty');
+
+    function renderWorkGrid() {
+      grid.innerHTML = '';
+      const trabajos = TRABAJOS_DIRECTOS.filter(t =>
+        currentFilter === 'Todos' || t.categoria === currentFilter
+      );
+      empty.classList.toggle('hidden', trabajos.length > 0);
+
+      trabajos.forEach((t, idx) => {
+        const tagColor = t.categoria === 'Gaming'
+          ? 'bg-emerald-600'
+          : t.categoria === 'Servidor'
+            ? 'bg-blue-600'
+            : 'bg-lobatoGold text-black';
+
+        const card = document.createElement('article');
+        card.className = 'work-card tl-card bg-lobatoCard border border-slate-800 rounded-2xl overflow-hidden hover:border-lobatoGreen cursor-pointer flex flex-col justify-between';
+        card.onclick = () => openWorkModal(t);
+        card.innerHTML = `
+          <div class="relative h-52 overflow-hidden bg-black">
+            <img src="${t.foto}" alt="${t.titulo}" loading="lazy" decoding="async"
+                 class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='logo.jpg'">
+            <span class="absolute top-3 left-3 ${tagColor} text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md shadow">${t.categoria}</span>
+            <div class="work-hover-layer absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end justify-center">
+              <span class="bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-[11px] px-4 py-2.5 rounded-lg mb-4 flex items-center gap-2">
+                ▶ Ver detalle del montaje
+              </span>
+            </div>
+          </div>
+          <div class="p-5 flex-1 flex flex-col">
+            <h3 class="font-bold text-white text-base mb-1">${t.titulo}</h3>
+            <p class="text-xs text-slate-400 mb-3 line-clamp-2">${t.resumen}</p>
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-[11px]">
+              <span class="text-slate-400">📅 ${t.fecha}</span>
+              <span class="text-slate-400">⏱️ ${t.duracion}</span>
+              <span class="text-purple-400 font-bold">Ver VOD →</span>
+            </div>
+          </div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    // ---------- Modal de detalle ----------
+    function openWorkModal(t) {
+      const tagColor = t.categoria === 'Gaming' ? 'background:#10b981' : 'background:#2563eb';
+
+      document.getElementById('work-modal-img').src = t.foto;
+      document.getElementById('work-modal-img').alt = t.titulo;
+      const tag = document.getElementById('work-modal-tag');
+      tag.textContent = t.categoria;
+      tag.setAttribute('style', tagColor + ';color:#fff');
+      document.getElementById('work-modal-title').textContent = t.titulo;
+      document.getElementById('work-modal-date').textContent = '📅 ' + t.fecha;
+      document.getElementById('work-modal-duration').textContent = '⏱️ ' + t.duracion;
+      document.getElementById('work-modal-desc').textContent = t.resumen;
+
+      const partsList = document.getElementById('work-modal-parts');
+      partsList.innerHTML = t.piezas.map(p =>
+        `<li class="flex items-start gap-2 text-xs text-slate-300">
+           <span class="text-lobatoGreen mt-0.5">▸</span> ${p}
+         </li>`
+      ).join('');
+
+      document.getElementById('work-modal-vod').href = t.twitch;
+      document.getElementById('work-modal-wa').href =
+        `https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20he%20visto%20el%20montaje:%20${encodeURIComponent(t.titulo)}%20en%20la%20web%20y%20quiero%20presupuesto`;
+
+      const modal = document.getElementById('work-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeWorkModal() {
+      const modal = document.getElementById('work-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // ---------- Reveal on scroll ----------
+    document.addEventListener('DOMContentLoaded', function () {
+      renderWorkGrid();
+      const revealEls = document.querySelectorAll('[data-reveal]');
+      if (!("IntersectionObserver" in window)) {
+        revealEls.forEach(el => el.classList.add('in-view'));
+      } else {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => io.observe(el));
+      }
+
+      document.querySelectorAll('a[target="_blank"]').forEach(a => {
+        if (!a.rel) a.setAttribute('rel', 'noopener');
+        else if (a.rel.indexOf('noopener') === -1) a.setAttribute('rel', a.rel + ' noopener');
+      });
+
+      const btt = document.getElementById('back-to-top');
+      window.addEventListener('scroll', function () {
+        const show = window.scrollY > 560;
+        btt.classList.toggle('opacity-0', !show);
+        btt.classList.toggle('pointer-events-none', !show);
+      }, { passive: true });
+      btt.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeWorkModal();
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -245,6 +245,7 @@
     </div>
     <div class="hidden lg:flex items-center gap-6 text-sm font-medium">
       <a href="#directo" class="hover:text-lobatoGreen transition">En Directo</a>
+      <a href="directos.html" class="hover:text-purple-400 transition text-purple-300 font-semibold">🎬 Trabajos en Directo</a>
       <a href="#equipos" class="hover:text-lobatoGreen transition">Galería Equipos</a>
       <a href="#servicios" class="hover:text-lobatoGreen transition">Taller</a>
       <a href="#seguimiento" class="hover:text-lobatoGreen transition">Seguimiento</a>
@@ -269,6 +270,7 @@
     <div class="tl-mobile-menu mt-3 pt-3 border-t border-slate-800" id="mobile-menu">
       <div class="grid grid-cols-2 gap-2 text-sm font-semibold">
         <a href="#directo" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">📺 En Directo</a>
+        <a href="directos.html" onclick="toggleMobileMenu()" class="rounded-xl bg-purple-950/60 border border-purple-500/30 px-4 py-3 hover:text-purple-300">🎬 Trabajos en Directo</a>
         <a href="#equipos" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">🖥️ Equipos</a>
         <a href="#servicios" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">🔧 Taller</a>
         <a href="#seguimiento" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">🔍 Seguimiento</a>
@@ -400,6 +402,40 @@
         <div id="twitch-embed-player" class="w-full h-full"></div>
       </div>
     </div>
+  </section>
+
+  <!-- ================= TRABAJOS EN DIRECTO: PORTAL DE ACCESO ================= -->
+  <section class="max-w-6xl mx-auto px-5 sm:px-6 pt-4 pb-2">
+    <a href="directos.html" class="group block relative overflow-hidden rounded-3xl border border-purple-500/30 bg-gradient-to-br from-purple-950/60 via-lobatoCard to-slate-900 shadow-2xl shadow-purple-950/30 transition hover:border-purple-400/60 hover:shadow-purple-900/30">
+      <div class="tl-grid-bg absolute inset-0 opacity-60 pointer-events-none"></div>
+      <div class="relative p-6 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-5 text-center sm:text-left">
+          <div class="hidden sm:flex w-16 h-16 shrink-0 rounded-2xl bg-purple-500/15 border border-purple-400/30 items-center justify-center text-3xl shadow-inner">
+            🎬
+          </div>
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-400/30 bg-purple-950/50 text-purple-300 text-[11px] font-black tracking-wider uppercase mb-2">
+              <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+              Galería exclusiva
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+              Trabajos realizados en Directo
+            </h2>
+            <p class="text-slate-400 text-sm mt-1.5 max-w-lg">
+              Fotos reales de los equipos montados en streaming, con sus piezas, duración y el vídeo completo del directo.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <span class="hidden md:flex items-center gap-2 text-purple-300 text-sm font-bold">
+            Entrar <span class="transition group-hover:translate-x-1">→</span>
+          </span>
+          <span class="bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs px-5 py-3 rounded-xl transition shadow-lg shadow-purple-900/40 flex items-center gap-2">
+            ▶ Archivo de directos
+          </span>
+        </div>
+      </div>
+    </a>
   </section>
 
   <!-- ================= LIBRERÍA DE IMÁGENES: EQUIPOS A LA CARTA ================= -->

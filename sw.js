@@ -1,5 +1,5 @@
-const CACHE = "tecnolobato-v1";
-const PRECACHE = ["./", "./index.html", "./logo.jpg", "./favicon.png", "./manifest.webmanifest"];
+const CACHE = "tecnolobato-v2";
+const PRECACHE = ["./", "./index.html", "./directos.html", "./logo.jpg", "./favicon.png", "./manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -31,10 +31,13 @@ self.addEventListener("fetch", (event) => {
       fetch(req)
         .then((res) => {
           const copy = res.clone();
-          caches.open(CACHE).then((cache) => cache.put("./index.html", copy));
+          const key = new URL(req.url).pathname;
+          caches.open(CACHE).then((cache) => cache.put(key, copy));
           return res;
         })
-        .catch(() => caches.match("./index.html"))
+        .catch(() =>
+          caches.match(new URL(req.url).pathname).then((cached) => cached || caches.match("./index.html"))
+        )
     );
     return;
   }
