@@ -246,32 +246,6 @@
       <div class="text-4xl mb-3">🔧</div>
       <p class="text-slate-400 text-sm">Todavía no hay trabajos publicados en esta categoría.</p>
     </div>
-
-    <!-- ================= ÚLTIMO DIRECTO EN YOUTUBE ================= -->
-    <div class="mt-12">
-      <div class="flex items-center gap-2.5 mb-4">
-        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
-        <h3 class="text-xl sm:text-2xl font-bold text-white">Último directo en YouTube</h3>
-      </div>
-      <div class="tl-glass rounded-2xl p-3 sm:p-4">
-        <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black">
-          <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/eYdSfm5zrVk"
-                  title="Emisión en directo de TECNO LOBATO limpieza pc"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-        <div class="flex flex-wrap items-center justify-between gap-3 px-1 pt-4 pb-1">
-          <div>
-            <p class="text-white font-bold text-sm">🎬 Emisión en directo de TECNO LOBATO · limpieza pc</p>
-            <p class="text-slate-400 text-xs mt-0.5">Último directo publicado en el canal de YouTube.</p>
-          </div>
-          <a href="https://youtube.com/live/eYdSfm5zrVk" target="_blank" class="bg-red-600 hover:bg-red-500 text-white font-extrabold text-[11px] px-4 py-2.5 rounded-lg transition flex items-center gap-2 shadow-lg shadow-red-900/30 shrink-0">
-            ▶ Ver en YouTube
-          </a>
-        </div>
-      </div>
-    </div>
   </section>
 
   <!-- ================= CTA FINAL ================= -->
@@ -352,6 +326,7 @@
   <script>
     // AÑADIR TRABAJOS: copia un bloque en TRABAJOS_DIRECTOS y el archivo se actualiza solo.
     // - twitch: URL del VOD o clip de Twitch ("https://www.twitch.tv/videos/XXXX")
+    // - youtube: URL del directo en YouTube (opcional); usalo en vez de twitch si el directo se subio a YouTube
     // - piezas: lista de componentes del equipo
     // - foto: imagen del montaje (guárdala en /fotos, p.ej. "fotos/mi-trabajo.jpg")
     // - videos: lista de vídeos del directo (opcional, también en /fotos)
@@ -375,9 +350,10 @@
         titulo: "Limpieza y Pasta Térmica",
         categoria: "Mantenimiento",
         fecha: "17/09/2026",
-        duracion: "1 h 30 min",
+        duracion: "40 min",
         foto: "fotos/limpieza.jpg",
-        videos: [],
+        videos: ["https://www.youtube.com/embed/eYdSfm5zrVk"],
+        youtube: "https://youtube.com/live/eYdSfm5zrVk",
         twitch: "https://twitch.tv/tecnolobato",
         resumen: "Limpieza interior a fondo y renovación de pasta térmica para bajar temperaturas y ruido del equipo.",
         piezas: [
@@ -492,16 +468,29 @@
       const videoList = document.getElementById('work-modal-video-list');
       if (t.videos && t.videos.length) {
         videosWrap.classList.remove('hidden');
-        videoList.innerHTML = t.videos.map((v, i) => `
-          <video controls preload="metadata" class="w-full rounded-xl border border-slate-800 bg-black aspect-video"
-                 src="${v}" poster="${t.foto}"></video>
-        `).join('');
+        videoList.innerHTML = t.videos.map((v, i) =>
+          v.indexOf('youtube.com') !== -1
+            ? `<iframe class="w-full aspect-video rounded-xl border border-slate-800 bg-black" src="${v}"
+                 title="${t.titulo}" frameborder="0"
+                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
+            : `<video controls preload="metadata" class="w-full rounded-xl border border-slate-800 bg-black aspect-video"
+                 src="${v}" poster="${t.foto}"></video>`
+        ).join('');
       } else {
         videosWrap.classList.add('hidden');
         videoList.innerHTML = '';
       }
 
-      document.getElementById('work-modal-vod').href = t.twitch;
+      const vodBtn = document.getElementById('work-modal-vod');
+      if (t.youtube) {
+        vodBtn.href = t.youtube;
+        vodBtn.innerHTML = '▶ Ver el directo completo en YouTube';
+        vodBtn.classList.remove('bg-purple-600', 'hover:bg-purple-500', 'shadow-purple-900/30');
+        vodBtn.classList.add('bg-red-600', 'hover:bg-red-500', 'shadow-red-900/30');
+      } else {
+        vodBtn.href = t.twitch;
+      }
       document.getElementById('work-modal-wa').href =
         `https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20he%20visto%20el%20montaje:%20${encodeURIComponent(t.titulo)}%20en%20la%20web%20y%20quiero%20presupuesto`;
 
