@@ -324,6 +324,7 @@
       <a href="#seguimiento" class="hover:text-lobatoGreen transition">Seguimiento</a>
       <a href="#precios" class="hover:text-lobatoGold transition">Precios</a>
       <a href="#faq" class="hover:text-lobatoGreen transition">FAQ</a>
+      <a href="#cita" class="hover:text-emerald-400 transition font-semibold text-emerald-300">📅 Cita Previa</a>
       <a href="#contacto" class="hover:text-lobatoGreen transition">Contacto</a>
     </div>
     <div class="flex items-center gap-2.5">
@@ -348,6 +349,7 @@
         <a href="#servicios" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">🔧 Taller</a>
         <a href="#seguimiento" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">🔍 Seguimiento</a>
         <a href="#precios" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-amber-300">💰 Precios</a>
+        <a href="#cita" onclick="toggleMobileMenu()" class="rounded-xl bg-emerald-950/60 border border-emerald-500/30 px-4 py-3 hover:text-emerald-300">📅 Cita Previa</a>
         <a href="#faq" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">❓ FAQ</a>
         <a href="#contacto" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">💬 Contacto</a>
       </div>
@@ -948,8 +950,8 @@ Servicios informáticos · Chipiona (Cádiz)
           <div class="flex justify-between"><span class="text-slate-400">✉️ Correo</span><span class="text-slate-200 font-bold">lobato.mo95@gmail.com</span></div>
         </div>
         <div class="mt-5 flex flex-col sm:flex-row gap-3">
-          <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20quiero%20reservar%20una%20CITA%20PREVIA%20para%20una%20reparaci%C3%B3n%20o%20presupuesto" target="_blank" class="flex-1 text-center bg-[#25D366] hover:bg-[#1ebd59] text-white font-extrabold text-xs px-5 py-3 rounded-xl transition">
-            📅 Reservar cita previa
+          <a href="#cita" class="flex-1 text-center bg-[#25D366] hover:bg-[#1ebd59] text-white font-extrabold text-xs px-5 py-3 rounded-xl transition">
+            📅 Pedir cita y presupuesto
           </a>
           <a href="https://wa.me/34687397664" target="_blank" class="flex-1 text-center bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-5 py-3 rounded-xl transition">
             💬 WhatsApp
@@ -957,6 +959,79 @@ Servicios informáticos · Chipiona (Cádiz)
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ================= PIDE TU CITA PARA PRESUPUESTO ================= -->
+  <section id="cita" class="max-w-4xl mx-auto px-6 py-12 border-t border-slate-800 scroll-mt-24">
+    <div class="text-center mb-8">
+      <span class="tl-section-kicker text-emerald-400">Cita previa</span>
+      <h2 class="text-2xl sm:text-3xl font-black text-white mt-2">Pide tu cita y te preparamos tu presupuesto</h2>
+      <p class="text-slate-400 text-xs sm:text-sm mt-2 max-w-xl mx-auto leading-relaxed">
+        Elige el día y la franja que mejor te venga. Nos reunimos (presencial en Chipiona o por videollamada y WhatsApp)
+        y te dejamos el presupuesto cerrado de tu equipo, reparación o montaje.
+      </p>
+    </div>
+
+    <form id="cita-form" onsubmit="submitCita(event)" class="tl-glass rounded-2xl p-6 sm:p-8">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label for="cita-name" class="block text-xs font-bold text-slate-300 mb-1.5">Tu nombre *</label>
+          <input id="cita-name" type="text" required placeholder="Ej: María García"
+                 class="w-full bg-slate-900 border border-slate-700 text-white text-xs rounded-xl px-3.5 py-3 focus:outline-none focus:border-lobatoGreen">
+        </div>
+        <div>
+          <label for="cita-phone" class="block text-xs font-bold text-slate-300 mb-1.5">Teléfono / WhatsApp *</label>
+          <input id="cita-phone" type="tel" required placeholder="Ej: 600 123 456"
+                 class="w-full bg-slate-900 border border-slate-700 text-white text-xs rounded-xl px-3.5 py-3 focus:outline-none focus:border-lobatoGreen">
+        </div>
+        <div>
+          <label for="cita-email" class="block text-xs font-bold text-slate-300 mb-1.5">Correo (opcional)</label>
+          <input id="cita-email" type="email" placeholder="Ej: maria@correo.com"
+                 class="w-full bg-slate-900 border border-slate-700 text-white text-xs rounded-xl px-3.5 py-3 focus:outline-none focus:border-lobatoGreen">
+        </div>
+        <div>
+          <label for="cita-date" class="block text-xs font-bold text-slate-300 mb-1.5">Día de la cita *</label>
+          <input id="cita-date" type="date" required min=""
+                 class="w-full bg-slate-900 border border-slate-700 text-white text-xs rounded-xl px-3.5 py-3 focus:outline-none focus:border-lobatoGreen [color-scheme:dark]">
+        </div>
+        <div>
+          <label for="cita-slot" class="block text-xs font-bold text-slate-300 mb-1.5">Franja horaria *</label>
+          <select id="cita-slot" required
+                  class="w-full bg-slate-900 border border-slate-700 text-white text-xs rounded-xl px-3.5 py-3 focus:outline-none focus:border-lobatoGreen">
+            <option value="" disabled selected>Elige una franja…</option>
+            <option>Mañana · 10:00 – 13:00</option>
+            <option>Mediodía · 13:00 – 14:00</option>
+            <option>Tarde · 17:00 – 20:00</option>
+            <option>Online · Videollamada / WhatsApp</option>
+            <option>No tengo preferencia</option>
+          </select>
+        </div>
+        <div>
+          <label for="cita-service" class="block text-xs font-bold text-slate-300 mb-1.5">¿Qué necesitas? *</label>
+          <select id="cita-service" required
+                  class="w-full bg-slate-900 border border-slate-700 text-white text-xs rounded-xl px-3.5 py-3 focus:outline-none focus:border-lobatoGreen">
+            <option value="" disabled selected>Elige el motivo…</option>
+            <option>Pedir presupuesto de PC a medida</option>
+            <option>Reparación / diagnóstico</option>
+            <option>Limpieza y pasta térmica</option>
+            <option>Formateo e instalación de Windows</option>
+            <option>Ampliación de RAM / SSD</option>
+            <option>Home Server / NAS</option>
+            <option>Otro</option>
+          </select>
+        </div>
+      </div>
+      <div class="mt-4">
+        <label for="cita-notes" class="block text-xs font-bold text-slate-300 mb-1.5">Cuéntanos tu equipo o idea (opcional)</label>
+        <textarea id="cita-notes" rows="3" placeholder="Ej: PC gaming de unos 1200€, portátil que va muy lento, servidor para backups de mi negocio…"
+                  class="w-full bg-slate-900 border border-slate-700 text-white text-xs rounded-xl px-3.5 py-3 focus:outline-none focus:border-lobatoGreen resize-y"></textarea>
+      </div>
+      <button id="cita-submit-btn" type="submit"
+              class="mt-5 w-full bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold text-sm px-6 py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/30">
+        <span>📅 Enviar mi solicitud de cita</span>
+      </button>
+      <p id="cita-ok" class="hidden mt-4 rounded-xl border border-emerald-500/40 bg-emerald-950/40 text-emerald-300 text-xs p-4 leading-relaxed"></p>
+    </form>
   </section>
 
   <!-- ================= CONTACTO DIRECTO ================= -->
@@ -2104,6 +2179,67 @@ Servicios informáticos · Chipiona (Cádiz)
           💬 Avisar por WhatsApp a Jose Angel
         </a>
       `, true);
+    }
+
+    // ================= 5. CITA PREVIA PARA PRESUPUESTO =================
+    document.addEventListener("DOMContentLoaded", function () {
+      const dateInput = document.getElementById('cita-date');
+      if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
+    });
+
+    async function submitCita(e) {
+      e.preventDefault();
+      const name = document.getElementById('cita-name').value.trim();
+      const phone = document.getElementById('cita-phone').value.trim();
+      const email = document.getElementById('cita-email').value.trim();
+      const date = document.getElementById('cita-date').value;
+      const slot = document.getElementById('cita-slot').value;
+      const service = document.getElementById('cita-service').value;
+      const notes = document.getElementById('cita-notes').value.trim();
+      const btn = document.getElementById('cita-submit-btn');
+
+      if (!name || !phone || !date || !slot || !service) return;
+
+      btn.disabled = true;
+      btn.innerHTML = "⏳ Enviando tu solicitud…";
+
+      const payload = {
+        nombre: name,
+        telefono: phone,
+        email: email,
+        dia: date,
+        franja: slot,
+        motivo: service,
+        notas: notes,
+        tipo: "Cita previa para presupuesto",
+        fecha: new Date().toLocaleString("es-ES"),
+        estado: "Solicitada Web"
+      };
+
+      try {
+        await fetch("https://tecnolobato-web-default-rtdb.firebaseio.com/citas.json", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.warn("No se pudo conectar con Firebase, continuando con el correo…", err);
+      }
+
+      const mailtoSubject = `Nueva CITA Previa para Presupuesto - ${name}`;
+      const mailtoBody = `SOLICITUD DE CITA PREVIA:\nNombre: ${name}\nTeléfono: ${phone}\nEmail: ${email || "No indicado"}\nDía: ${date}\nFranja: ${slot}\nMotivo: ${service}\n\nNotas del cliente:\n${notes || "Sin notas"}`;
+      window.open(`mailto:lobato.mo95@gmail.com?subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`, '_blank');
+
+      btn.disabled = false;
+      btn.innerHTML = "<span>📅 Enviar mi solicitud de cita</span>";
+
+      const ok = document.getElementById('cita-ok');
+      ok.classList.remove('hidden');
+      ok.innerHTML = `✅ <strong>¡Solicitud de cita recibida!</strong> La hemos anotado para el <strong>${date}</strong> (${slot}) y te confirmaremos en cuanto podamos.<br><br>Para avisar directamente a Jose Angel por WhatsApp:<br><br>
+        <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20soy%20${encodeURIComponent(name)}%20y%20acabo%20de%20pedir%20cita%20para%20presupuesto%20el%20${encodeURIComponent(date)}%20(${encodeURIComponent(slot)})" target="_blank" class="inline-block bg-[#25D366] hover:bg-[#1ebd59] text-white font-extrabold px-4 py-2.5 rounded-xl text-xs shadow">
+          💬 Avisar por WhatsApp
+        </a>`;
+      ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   </script>
 
