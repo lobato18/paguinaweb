@@ -312,7 +312,10 @@
       <a href="#contacto" class="hover:text-lobatoGreen transition">Contacto</a>
     </div>
     <div class="flex items-center gap-2.5">
-      <button id="chat-nav-btn" onclick="toggleChat()" aria-expanded="false" aria-controls="ai-chat-window" class="bg-emerald-950/80 border border-emerald-500/50 hover:bg-emerald-900/60 text-emerald-300 font-bold text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 transition">
+      <button id="auth-nav-btn" onclick="openAuth()" class="bg-slate-900 border border-slate-700 hover:border-lobatoGold text-slate-200 font-bold text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 transition">
+        👤 <span id="auth-nav-label">Entrar</span>
+      </button>
+      <button id="chat-nav-btn" onclick="toggleChat()" aria-expanded="false" aria-controls="ai-chat-window" class="hidden sm:flex bg-emerald-950/80 border border-emerald-500/50 hover:bg-emerald-900/60 text-emerald-300 font-bold text-xs px-3 py-2 rounded-lg items-center gap-1.5 transition">
         🤖 Presupuesto IA
       </button>
       <a href="https://wa.me/34687397664?text=Hola%20TecnoLobato,%20quiero%20pedir%20presupuesto" target="_blank" class="bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs px-3.5 py-2 rounded-lg flex items-center gap-2 shadow-lg shadow-emerald-900/30 transition">
@@ -337,6 +340,7 @@
         <a href="#cita" onclick="toggleMobileMenu()" class="rounded-xl bg-emerald-950/60 border border-emerald-500/30 px-4 py-3 hover:text-emerald-300">📅 Cita Previa</a>
         <a href="#faq" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">❓ FAQ</a>
         <a href="#contacto" onclick="toggleMobileMenu()" class="rounded-xl bg-slate-900/80 px-4 py-3 hover:text-emerald-300">💬 Contacto</a>
+        <button onclick="toggleMobileMenu(); openAuth()" class="text-left rounded-xl bg-slate-900/80 px-4 py-3 hover:text-amber-300">👤 <span id="auth-mobile-label">Entrar / Crear cuenta</span></button>
       </div>
     </div>
   </div>
@@ -1293,6 +1297,63 @@ Servicios informáticos · Chipiona (Cádiz)
     </div>
   </div>
 
+  <!-- ================= MODAL DE LOGIN / REGISTRO ================= -->
+  <div id="auth-modal" class="fixed inset-0 hidden bg-black/85 backdrop-blur-sm items-center justify-center p-4">
+    <div class="bg-lobatoCard border border-lobatoGold/40 max-w-md w-full rounded-2xl shadow-2xl relative">
+      <button onclick="closeAuth()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-sm">✕</button>
+      <div class="px-6 pt-6">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-2xl">👤</span>
+          <h3 class="text-lg font-black text-white">Tu cuenta TecnoLobato</h3>
+        </div>
+        <p class="text-xs text-slate-400 mb-4">Entra para publicar tus anuncios de Segunda Mano y gestionarlos.</p>
+
+        <div class="grid grid-cols-2 gap-1 p-1 bg-slate-900 rounded-xl mb-4" id="auth-tabs">
+          <button type="button" onclick="switchAuthTab('login')" data-tab="login" class="auth-tab rounded-lg py-2 text-xs font-extrabold transition bg-lobatoGold text-black">Iniciar sesión</button>
+          <button type="button" onclick="switchAuthTab('register')" data-tab="register" class="auth-tab rounded-lg py-2 text-xs font-extrabold transition text-slate-300">Crear cuenta</button>
+        </div>
+      </div>
+
+      <form id="auth-login-form" onsubmit="doLogin(event)" class="px-6 pb-6 space-y-3">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 mb-1">Correo electrónico</label>
+          <input id="login-email" type="email" required autocomplete="email" placeholder="tuemail@ejemplo.com" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-lobatoGold">
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 mb-1">Contraseña</label>
+          <input id="login-password" type="password" required autocomplete="current-password" placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-lobatoGold">
+        </div>
+        <button type="submit" id="login-submit" class="w-full py-3 bg-lobatoGold hover:bg-amber-300 text-black font-extrabold text-xs rounded-xl transition">Entrar</button>
+      </form>
+
+      <form id="auth-register-form" onsubmit="doRegister(event)" class="px-6 pb-6 space-y-3 hidden">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 mb-1">Nombre</label>
+          <input id="register-name" type="text" required maxlength="60" placeholder="Ej: José Ángel" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-lobatoGold">
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 mb-1">Correo electrónico</label>
+          <input id="register-email" type="email" required autocomplete="email" placeholder="tuemail@ejemplo.com" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-lobatoGold">
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 mb-1">Contraseña</label>
+          <input id="register-password" type="password" required minlength="6" autocomplete="new-password" placeholder="Mínimo 6 caracteres" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-lobatoGold">
+        </div>
+        <button type="submit" id="register-submit" class="w-full py-3 bg-lobatoGold hover:bg-amber-300 text-black font-extrabold text-xs rounded-xl transition">Crear mi cuenta</button>
+      </form>
+
+      <div id="auth-logged" class="px-6 pb-6 hidden">
+        <div class="rounded-xl bg-slate-900/70 border border-slate-800 p-4 text-xs">
+          <div class="text-slate-400">Sesión iniciada como</div>
+          <div id="auth-logged-email" class="text-white font-bold mt-0.5 break-all"></div>
+        </div>
+        <button onclick="doLogout()" class="mt-4 w-full py-3 bg-slate-800 hover:bg-slate-700 text-white font-extrabold text-xs rounded-xl transition">Cerrar sesión</button>
+      </div>
+
+      <p id="auth-message" class="hidden mx-6 mb-6 rounded-xl border text-xs p-3 leading-relaxed"></p>
+    </div>
+  </div>
+
   <!-- ================= MODAL LEGAL (AVISO / PRIVACIDAD / COOKIES) ================= -->
   <div id="legal-modal" class="fixed inset-0 hidden bg-black/85 backdrop-blur-sm items-center justify-center p-4">
     <div class="bg-lobatoCard border border-slate-700 max-w-xl w-full rounded-2xl shadow-2xl flex flex-col max-h-[85vh]">
@@ -1349,6 +1410,7 @@ Servicios informáticos · Chipiona (Cádiz)
       if (e.key === 'Escape') {
         if (typeof closeModal === 'function') closeModal();
         if (typeof closeOrderModal === 'function') closeOrderModal();
+        if (typeof closeAuth === 'function') closeAuth();
         const chat = document.getElementById('ai-chat-window');
         if (chat && !chat.classList.contains('hidden')) chat.classList.add('hidden');
       }
@@ -2933,6 +2995,231 @@ const GPU_CPU_MIN = { 0: 1, 1: 1, 2: 1, 3: 2, 4: 3, 5: 3, 6: 3, 7: 4, 8: 4, 9: 4
     });
   </script>
 
+  <!-- ================= LOGIN / REGISTRO (FIREBASE AUTHENTICATION) ================= -->
+  <script>
+    // ============================================================
+    //  CONFIGURACIÓN DE FIREBASE AUTHENTICATION
+    //  1) Ve a la consola de Firebase -> Configuración del proyecto
+    //     -> "Tus apps" -> app Web -> copia el valor de "apiKey".
+    //  2) Pégalo abajo sustituyendo PEGA_AQUI_TU_WEB_API_KEY.
+    //  3) En Firebase -> Authentication -> Sign-in method, activa
+    //     el proveedor "Correo electrónico/contraseña".
+    // ============================================================
+    const FIREBASE_AUTH = {
+      apiKey: "PEGA_AQUI_TU_WEB_API_KEY",
+      databaseURL: "https://tecnolobato-web-default-rtdb.firebaseio.com"
+    };
+    const AUTH_STORE_KEY = "tl-auth";
+    let authUser = null; // { localId, email, idToken, refreshToken, expiresAt, displayName }
+
+    function authConfigured() {
+      return FIREBASE_AUTH.apiKey && FIREBASE_AUTH.apiKey.indexOf("PEGA_AQUI") === -1;
+    }
+
+    function authMsg(text, type) {
+      const el = document.getElementById('auth-message');
+      if (!el) return;
+      const styles = {
+        error: "border-rose-500/40 bg-rose-950/30 text-rose-300",
+        ok: "border-emerald-500/40 bg-emerald-950/30 text-emerald-300",
+        info: "border-amber-500/30 bg-amber-950/20 text-amber-300"
+      };
+      el.className = "mx-6 mb-6 rounded-xl border text-xs p-3 leading-relaxed " + (styles[type] || styles.info);
+      el.innerHTML = text;
+      el.classList.remove('hidden');
+    }
+    function authClearMsg() {
+      const el = document.getElementById('auth-message');
+      if (el) { el.classList.add('hidden'); el.innerHTML = ''; }
+    }
+
+    function mapAuthError(data) {
+      const code = (data && data.error && data.error.message) || "ERROR";
+      const map = {
+        EMAIL_EXISTS: "Ese correo ya está registrado. Prueba a iniciar sesión.",
+        EMAIL_NOT_FOUND: "No existe ninguna cuenta con ese correo.",
+        INVALID_PASSWORD: "La contraseña no es correcta.",
+        INVALID_LOGIN_CREDENTIALS: "Correo o contraseña incorrectos.",
+        WEAK_PASSWORD: "La contraseña es demasiado corta (mínimo 6 caracteres).",
+        INVALID_EMAIL: "El correo no tiene un formato válido.",
+        MISSING_PASSWORD: "Escribe tu contraseña.",
+        USER_DISABLED: "Esta cuenta está deshabilitada.",
+        TOO_MANY_ATTEMPTS_TRY_LATER: "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.",
+        OPERATION_NOT_ALLOWED: "El registro con email/contraseña no está activado en Firebase."
+      };
+      return map[code] || ("No se pudo completar la operación (" + code + ").");
+    }
+
+    function setAuthUser(data) {
+      authUser = {
+        localId: data.localId,
+        email: data.email,
+        idToken: data.idToken,
+        refreshToken: data.refreshToken,
+        expiresAt: Date.now() + (parseInt(data.expiresIn || "3600", 10) * 1000),
+        displayName: data.displayName || null
+      };
+      try { localStorage.setItem(AUTH_STORE_KEY, JSON.stringify(authUser)); } catch (e) {}
+      renderAuthState();
+    }
+
+    function renderAuthState() {
+      const label = document.getElementById('auth-nav-label');
+      const mobile = document.getElementById('auth-mobile-label');
+      if (authUser) {
+        if (label) label.textContent = "Mi cuenta";
+        if (mobile) mobile.textContent = "Mi cuenta";
+        const e = document.getElementById('auth-logged-email');
+        if (e) e.textContent = authUser.displayName ? (authUser.displayName + " · " + authUser.email) : (authUser.email || "Usuario");
+      } else {
+        if (label) label.textContent = "Entrar";
+        if (mobile) mobile.textContent = "Entrar / Crear cuenta";
+      }
+    }
+
+    function openAuth(tab) {
+      const m = document.getElementById('auth-modal');
+      if (!m) return;
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+      authClearMsg();
+      if (authUser) {
+        renderAuthState();
+        switchAuthTab('logged');
+      } else {
+        switchAuthTab(tab === 'register' ? 'register' : 'login');
+      }
+      if (!authConfigured()) {
+        authMsg("El login todavía no está activo: falta configurar la Web API key de Firebase.", "info");
+      }
+    }
+    function closeAuth() {
+      const m = document.getElementById('auth-modal');
+      if (!m) return;
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+
+    function switchAuthTab(tab) {
+      document.querySelectorAll('.auth-tab').forEach(function (b) {
+        const on = b.dataset.tab === tab;
+        b.classList.toggle('bg-lobatoGold', on);
+        b.classList.toggle('text-black', on);
+        b.classList.toggle('text-slate-300', !on);
+      });
+      const login = document.getElementById('auth-login-form');
+      const reg = document.getElementById('auth-register-form');
+      const logged = document.getElementById('auth-logged');
+      const tabs = document.getElementById('auth-tabs');
+      if (login) login.classList.toggle('hidden', tab !== 'login');
+      if (reg) reg.classList.toggle('hidden', tab !== 'register');
+      if (logged) logged.classList.toggle('hidden', tab !== 'logged');
+      if (tabs) tabs.classList.toggle('hidden', tab === 'logged');
+    }
+
+    async function doLogin(e) {
+      e.preventDefault();
+      if (!authConfigured()) { authMsg("Falta configurar la Web API key de Firebase para poder iniciar sesión.", "info"); return; }
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const btn = document.getElementById('login-submit');
+      btn.disabled = true; btn.textContent = "Entrando…"; authClearMsg();
+      try {
+        const res = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + FIREBASE_AUTH.apiKey, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email, password: password, returnSecureToken: true })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(mapAuthError(data));
+        setAuthUser(data);
+        document.getElementById('auth-login-form').reset();
+        authMsg("✅ Sesión iniciada correctamente. Ya puedes publicar tus anuncios.", "ok");
+        setTimeout(closeAuth, 900);
+      } catch (err) {
+        authMsg("❌ " + err.message, "error");
+      } finally {
+        btn.disabled = false; btn.textContent = "Entrar";
+      }
+    }
+
+    async function doRegister(e) {
+      e.preventDefault();
+      if (!authConfigured()) { authMsg("Falta configurar la Web API key de Firebase para poder crear cuentas.", "info"); return; }
+      const name = document.getElementById('register-name').value.trim();
+      const email = document.getElementById('register-email').value.trim();
+      const password = document.getElementById('register-password').value;
+      const btn = document.getElementById('register-submit');
+      btn.disabled = true; btn.textContent = "Creando cuenta…"; authClearMsg();
+      try {
+        const res = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + FIREBASE_AUTH.apiKey, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email, password: password, returnSecureToken: true })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(mapAuthError(data));
+        if (name) {
+          try {
+            await fetch("https://identitytoolkit.googleapis.com/v1/accounts:update?key=" + FIREBASE_AUTH.apiKey, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ idToken: data.idToken, displayName: name, returnSecureToken: false })
+            });
+            data.displayName = name;
+          } catch (e2) {}
+        }
+        setAuthUser(data);
+        document.getElementById('auth-register-form').reset();
+        authMsg("✅ ¡Cuenta creada! Ya puedes publicar tus anuncios.", "ok");
+        setTimeout(closeAuth, 1000);
+      } catch (err) {
+        authMsg("❌ " + err.message, "error");
+      } finally {
+        btn.disabled = false; btn.textContent = "Crear mi cuenta";
+      }
+    }
+
+    function doLogout() {
+      authUser = null;
+      try { localStorage.removeItem(AUTH_STORE_KEY); } catch (e) {}
+      renderAuthState();
+      switchAuthTab('login');
+      authMsg("Has cerrado sesión.", "info");
+    }
+
+    async function restoreAuth() {
+      let saved = null;
+      try { saved = JSON.parse(localStorage.getItem(AUTH_STORE_KEY) || "null"); } catch (e) {}
+      if (!saved || !saved.idToken) { renderAuthState(); return; }
+      authUser = saved;
+      if (saved.expiresAt && saved.expiresAt < Date.now() + 60000 && authConfigured() && saved.refreshToken) {
+        try {
+          const res = await fetch("https://securetoken.googleapis.com/v1/token?key=" + FIREBASE_AUTH.apiKey, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "grant_type=refresh_token&refresh_token=" + encodeURIComponent(saved.refreshToken)
+          });
+          const d = await res.json();
+          if (res.ok) {
+            authUser = {
+              localId: d.user_id,
+              email: saved.email,
+              idToken: d.id_token,
+              refreshToken: d.refresh_token,
+              expiresAt: Date.now() + parseInt(d.expires_in, 10) * 1000,
+              displayName: saved.displayName || null
+            };
+            try { localStorage.setItem(AUTH_STORE_KEY, JSON.stringify(authUser)); } catch (e) {}
+          }
+        } catch (e) {}
+      }
+      renderAuthState();
+    }
+
+    document.addEventListener("DOMContentLoaded", restoreAuth);
+  </script>
+
   <!-- ================= SEGUNDA MANO: ANUNCIOS ================= -->
   <script>
     const SM_DB = "https://tecnolobato-web-default-rtdb.firebaseio.com/segunda_mano.json";
@@ -2963,6 +3250,7 @@ const GPU_CPU_MIN = { 0: 1, 1: 1, 2: 1, 3: 2, 4: 3, 5: 3, 6: 3, 7: 4, 8: 4, 9: 4
     function toggleVender() {
       const f = document.getElementById('vender-form');
       if (!f) return;
+      if (!authUser) { openAuth('login'); return; }
       f.classList.toggle('hidden');
       if (!f.classList.contains('hidden')) {
         f.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -3089,6 +3377,8 @@ const GPU_CPU_MIN = { 0: 1, 1: 1, 2: 1, 3: 2, 4: 3, 5: 3, 6: 3, 7: 4, 8: 4, 9: 4
         vendedor: vendedor,
         telefono: telefono,
         descripcion: descripcion,
+        autorUid: authUser ? authUser.localId : null,
+        autorEmail: authUser ? authUser.email : null,
         fecha: new Date().toLocaleString("es-ES"),
         creado: Date.now(),
         visible: true
