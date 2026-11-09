@@ -8,13 +8,15 @@
  *   node scripts/generar-post-diario.mjs --force    Fuerza un artículo nuevo aunque ya haya uno hoy
  *   node scripts/generar-post-diario.mjs --render   Solo reconstruye las páginas desde posts.json
  */
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, access, unlink, copyFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const BLOG_DIR = path.join(ROOT, 'blog');
+const IMG_DIR = path.join(BLOG_DIR, 'img');
 const POSTS_FILE = path.join(BLOG_DIR, 'posts.json');
 const OLLAMA_URL = process.env.OLLAMA_URL || 'http://127.0.0.1:11434';
 const MODELO = process.env.BLOG_MODEL || 'qwen2.5:7b';
@@ -225,6 +227,201 @@ function fechaLarga(iso) {
     year: 'numeric',
     timeZone: 'UTC'
   }).format(new Date(`${iso}T12:00:00Z`));
+}
+
+const PALETAS_PORTADA = {
+  Hardware: { a: '#10b981', b: '#22d3ee', icono: 'chip' },
+  Seguridad: { a: '#f87171', b: '#f59e0b', icono: 'shield' },
+  Redes: { a: '#38bdf8', b: '#10b981', icono: 'network' },
+  Software: { a: '#a78bfa', b: '#22d3ee', icono: 'code' },
+  Mantenimiento: { a: '#fbbf24', b: '#fb923c', icono: 'wrench' },
+  Blog: { a: '#10b981', b: '#d4af37', icono: 'spark' }
+};
+
+const ICONOS_PORTADA = {
+  chip: '<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 2v3M12 2v3M15 2v3M9 19v3M12 19v3M15 19v3M2 9h3M2 12h3M2 15h3M19 9h3M19 12h3M19 15h3"/>',
+  shield: '<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/>',
+  network: '<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5l3 8M16 7.5l-3 8M8.5 6h7"/>',
+  code: '<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13 4l-2 16"/>',
+  wrench: '<path d="M14.5 6.5a4.5 4.5 0 0 0-6 6L3 18l3 3 5.5-5.5a4.5 4.5 0 0 0 6-6l-3 3-3-3 3-3z"/>',
+  spark: '<path d="M12 2l2.2 6.2L21 10l-6.8 1.8L12 18l-2.2-6.2L3 10l6.8-1.8L12 2z"/>'
+};
+
+function hashPortada(texto) {
+  let h = 0;
+  for (const caracter of String(texto)) h = (h * 31 + caracter.codePointAt(0)) >>> 0;
+  return h;
+}
+
+function envolverLineas(texto, maximo) {
+  const palabras = String(texto || '').split(/\s+/).filter(Boolean);
+  const lineas = [];
+  let actual = '';
+  for (const palabra of palabras) {
+    const prueba = actual ? `${actual} ${palabra}` : palabra;
+    if (prueba.length > maximo && actual) {
+      lineas.push(actual);
+      actual = palabra;
+    } else {
+      actual = prueba;
+    }
+  }
+  if (actual) lineas.push(actual);
+  return lineas;
+}
+
+function ajustarTituloPortada(texto) {
+  const opciones = [
+    { tamano: 62, maximo: 23, salto: 68 },
+    { tamano: 54, maximo: 28, salto: 61 },
+    { tamano: 46, maximo: 30, salto: 53 },
+    { tamano: 40, maximo: 33, salto: 47 }
+  ];
+  for (const opcion of opciones) {
+    const lineas = envolverLineas(texto, opcion.maximo);
+    if (lineas.length <= 3) return { ...opcion, lineas };
+  }
+  const opcion = opciones[opciones.length - 1];
+  const lineas = envolverLineas(texto, opcion.maximo).slice(0, 3);
+  lineas[lineas.length - 1] = `${lineas[lineas.length - 1].replace(/\s+\S*$/, '')}…`;
+  return { ...opcion, lineas };
+}
+
+function generarPortadaSVG(post) {
+  const paleta = PALETAS_PORTADA[post.tag] || PALETAS_PORTADA.Blog;
+  const semilla = hashPortada(post.slug);
+  const gx = 800 + (semilla % 250);
+  const gy = 50 + (semilla % 150);
+  const titulo = ajustarTituloPortada(post.title);
+  const tituloSVG = titulo.lineas.map((linea, i) =>
+    `<tspan x="80" dy="${i === 0 ? 0 : titulo.salto}">${esc(linea)}</tspan>`
+  ).join('');
+  const resumenLineas = envolverLineas(post.summary, 60).slice(0, 2);
+  const resumenSVG = resumenLineas.map((linea, i) =>
+    `<tspan x="80" dy="${i === 0 ? 0 : 28}">${esc(linea)}</tspan>`
+  ).join('');
+  const yTitulo = 238;
+  const yResumen = yTitulo + (titulo.lineas.length - 1) * titulo.salto + 56;
+  const anchoEtiqueta = Math.max(120, String(post.tag).length * 11 + 56);
+  const icono = ICONOS_PORTADA[paleta.icono] || ICONOS_PORTADA.spark;
+  const fecha = fechaLarga(post.date);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="${esc(post.title)}">
+  <defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050b12"/>
+      <stop offset="1" stop-color="#0b1622"/>
+    </linearGradient>
+    <linearGradient id="acento" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${paleta.a}"/>
+      <stop offset="1" stop-color="${paleta.b}"/>
+    </linearGradient>
+    <radialGradient id="brillo1" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="${paleta.a}" stop-opacity=".30"/>
+      <stop offset="1" stop-color="${paleta.a}" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="brillo2" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="${paleta.b}" stop-opacity=".18"/>
+      <stop offset="1" stop-color="${paleta.b}" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="rejilla" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="${paleta.a}" stroke-opacity=".09" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#fondo)"/>
+  <rect width="1200" height="630" fill="url(#rejilla)"/>
+  <circle cx="${gx}" cy="${gy}" r="300" fill="url(#brillo1)"/>
+  <circle cx="120" cy="650" r="280" fill="url(#brillo2)"/>
+  <rect x="0" y="0" width="1200" height="6" fill="url(#acento)"/>
+  <g fill="none" stroke="url(#acento)" stroke-opacity=".20" stroke-width="1.5">
+    <path d="M760 84h110v78h92"/>
+    <path d="M690 520h150v-62h120"/>
+    <circle cx="870" cy="162" r="4" fill="${paleta.a}" stroke="none"/>
+    <circle cx="960" cy="520" r="4" fill="${paleta.b}" stroke="none"/>
+  </g>
+  <g transform="translate(80,64)">
+    <rect width="${anchoEtiqueta}" height="38" rx="19" fill="${paleta.a}" fill-opacity=".14" stroke="${paleta.a}" stroke-opacity=".45"/>
+    <text x="${anchoEtiqueta / 2}" y="25" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" letter-spacing="2" fill="${paleta.b}">${esc(String(post.tag).toUpperCase())}</text>
+  </g>
+  <rect x="80" y="134" width="58" height="4" rx="2" fill="url(#acento)"/>
+  <text x="80" y="${yTitulo}" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="${titulo.tamano}" font-weight="800" letter-spacing="-1.5" fill="#ffffff">${tituloSVG}</text>
+  <text x="80" y="${yResumen}" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#94a3b8">${resumenSVG}</text>
+  <g transform="translate(930,250)">
+    <rect width="160" height="160" rx="34" fill="#ffffff" fill-opacity=".035" stroke="${paleta.b}" stroke-opacity=".28"/>
+    <svg x="28" y="28" width="104" height="104" viewBox="0 0 24 24" fill="none" stroke="url(#acento)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${icono}</svg>
+  </g>
+  <text x="80" y="556" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" font-weight="800" letter-spacing="3" fill="#ffffff">TECNO<tspan fill="${paleta.b}">LOBATO</tspan></text>
+  <text x="80" y="586" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#64748b">Divulgación informática · ${esc(fecha)}</text>
+  <text x="1120" y="586" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#475569">tecnolobato.one</text>
+</svg>
+`;
+}
+
+async function existeArchivo(ruta) {
+  try {
+    await access(ruta);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function asegurarPortada(post, forzar = false) {
+  await mkdir(IMG_DIR, { recursive: true });
+  const svgPath = path.join(IMG_DIR, `${post.slug}.svg`);
+  const jpgPath = path.join(IMG_DIR, `${post.slug}.jpg`);
+  const pngPath = path.join(IMG_DIR, `${post.slug}.png`);
+  const haySvg = await existeArchivo(svgPath);
+  const hayImagen = (await existeArchivo(jpgPath)) || (await existeArchivo(pngPath));
+  if (!forzar && haySvg && hayImagen) return;
+  const svg = generarPortadaSVG(post);
+  if (!haySvg || forzar) await writeFile(svgPath, svg, 'utf8');
+  if (!hayImagen || forzar) {
+    const htmlTemporal = path.join('/tmp', `tecnolobato-portada-${process.pid}-${post.slug}.html`);
+    const pngTemporal = path.join('/tmp', `tecnolobato-portada-${process.pid}-${post.slug}.png`);
+    const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;width:1200px;height:630px;overflow:hidden}svg{display:block}</style></head><body>${svg}</body></html>`;
+    await writeFile(htmlTemporal, html, 'utf8');
+    try {
+      execFileSync('/usr/bin/google-chrome', [
+        '--headless=new',
+        '--disable-gpu',
+        '--no-sandbox',
+        '--hide-scrollbars',
+        '--force-device-scale-factor=1',
+        '--window-size=1200,630',
+        `--screenshot=${pngTemporal}`,
+        `file://${htmlTemporal}`
+      ], { timeout: 60000, stdio: 'ignore' });
+      try {
+        const codigo = 'from PIL import Image; import sys; im = Image.open(sys.argv[1]).convert("RGB"); im.save(sys.argv[2], "JPEG", quality=85, optimize=True, progressive=True)';
+        execFileSync('python3', ['-c', codigo, pngTemporal, jpgPath], { timeout: 30000, stdio: 'ignore' });
+        log(`Portada generada: blog/img/${post.slug}.jpg`);
+      } catch {
+        await copyFile(pngTemporal, pngPath);
+        log(`Portada generada: blog/img/${post.slug}.png`);
+      }
+    } catch (error) {
+      log(`Aviso: no se pudo rasterizar la portada ${post.slug}: ${error.message}`);
+    } finally {
+      try { await unlink(htmlTemporal); } catch {}
+      try { await unlink(pngTemporal); } catch {}
+    }
+  }
+}
+
+async function urlPortada(post) {
+  const jpgPath = path.join(IMG_DIR, `${post.slug}.jpg`);
+  if (await existeArchivo(jpgPath)) return `${SITE}/blog/img/${post.slug}.jpg`;
+  const pngPath = path.join(IMG_DIR, `${post.slug}.png`);
+  return (await existeArchivo(pngPath))
+    ? `${SITE}/blog/img/${post.slug}.png`
+    : `${SITE}/blog/img/${post.slug}.svg`;
+}
+
+async function urlPortadaBlog(fecha) {
+  const version = fecha || hoyISO();
+  if (await existeArchivo(path.join(IMG_DIR, 'portada-blog.jpg'))) return `${SITE}/blog/img/portada-blog.jpg?v=${version}`;
+  if (await existeArchivo(path.join(IMG_DIR, 'portada-blog.png'))) return `${SITE}/blog/img/portada-blog.png?v=${version}`;
+  return `${SITE}/blog/img/portada-blog.svg?v=${version}`;
 }
 
 function slugify(texto) {
@@ -481,7 +678,8 @@ function footer(base) {
   </footer>`;
 }
 
-function shell({ title, description, canonical, base, content, jsonLd }) {
+function shell({ title, description, canonical, base, content, jsonLd, image }) {
+  const ogImage = image || `${SITE}/logo.jpg`;
   return `<!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
@@ -499,12 +697,12 @@ function shell({ title, description, canonical, base, content, jsonLd }) {
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${SITE}/logo.jpg">
+  <meta property="og:image" content="${esc(ogImage)}">
   <meta property="og:locale" content="es_ES">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${esc(title)}">
   <meta name="twitter:description" content="${esc(description)}">
-  <meta name="twitter:image" content="${SITE}/logo.jpg">
+  <meta name="twitter:image" content="${esc(ogImage)}">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -572,7 +770,9 @@ function shell({ title, description, canonical, base, content, jsonLd }) {
 }
 
 function tarjetaArticulo(post, base) {
-  return `<a href="${base}blog/${post.slug}.html" class="tl-card group flex flex-col rounded-2xl border border-slate-800 bg-lobatoCard/85 p-5" data-tag="${esc(post.tag)}">
+  return `<a href="${base}blog/${post.slug}.html" class="tl-card group flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-lobatoCard/85" data-tag="${esc(post.tag)}">
+    <img src="${base}blog/img/${post.slug}.svg" alt="Portada de ${esc(post.title)}" loading="lazy" class="aspect-[1200/630] w-full border-b border-slate-800 object-cover">
+    <div class="flex flex-1 flex-col p-5">
     <div class="flex items-center justify-between gap-2 text-[11px] font-semibold">
       <span class="rounded-full border border-emerald-500/30 bg-emerald-950/50 px-2.5 py-1 text-emerald-300">${esc(post.tag)}</span>
       <span class="text-slate-500">${esc(fechaLarga(post.date))}</span>
@@ -583,10 +783,11 @@ function tarjetaArticulo(post, base) {
       <span>${esc(post.readTime)} de lectura</span>
       <span class="text-emerald-400 transition group-hover:translate-x-0.5">Leer &rarr;</span>
     </div>
+    </div>
   </a>`;
 }
 
-function renderIndice(posts) {
+function renderIndice(posts, ogImage) {
   const ordenados = ordenarPosts(posts);
   const ultimo = ordenados[0];
   const tags = [...new Set(ordenados.map((p) => p.tag).filter(Boolean))];
@@ -606,6 +807,7 @@ function renderIndice(posts) {
           </div>
           <h2 class="mt-3 max-w-3xl text-2xl font-black leading-tight text-white transition group-hover:text-emerald-200 sm:text-4xl">${esc(ultimo.title)}</h2>
           <p class="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">${esc(ultimo.summary)}</p>
+          <img src="blog/img/${ultimo.slug}.svg" alt="Portada de ${esc(ultimo.title)}" loading="eager" class="mt-6 w-full rounded-2xl border border-slate-800">
           <span class="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-emerald-400">Leer el artículo <span class="transition group-hover:translate-x-1">&rarr;</span></span>
         </div>
       </a>`
@@ -637,14 +839,19 @@ function renderIndice(posts) {
   const contenido = `<main>
     <section class="relative overflow-hidden border-b border-slate-800/60">
       <div class="absolute inset-0 tl-grid-bg"></div>
-      <div class="relative mx-auto max-w-6xl px-5 pb-14 pt-16 sm:px-8 sm:pt-20">
-        <p class="text-[11px] font-black uppercase tracking-[.18em] text-emerald-400">Divulgación informática</p>
-        <h1 class="mt-3 max-w-3xl text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-6xl">Aprende informática <span class="tl-shimmer">sin humo</span></h1>
-        <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">Un artículo nuevo cada día sobre hardware, seguridad, redes y software. Explicaciones claras, consejos prácticos y cero tecnicismos innecesarios.</p>
-        <div class="mt-8 flex flex-wrap gap-3 text-xs font-semibold text-slate-400">
-          <span class="rounded-full border border-slate-700 bg-slate-900/70 px-3.5 py-2">Un post diario</span>
-          <span class="rounded-full border border-slate-700 bg-slate-900/70 px-3.5 py-2">${ordenados.length} ${ordenados.length === 1 ? 'artículo publicado' : 'artículos publicados'}</span>
-          <span class="rounded-full border border-slate-700 bg-slate-900/70 px-3.5 py-2">Hecho en Chipiona (Cádiz)</span>
+      <div class="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pb-14 pt-16 sm:px-8 sm:pt-20 lg:grid-cols-[1.1fr_.9fr]">
+        <div>
+          <p class="text-[11px] font-black uppercase tracking-[.18em] text-emerald-400">Divulgación informática</p>
+          <h1 class="mt-3 max-w-3xl text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-6xl">Aprende informática <span class="tl-shimmer">sin humo</span></h1>
+          <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">Un artículo nuevo cada día sobre hardware, seguridad, redes y software. Explicaciones claras, consejos prácticos y cero tecnicismos innecesarios.</p>
+          <div class="mt-8 flex flex-wrap gap-3 text-xs font-semibold text-slate-400">
+            <span class="rounded-full border border-slate-700 bg-slate-900/70 px-3.5 py-2">Un post diario</span>
+            <span class="rounded-full border border-slate-700 bg-slate-900/70 px-3.5 py-2">${ordenados.length} ${ordenados.length === 1 ? 'artículo publicado' : 'artículos publicados'}</span>
+            <span class="rounded-full border border-slate-700 bg-slate-900/70 px-3.5 py-2">Hecho en Chipiona (Cádiz)</span>
+          </div>
+        </div>
+        <div class="relative">
+          <img src="blog/img/portada-blog.svg?v=${hoyISO()}" alt="Portada del blog de divulgación informática de TecnoLobato" class="w-full rounded-2xl border border-slate-800 shadow-2xl" loading="eager">
         </div>
       </div>
     </section>
@@ -715,11 +922,12 @@ function renderIndice(posts) {
     canonical: `${SITE}/blog.html`,
     base: '',
     content: contenido,
-    jsonLd
+    jsonLd,
+    image: ogImage
   });
 }
 
-function renderPost(post, posts) {
+function renderPost(post, posts, ogImage) {
   const base = '../';
   const relacionados = ordenarPosts(posts)
     .filter((p) => p.slug !== post.slug)
@@ -765,6 +973,9 @@ function renderPost(post, posts) {
 
         <h1 class="mt-5 text-3xl font-black leading-[1.1] tracking-tight text-white sm:text-5xl">${esc(post.title)}</h1>
         <p class="mt-5 border-l-2 border-emerald-500/60 pl-5 text-base leading-relaxed text-slate-300 sm:text-lg">${esc(post.summary)}</p>
+        <figure class="mt-7 overflow-hidden rounded-2xl border border-slate-800">
+          <img src="${base}blog/img/${post.slug}.svg" alt="Portada del artículo: ${esc(post.title)}" class="w-full" loading="eager">
+        </figure>
 
         <div class="blog-prose mt-8">
           ${secciones}
@@ -825,6 +1036,7 @@ function renderPost(post, posts) {
     dateModified: post.date,
     inLanguage: 'es-ES',
     articleSection: post.tag,
+    image: ogImage,
     author: { '@type': 'Organization', name: 'TecnoLobato' },
     publisher: {
       '@type': 'Organization',
@@ -841,7 +1053,8 @@ function renderPost(post, posts) {
     canonical: `${SITE}/blog/${post.slug}.html`,
     base,
     content: contenido,
-    jsonLd
+    jsonLd,
+    image: ogImage
   });
 }
 
@@ -875,12 +1088,21 @@ ${entradas.map((e) => `  <url>
 async function renderizarTodo(posts) {
   await mkdir(BLOG_DIR, { recursive: true });
   const ordenados = ordenarPosts(posts);
+  for (const post of ordenados) await asegurarPortada(post);
+  const portadaBlog = {
+    slug: 'portada-blog',
+    title: 'Aprende informática sin humo',
+    summary: 'Un artículo nuevo cada día sobre hardware, seguridad, redes y software, con consejos que puedes aplicar.',
+    tag: 'Blog',
+    date: hoyISO()
+  };
+  await asegurarPortada(portadaBlog, true);
   await writeFile(POSTS_FILE, `${JSON.stringify(ordenados, null, 2)}\n`, 'utf8');
   for (const post of ordenados) {
-    const html = renderPost(post, ordenados);
+    const html = renderPost(post, ordenados, await urlPortada(post));
     await writeFile(path.join(BLOG_DIR, `${post.slug}.html`), html, 'utf8');
   }
-  await writeFile(path.join(ROOT, 'blog.html'), renderIndice(ordenados), 'utf8');
+  await writeFile(path.join(ROOT, 'blog.html'), renderIndice(ordenados, await urlPortadaBlog(portadaBlog.date)), 'utf8');
   await actualizarSitemap(ordenados);
   log(`Renderizados ${ordenados.length} artículos y blog.html`);
 }
