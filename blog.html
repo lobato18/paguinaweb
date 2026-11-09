@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Divulgación informática · Blog TecnoLobato</title>
+  <meta name="description" content="Blog diario de TecnoLobato: hardware, seguridad, redes y software explicados con claridad y consejos prácticos.">
+  <meta name="author" content="TecnoLobato">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://tecnolobato.one/blog.html">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="logo.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TecnoLobato">
+  <meta property="og:title" content="Divulgación informática">
+  <meta property="og:description" content="Blog diario de TecnoLobato: hardware, seguridad, redes y software explicados con claridad y consejos prácticos.">
+  <meta property="og:url" content="https://tecnolobato.one/blog.html">
+  <meta property="og:image" content="https://tecnolobato.one/logo.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Divulgación informática">
+  <meta name="twitter:description" content="Blog diario de TecnoLobato: hardware, seguridad, redes y software explicados con claridad y consejos prácticos.">
+  <meta name="twitter:image" content="https://tecnolobato.one/logo.jpg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            lobatoDark: '#070d14',
+            lobatoCard: '#0f1923',
+            lobatoGreen: '#10b981',
+            lobatoGold: '#d4af37',
+            waGreen: '#25D366'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background:
+        radial-gradient(circle at 10% 0%, rgba(16,185,129,.10), transparent 30rem),
+        radial-gradient(circle at 90% 5%, rgba(212,175,55,.08), transparent 28rem),
+        linear-gradient(180deg, #050b12 0%, #07111b 50%, #050b12 100%);
+    }
+    .tl-grid-bg {
+      background-image:
+        linear-gradient(rgba(16,185,129,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16,185,129,.05) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+    .tl-card {
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .tl-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(16,185,129,.42);
+      box-shadow: 0 18px 45px rgba(0,0,0,.28);
+    }
+    .tl-shimmer {
+      background: linear-gradient(90deg, #10b981, #f0d58a, #10b981);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: tlShimmer 4s linear infinite;
+    }
+    @keyframes tlShimmer { to { background-position: 220% 0; } }
+    .blog-prose p { color: #cbd5e1; line-height: 1.8; margin-top: 1rem; }
+    .blog-prose h2 { color: #fff; font-weight: 800; font-size: 1.45rem; line-height: 1.25; margin-top: 2.5rem; letter-spacing: -.01em; }
+    [hidden] { display: none !important; }
+    ::selection { background: #10b981; color: #000; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Blog","name":"Blog de TecnoLobato","description":"Divulgación informática diaria sobre hardware, seguridad, redes y software.","url":"https://tecnolobato.one/blog.html","inLanguage":"es-ES","publisher":{"@type":"Organization","name":"TecnoLobato","logo":{"@type":"ImageObject","url":"https://tecnolobato.one/logo.jpg"}},"blogPost":[{"@type":"BlogPosting","headline":"¡Prepara tu compra de PC de segunda mano con este checklist!","url":"https://tecnolobato.one/blog/comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.html","datePublished":"2026-11-09"}]}</script>
+</head>
+<body class="min-h-screen bg-lobatoDark font-sans text-slate-200 antialiased">
+  <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-lobatoDark/90 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="logo.jpg" alt="TecnoLobato" class="h-10 w-10 rounded-full border-2 border-lobatoGold object-cover">
+        <span class="text-lg font-black tracking-wider text-white">TECNO<span class="text-lobatoGreen">LOBATO</span>
+          <span class="block text-[9px] font-semibold uppercase tracking-[.18em] text-slate-400">Divulgación informática</span>
+        </span>
+      </a>
+      <nav class="hidden items-center gap-5 text-sm font-medium text-slate-300 md:flex">
+        <a href="index.html" class="transition hover:text-lobatoGreen">Inicio</a>
+        <a href="directos.html" class="transition hover:text-lobatoGreen">Trabajos en directo</a>
+        <a href="segundamano.html" class="transition hover:text-lobatoGold">Segunda mano</a>
+        <a href="blog.html" class="font-bold text-lobatoGreen">Blog</a>
+        <a href="index.html#contacto" class="transition hover:text-lobatoGreen">Contacto</a>
+      </nav>
+      <a href="https://wa.me/34687397664?text=Hola%20TecnoLobato%2C%20quiero%20hacer%20una%20consulta" target="_blank" rel="noopener" class="rounded-lg bg-[#25D366] px-4 py-2.5 text-xs font-extrabold text-white shadow-lg shadow-emerald-900/30 transition hover:bg-[#1ebd59]">WhatsApp</a>
+    </div>
+    <nav class="flex gap-4 overflow-x-auto border-t border-slate-800/60 px-5 py-2 text-xs font-semibold text-slate-300 md:hidden">
+      <a href="index.html" class="whitespace-nowrap">Inicio</a>
+      <a href="directos.html" class="whitespace-nowrap">Directos</a>
+      <a href="segundamano.html" class="whitespace-nowrap">Segunda mano</a>
+      <a href="blog.html" class="whitespace-nowrap font-bold text-lobatoGreen">Blog</a>
+      <a href="index.html#contacto" class="whitespace-nowrap">Contacto</a>
+    </nav>
+  </header>
+  <main>
+    <section class="relative overflow-hidden border-b border-slate-800/60">
+      <div class="absolute inset-0 tl-grid-bg"></div>
+      <div class="relative mx-auto max-w-6xl px-5 pb-14 pt-16 sm:px-8 sm:pt-20">
+        <p class="text-[11px] font-black uppercase tracking-[.18em] text-emerald-400">Divulgación informática</p>
+        <h1 class="mt-3 max-w-3xl text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-6xl">Aprende informática <span class="tl-shimmer">sin humo</span></h1>
+        <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">Un artículo nuevo cada día sobre hardware, seguridad, redes y software. Explicaciones claras, consejos prácticos y cero tecnicismos innecesarios.</p>
+        <div class="mt-8 flex flex-wrap gap-3 text-xs font-semibold text-slate-400">
+          <span class="rounded-full border border-slate-700 bg-slate-900/70 px-3.5 py-2">Un post diario</span>
+          <span class="rounded-full border border-slate-700 bg-slate-900/70 px-3.5 py-2">1 artículo publicado</span>
+          <span class="rounded-full border border-slate-700 bg-slate-900/70 px-3.5 py-2">Hecho en Chipiona (Cádiz)</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 py-12 sm:px-8">
+      <a href="blog/comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.html" class="tl-card group relative block overflow-hidden rounded-3xl border border-emerald-500/25 bg-gradient-to-br from-emerald-950/70 via-lobatoCard to-lobatoDark p-7 sm:p-10">
+        <div class="absolute inset-0 tl-grid-bg opacity-60"></div>
+        <div class="relative">
+          <span class="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-950/60 px-3 py-1 text-[10px] font-black uppercase tracking-[.16em] text-emerald-300">Último artículo</span>
+          <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold text-slate-400">
+            <span class="text-emerald-300">Hardware</span>
+            <span aria-hidden="true">·</span>
+            <time datetime="2026-11-09">9 de noviembre de 2026</time>
+            <span aria-hidden="true">·</span>
+            <span>4 min de lectura</span>
+          </div>
+          <h2 class="mt-3 max-w-3xl text-2xl font-black leading-tight text-white transition group-hover:text-emerald-200 sm:text-4xl">¡Prepara tu compra de PC de segunda mano con este checklist!</h2>
+          <p class="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">Aprende a evaluar tu futura compra de PC de segunda mano con nuestra guía paso a paso, evitando errores y ahorrando dinero.</p>
+          <span class="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-emerald-400">Leer el artículo <span class="transition group-hover:translate-x-1">&rarr;</span></span>
+        </div>
+      </a>
+      
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 pb-4 sm:px-8">
+      <div class="rounded-3xl border border-emerald-500/25 bg-gradient-to-br from-emerald-950/50 via-lobatoCard to-lobatoDark p-7 sm:p-10">
+        <div class="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+          <div class="max-w-2xl">
+            <p class="text-[11px] font-black uppercase tracking-[.16em] text-emerald-400">¿Tienes un problema real?</p>
+            <h2 class="mt-2 text-2xl font-black text-white sm:text-3xl">La teoría está bien. Resolverlo, mejor.</h2>
+            <p class="mt-3 text-sm leading-relaxed text-slate-300">Si tu equipo no arranca, se calienta o quieres montar algo a medida, cuéntanoslo por WhatsApp y te orientamos sin compromiso.</p>
+          </div>
+          <a href="https://wa.me/34687397664?text=Hola%20TecnoLobato%2C%20he%20le%C3%ADdo%20el%20blog%20y%20quiero%20hacer%20una%20consulta" target="_blank" rel="noopener" class="shrink-0 rounded-xl bg-lobatoGreen px-6 py-3.5 text-sm font-black text-black shadow-lg shadow-emerald-900/30 transition hover:bg-emerald-400">Hablar con TecnoLobato</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      var filtros = document.getElementById('blog-filters');
+      var rejilla = document.getElementById('blog-grid');
+      if (!filtros || !rejilla) return;
+      filtros.addEventListener('click', function (evento) {
+        var boton = evento.target.closest('button[data-filter]');
+        if (!boton) return;
+        var filtro = boton.getAttribute('data-filter');
+        filtros.querySelectorAll('button[data-filter]').forEach(function (b) {
+          var activo = b === boton;
+          b.className = activo
+            ? 'rounded-full bg-lobatoGreen px-3.5 py-1.5 text-[11px] font-extrabold text-black transition'
+            : 'rounded-full border border-slate-700 bg-slate-900 px-3.5 py-1.5 text-[11px] font-bold text-slate-300 transition hover:border-emerald-500/50 hover:text-emerald-300';
+        });
+        rejilla.querySelectorAll('[data-tag]').forEach(function (tarjeta) {
+          tarjeta.hidden = filtro !== 'all' && tarjeta.getAttribute('data-tag') !== filtro;
+        });
+      });
+    })();
+  </script>
+  <footer class="mt-16 border-t border-slate-800/80 bg-black/20 py-9 text-center text-xs text-slate-500">
+    <p>© 2026 TecnoLobato · Servicios Informáticos · Chipiona (Cádiz)</p>
+    <div class="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-2 font-medium">
+      <a href="index.html" class="transition hover:text-lobatoGreen">Inicio</a>
+      <a href="blog.html" class="transition hover:text-lobatoGreen">Blog</a>
+      <a href="directos.html" class="transition hover:text-lobatoGreen">Trabajos en directo</a>
+      <a href="segundamano.html" class="transition hover:text-lobatoGold">Segunda mano</a>
+      <a href="https://twitch.tv/tecnolobato" target="_blank" rel="noopener" class="transition hover:text-purple-400">Twitch</a>
+      <a href="https://wa.me/34687397664?text=Hola%20TecnoLobato%2C%20quiero%20hacer%20una%20consulta" target="_blank" rel="noopener" class="transition hover:text-emerald-400">WhatsApp</a>
+    </div>
+    <p class="mx-auto mt-4 max-w-md text-[10px] text-slate-600">Contenido divulgativo elaborado por TecnoLobato. Si vas a manipular hardware, hazlo con las precauciones adecuadas.</p>
+  </footer>
+</body>
+</html>

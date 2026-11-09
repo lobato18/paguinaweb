@@ -1,5 +1,5 @@
-const CACHE = "tecnolobato-v2";
-const PRECACHE = ["./", "./index.html", "./directos.html", "./logo.jpg", "./favicon.png", "./manifest.webmanifest"];
+const CACHE = "tecnolobato-v4";
+const PRECACHE = ["./", "./index.html", "./directos.html", "./blog.html", "./logo.jpg", "./favicon.png", "./manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -25,6 +25,19 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+
+  if (url.pathname.endsWith("/blog/posts.json")) {
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((cache) => cache.put(req, copy));
+          return res;
+        })
+        .catch(() => caches.match(req))
+    );
+    return;
+  }
 
   if (req.mode === "navigate") {
     event.respondWith(
