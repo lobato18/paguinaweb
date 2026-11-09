@@ -18,6 +18,7 @@ const ROOT = path.resolve(__dirname, '..');
 const BLOG_DIR = path.join(ROOT, 'blog');
 const IMG_DIR = path.join(BLOG_DIR, 'img');
 const POSTS_FILE = path.join(BLOG_DIR, 'posts.json');
+let FOTOS_BLOG = [];
 const OLLAMA_URL = process.env.OLLAMA_URL || 'http://127.0.0.1:11434';
 const MODELO = process.env.BLOG_MODEL || 'qwen2.5:7b';
 const SITE = 'https://tecnolobato.one';
@@ -424,6 +425,54 @@ async function urlPortadaBlog(fecha) {
   return `${SITE}/blog/img/portada-blog.svg?v=${version}`;
 }
 
+function normalizarClave(texto) {
+  return String(texto ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
+function coincideClave(texto, clave) {
+  const buscada = normalizarClave(clave);
+  if (!buscada) return false;
+  if (buscada.length <= 4) {
+    const patron = buscada.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`(^|[^a-z0-9])${patron}([^a-z0-9]|$)`).test(texto);
+  }
+  return texto.includes(buscada);
+}
+
+function puntuarFoto(foto, texto, tag) {
+  let puntos = 0;
+  if (Array.isArray(foto.tags) && foto.tags.includes(tag)) puntos += 4;
+  const base = normalizarClave(texto);
+  for (const clave of foto.claves || []) {
+    if (coincideClave(base, clave)) puntos += 5;
+  }
+  return puntos;
+}
+
+function elegirFoto(post, seccion, usadas) {
+  const texto = [post.title, post.topic, seccion.heading, ...(seccion.paragraphs || [])].join(' ');
+  const candidatas = FOTOS_BLOG
+    .filter((foto) => foto.archivo && !usadas.has(foto.archivo))
+    .map((foto) => ({ ...foto, puntos: puntuarFoto(foto, texto, post.tag) }))
+    .sort((a, b) => b.puntos - a.puntos || a.archivo.length - b.archivo.length);
+  const elegida = candidatas.find((foto) => foto.puntos > 0) || candidatas[0];
+  if (elegida) usadas.add(elegida.archivo);
+  return elegida;
+}
+
+async function cargarFotos() {
+  try {
+    const bruto = await readFile(path.join(IMG_DIR, 'fotos.json'), 'utf8');
+    const fotos = JSON.parse(bruto);
+    return Array.isArray(fotos) ? fotos.filter((foto) => foto.archivo) : [];
+  } catch {
+    return [];
+  }
+}
+
 function slugify(texto) {
   return String(texto)
     .normalize('NFD')
@@ -752,6 +801,76 @@ function shell({ title, description, canonical, base, content, jsonLd, image }) 
     @keyframes tlShimmer { to { background-position: 220% 0; } }
     .blog-prose p { color: #cbd5e1; line-height: 1.8; margin-top: 1rem; }
     .blog-prose h2 { color: #fff; font-weight: 800; font-size: 1.45rem; line-height: 1.25; margin-top: 2.5rem; letter-spacing: -.01em; }
+    #blog-progress {
+      position: fixed; top: 0; left: 0; z-index: 60;
+      height: 3px; width: 0;
+      background: linear-gradient(90deg, #10b981, #d4af37);
+      box-shadow: 0 0 12px rgba(16,185,129,.6);
+      transition: width .1s linear;
+    }
+    .blog-keypoints {
+      border: 1px solid rgba(212,175,55,.28);
+      background: linear-gradient(135deg, rgba(212,175,55,.08), rgba(15,25,35,.9));
+      border-radius: 1rem;
+      padding: 1.25rem 1.4rem;
+    }
+    .blog-keypoints ul li { display: flex; gap: .65rem; align-items: flex-start; }
+    .blog-toc-mobile {
+      border: 1px solid #1e293b;
+      background: rgba(15,25,35,.85);
+      border-radius: 1rem;
+      padding: .9rem 1.1rem;
+    }
+    .blog-toc-mobile summary { cursor: pointer; font-size: .8rem; font-weight: 800; color: #e2e8f0; list-style: none; }
+    .blog-toc-mobile summary::-webkit-details-marker { display: none; }
+    .blog-toc-mobile summary::after { content: '+'; float: right; color: #10b981; font-weight: 900; }
+    .blog-toc-mobile[open] summary::after { content: '−'; }
+    .blog-toc { list-style: none; margin: 0; padding: 0; }
+    .blog-toc li + li { margin-top: .35rem; }
+    .blog-toc a {
+      display: flex; gap: .55rem; align-items: baseline;
+      border-radius: .6rem; padding: .5rem .6rem;
+      font-size: .8rem; line-height: 1.35; color: #94a3b8;
+      transition: background .2s ease, color .2s ease;
+    }
+    .blog-toc a:hover { color: #d1fae5; background: rgba(16,185,129,.08); }
+    .blog-toc a.is-active { color: #6ee7b7; background: rgba(16,185,129,.12); }
+    .blog-toc a span { font-size: .62rem; font-weight: 900; letter-spacing: .08em; color: #64748b; }
+    .blog-toc a.is-active span { color: #34d399; }
+    .blog-section-head { display: flex; align-items: flex-start; gap: .8rem; margin-top: 2.6rem; }
+    .blog-section-head h2 { margin-top: 0; }
+    .blog-section-num {
+      flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+      min-width: 2rem; height: 2rem; margin-top: .1rem;
+      border-radius: .6rem; border: 1px solid rgba(16,185,129,.35);
+      background: rgba(16,185,129,.12);
+      font-size: .68rem; font-weight: 900; letter-spacing: .08em; color: #6ee7b7;
+    }
+    .blog-prose .blog-lead::first-letter {
+      float: left; padding: .1rem .55rem 0 0;
+      font-size: 3.6rem; line-height: .82; font-weight: 900; color: #10b981;
+    }
+    .blog-figure, .blog-hero { overflow: hidden; border-radius: 1rem; border: 1px solid #1e293b; background: #0f1923; }
+    .blog-figure { margin: 1.6rem 0 1.8rem; }
+    .blog-hero { border-radius: 1.25rem; box-shadow: 0 20px 50px rgba(0,0,0,.28); }
+    .blog-figure img, .blog-hero img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+    .blog-figure figcaption, .blog-hero figcaption { padding: .8rem 1rem 1rem; font-size: .72rem; line-height: 1.5; color: #94a3b8; }
+    .blog-figure figcaption > span:first-child, .blog-hero figcaption > span:first-child { display: block; color: #cbd5e1; }
+    .blog-credito { display: block; margin-top: .35rem; color: #64748b; font-size: .65rem; }
+    .blog-credito a { color: #34d399; text-decoration: none; }
+    .blog-credito a:hover { text-decoration: underline; }
+    .blog-pullquote {
+      margin: 2rem 0; padding: 1.1rem 1.3rem;
+      border-left: 3px solid #d4af37; border-radius: 0 .9rem .9rem 0;
+      background: linear-gradient(90deg, rgba(212,175,55,.08), transparent);
+      color: #e2e8f0; font-size: 1.1rem; line-height: 1.6; font-weight: 600; font-style: italic;
+    }
+    .blog-prose a { color: #34d399; text-decoration: underline; text-decoration-color: rgba(52,211,153,.4); text-underline-offset: 2px; }
+    .blog-prose a:hover { color: #6ee7b7; }
+    @media (max-width: 640px) {
+      .blog-prose .blog-lead::first-letter { font-size: 3rem; }
+      .blog-pullquote { font-size: 1rem; }
+    }
     [hidden] { display: none !important; }
     ::selection { background: #10b981; color: #000; }
     @media (prefers-reduced-motion: reduce) {
@@ -927,33 +1046,91 @@ function renderIndice(posts, ogImage) {
   });
 }
 
+function extraerFrase(texto) {
+  const frases = String(texto || '')
+    .split(/(?<=[.!?])\s+/)
+    .map((frase) => frase.trim())
+    .filter((frase) => frase.length >= 70 && frase.length <= 210);
+  return frases[0] || '';
+}
+
 function renderPost(post, posts, ogImage) {
   const base = '../';
   const relacionados = ordenarPosts(posts)
     .filter((p) => p.slug !== post.slug)
     .slice(0, 3);
+  const usadas = new Set();
+  const fotoHeroe = elegirFoto(post, { heading: post.title, paragraphs: [post.summary] }, usadas);
+  const heroe = fotoHeroe
+    ? `<figure class="blog-hero">
+          <img src="${base}blog/img/fotos/${fotoHeroe.archivo}" alt="${esc(fotoHeroe.alt)}" width="1200" height="800" loading="eager" fetchpriority="high">
+          <figcaption>
+            <span>${esc(fotoHeroe.pie)}</span>
+            <span class="blog-credito">Foto: <a href="${esc(fotoHeroe.fuente)}" target="_blank" rel="noopener nofollow">${esc(fotoHeroe.credito)}</a>${fotoHeroe.licenciaUrl ? ` · <a href="${esc(fotoHeroe.licenciaUrl)}" target="_blank" rel="noopener nofollow">${esc(fotoHeroe.licencia)}</a>` : ''}</span>
+          </figcaption>
+        </figure>`
+    : `<figure class="blog-hero">
+          <img src="${base}blog/img/${post.slug}.svg" alt="Portada del artículo: ${esc(post.title)}" class="w-full" loading="eager">
+        </figure>`;
 
-  const secciones = post.sections.map((seccion) => `<section>
-    <h2>${esc(seccion.heading)}</h2>
-    ${seccion.paragraphs.map((p) => `<p>${esc(p)}</p>`).join('')}
-  </section>`).join('');
+  const secciones = post.sections.map((seccion, i) => {
+    const numero = i + 1;
+    const figura = i % 2 === 0 ? elegirFoto(post, seccion, usadas) : null;
+    const parrafos = seccion.paragraphs.map((parrafo, j) =>
+      `<p${i === 0 && j === 0 ? ' class="blog-lead"' : ''}>${esc(parrafo)}</p>`
+    ).join('');
+    const imagen = figura ? `<figure class="blog-figure">
+      <img src="${base}blog/img/fotos/${figura.archivo}" alt="${esc(figura.alt)}" width="1200" height="800" loading="lazy" decoding="async">
+      <figcaption>
+        <span>${esc(figura.pie)}</span>
+        <span class="blog-credito">Foto: <a href="${esc(figura.fuente)}" target="_blank" rel="noopener nofollow">${esc(figura.credito)}</a>${figura.licenciaUrl ? ` · <a href="${esc(figura.licenciaUrl)}" target="_blank" rel="noopener nofollow">${esc(figura.licencia)}</a>` : ''}</span>
+      </figcaption>
+    </figure>` : '';
+    const cita = i === 1 ? extraerFrase(seccion.paragraphs?.[0]) : '';
+    const pullquote = cita ? `<blockquote class="blog-pullquote">“${esc(cita)}”</blockquote>` : '';
+    return `<section id="seccion-${numero}" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">${String(numero).padStart(2, '0')}</span>
+        <h2>${esc(seccion.heading)}</h2>
+      </div>
+      ${parrafos}
+      ${imagen}
+      ${pullquote}
+    </section>`;
+  }).join('');
 
-  const tips = post.tips.map((tip, i) => `<li class="flex gap-3">
+  const indice = post.sections.map((seccion, i) =>
+    `<li><a href="#seccion-${i + 1}"><span>${String(i + 1).padStart(2, '0')}</span>${esc(seccion.heading)}</a></li>`
+  ).join('');
+
+  const puntosClave = post.tips.slice(0, 3).map((tip) =>
+    `<li><svg class="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>${esc(tip)}</span></li>`
+  ).join('');
+
+  const tips = post.tips.map((tip, i) => `<li class="flex gap-3 rounded-xl border border-emerald-500/15 bg-emerald-950/20 p-4">
     <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-[11px] font-black text-emerald-300">${i + 1}</span>
     <span class="text-sm leading-relaxed text-slate-300">${esc(tip)}</span>
   </li>`).join('');
 
+  const urlPost = `${SITE}/blog/${post.slug}.html`;
   const waTexto = encodeURIComponent(`Hola TecnoLobato, he leído el artículo "${post.title}" y quiero hacer una consulta`);
+  const waCompartir = `https://wa.me/?text=${encodeURIComponent(`${post.title} — ${urlPost}`)}`;
+  const xCompartir = `https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(urlPost)}`;
+
   const rel = relacionados.length
-    ? `<div class="mt-6 space-y-3">
-        ${relacionados.map((p) => `<a href="${base}blog/${p.slug}.html" class="group block rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition hover:border-emerald-500/40">
-          <span class="text-[10px] font-bold uppercase tracking-wide text-emerald-400">${esc(p.tag)}</span>
-          <span class="mt-1 block text-sm font-bold leading-snug text-white transition group-hover:text-emerald-300">${esc(p.title)}</span>
+    ? `<div class="space-y-3">
+        ${relacionados.map((p) => `<a href="${base}blog/${p.slug}.html" class="group flex gap-3 rounded-xl border border-slate-800 bg-slate-900/60 p-3 transition hover:border-emerald-500/40">
+          <img src="${base}blog/img/${p.slug}.svg" alt="" class="h-16 w-24 shrink-0 rounded-lg border border-slate-800 object-cover" loading="lazy">
+          <span class="min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-wide text-emerald-400">${esc(p.tag)}</span>
+            <span class="mt-1 block text-xs font-bold leading-snug text-white transition group-hover:text-emerald-300">${esc(p.title)}</span>
+          </span>
         </a>`).join('')}
       </div>`
     : '';
 
-  const contenido = `<main class="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
+  const contenido = `<div id="blog-progress" aria-hidden="true"></div>
+  <main class="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
     <nav class="mb-8 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500" aria-label="Migas de pan">
       <a href="${base}index.html" class="transition hover:text-lobatoGreen">Inicio</a>
       <span aria-hidden="true">/</span>
@@ -963,29 +1140,42 @@ function renderPost(post, posts, ogImage) {
     </nav>
 
     <div class="grid gap-10 lg:grid-cols-3">
-      <article class="lg:col-span-2">
+      <article class="min-w-0 lg:col-span-2">
         <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-bold text-slate-400">
           <span class="rounded-full border border-emerald-500/30 bg-emerald-950/50 px-3 py-1 text-emerald-300">${esc(post.tag)}</span>
           <time datetime="${esc(post.date)}">${esc(fechaLarga(post.date))}</time>
           <span aria-hidden="true">·</span>
           <span>${esc(post.readTime)} de lectura</span>
+          <span aria-hidden="true">·</span>
+          <span>Por <strong class="text-slate-300">TecnoLobato</strong></span>
         </div>
 
         <h1 class="mt-5 text-3xl font-black leading-[1.1] tracking-tight text-white sm:text-5xl">${esc(post.title)}</h1>
         <p class="mt-5 border-l-2 border-emerald-500/60 pl-5 text-base leading-relaxed text-slate-300 sm:text-lg">${esc(post.summary)}</p>
-        <figure class="mt-7 overflow-hidden rounded-2xl border border-slate-800">
-          <img src="${base}blog/img/${post.slug}.svg" alt="Portada del artículo: ${esc(post.title)}" class="w-full" loading="eager">
-        </figure>
+        <div class="mt-7">${heroe}</div>
+
+        <div class="blog-keypoints mt-8">
+          <p class="flex items-center gap-2 text-[11px] font-black uppercase tracking-[.16em] text-emerald-400">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+            Lo esencial en 30 segundos
+          </p>
+          <ul class="mt-3 space-y-2.5 text-sm leading-relaxed text-slate-300">${puntosClave}</ul>
+        </div>
+
+        <details class="blog-toc-mobile mt-5 lg:hidden">
+          <summary>En este artículo</summary>
+          <ol class="blog-toc">${indice}</ol>
+        </details>
 
         <div class="blog-prose mt-8">
           ${secciones}
 
-          <div class="mt-10 rounded-2xl border border-emerald-500/30 bg-emerald-950/30 p-6 sm:p-7">
+          <div class="mt-12 rounded-3xl border border-emerald-500/30 bg-emerald-950/30 p-6 sm:p-8">
             <h2 class="!mt-0 flex items-center gap-2 text-lg font-black text-white">
               <svg class="h-5 w-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2z"/><path d="M9 22h6"/></svg>
               Consejos prácticos
             </h2>
-            <ol class="mt-5 space-y-4">${tips}</ol>
+            <ol class="mt-6 grid gap-3 sm:grid-cols-2">${tips}</ol>
           </div>
 
           <div class="mt-10 rounded-2xl border border-slate-800 bg-lobatoCard/80 p-6 sm:p-7">
@@ -1000,6 +1190,13 @@ function renderPost(post, posts, ogImage) {
             </div>
             <a href="${WA}${waTexto}" target="_blank" rel="noopener" class="shrink-0 rounded-xl bg-[#25D366] px-5 py-3 text-xs font-extrabold text-white transition hover:bg-[#1ebd59]">Consultar por WhatsApp</a>
           </div>
+
+          <div class="mt-8 flex flex-wrap items-center gap-2 text-xs font-bold">
+            <span class="text-slate-500">Compartir:</span>
+            <a href="${esc(waCompartir)}" target="_blank" rel="noopener" class="rounded-full border border-slate-700 px-3 py-1.5 text-slate-300 transition hover:border-emerald-500/50 hover:text-emerald-300">WhatsApp</a>
+            <a href="${esc(xCompartir)}" target="_blank" rel="noopener" class="rounded-full border border-slate-700 px-3 py-1.5 text-slate-300 transition hover:border-emerald-500/50 hover:text-emerald-300">X</a>
+            <button type="button" data-copiar="${esc(urlPost)}" class="rounded-full border border-slate-700 px-3 py-1.5 text-slate-300 transition hover:border-emerald-500/50 hover:text-emerald-300">Copiar enlace</button>
+          </div>
         </div>
 
         <div class="mt-10 border-t border-slate-800 pt-6">
@@ -1008,24 +1205,70 @@ function renderPost(post, posts, ogImage) {
       </article>
 
       <aside class="space-y-5">
-        <div class="rounded-2xl border border-slate-800 bg-lobatoCard/85 p-6 lg:sticky lg:top-28">
-          <div class="flex items-center gap-3">
-            <img src="${base}logo.jpg" alt="TecnoLobato" class="h-12 w-12 rounded-full border-2 border-lobatoGold object-cover">
-            <div>
-              <p class="text-sm font-black text-white">TecnoLobato</p>
-              <p class="text-[11px] font-semibold text-slate-400">Taller informático · Chipiona</p>
-            </div>
+        <div class="space-y-5 lg:sticky lg:top-24">
+          <div class="hidden rounded-2xl border border-slate-800 bg-lobatoCard/85 p-6 lg:block">
+            <p class="text-[10px] font-black uppercase tracking-[.16em] text-lobatoGold">En este artículo</p>
+            <ol class="blog-toc mt-4">${indice}</ol>
           </div>
-          <p class="mt-4 text-xs leading-relaxed text-slate-400">Montaje, reparación, mantenimiento y presupuestos a medida. Publicamos divulgación informática todos los días.</p>
-          <a href="${base}index.html#contacto" class="mt-4 block rounded-xl border border-emerald-500/40 bg-emerald-950/40 px-4 py-3 text-center text-xs font-extrabold text-emerald-300 transition hover:bg-emerald-900/50">Pedir presupuesto</a>
-          ${rel ? `<div class="mt-6 border-t border-slate-800 pt-5">
-            <p class="text-[10px] font-black uppercase tracking-[.16em] text-lobatoGold">Sigue leyendo</p>
-            ${rel}
-          </div>` : ''}
+          <div class="rounded-2xl border border-slate-800 bg-lobatoCard/85 p-6">
+            <div class="flex items-center gap-3">
+              <img src="${base}logo.jpg" alt="TecnoLobato" class="h-12 w-12 rounded-full border-2 border-lobatoGold object-cover">
+              <div>
+                <p class="text-sm font-black text-white">TecnoLobato</p>
+                <p class="text-[11px] font-semibold text-slate-400">Taller informático · Chipiona</p>
+              </div>
+            </div>
+            <p class="mt-4 text-xs leading-relaxed text-slate-400">Montaje, reparación, mantenimiento y presupuestos a medida. Publicamos divulgación informática todos los días.</p>
+            <a href="${base}index.html#contacto" class="mt-4 block rounded-xl border border-emerald-500/40 bg-emerald-950/40 px-4 py-3 text-center text-xs font-extrabold text-emerald-300 transition hover:bg-emerald-900/50">Pedir presupuesto</a>
+          </div>
         </div>
+        ${rel ? `<div class="rounded-2xl border border-slate-800 bg-lobatoCard/85 p-6">
+          <p class="text-[10px] font-black uppercase tracking-[.16em] text-lobatoGold">Sigue leyendo</p>
+          <div class="mt-4">${rel}</div>
+        </div>` : ''}
       </aside>
     </div>
-  </main>`;
+  </main>
+
+  <script>
+    (function () {
+      var barra = document.getElementById('blog-progress');
+      if (barra) {
+        var actualizar = function () {
+          var total = document.documentElement.scrollHeight - window.innerHeight;
+          var avance = total > 0 ? Math.min(100, Math.max(0, (window.scrollY / total) * 100)) : 0;
+          barra.style.width = avance + '%';
+        };
+        window.addEventListener('scroll', actualizar, { passive: true });
+        actualizar();
+      }
+
+      var enlaces = Array.prototype.slice.call(document.querySelectorAll('.blog-toc a'));
+      if (enlaces.length && 'IntersectionObserver' in window) {
+        var observador = new IntersectionObserver(function (entradas) {
+          entradas.forEach(function (entrada) {
+            if (!entrada.isIntersecting) return;
+            enlaces.forEach(function (enlace) {
+              enlace.classList.toggle('is-active', enlace.getAttribute('href') === '#' + entrada.target.id);
+            });
+          });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        document.querySelectorAll('.blog-section').forEach(function (seccion) { observador.observe(seccion); });
+      }
+
+      document.querySelectorAll('[data-copiar]').forEach(function (boton) {
+        boton.addEventListener('click', function () {
+          var texto = boton.getAttribute('data-copiar');
+          if (!navigator.clipboard) return;
+          navigator.clipboard.writeText(texto).then(function () {
+            var original = boton.textContent;
+            boton.textContent = '¡Copiado!';
+            setTimeout(function () { boton.textContent = original; }, 1800);
+          });
+        });
+      });
+    })();
+  </script>`;
 
   const jsonLd = jsonSeguro({
     '@context': 'https://schema.org',
@@ -1037,6 +1280,7 @@ function renderPost(post, posts, ogImage) {
     inLanguage: 'es-ES',
     articleSection: post.tag,
     image: ogImage,
+    wordCount: contarPalabras(post),
     author: { '@type': 'Organization', name: 'TecnoLobato' },
     publisher: {
       '@type': 'Organization',
@@ -1085,8 +1329,13 @@ ${entradas.map((e) => `  <url>
   await writeFile(path.join(ROOT, 'sitemap.xml'), xml, 'utf8');
 }
 
+function limpiarHtml(html) {
+  return html.replace(/[ \t]+$/gm, '');
+}
+
 async function renderizarTodo(posts) {
   await mkdir(BLOG_DIR, { recursive: true });
+  FOTOS_BLOG = await cargarFotos();
   const ordenados = ordenarPosts(posts);
   for (const post of ordenados) await asegurarPortada(post);
   const portadaBlog = {
@@ -1100,9 +1349,9 @@ async function renderizarTodo(posts) {
   await writeFile(POSTS_FILE, `${JSON.stringify(ordenados, null, 2)}\n`, 'utf8');
   for (const post of ordenados) {
     const html = renderPost(post, ordenados, await urlPortada(post));
-    await writeFile(path.join(BLOG_DIR, `${post.slug}.html`), html, 'utf8');
+    await writeFile(path.join(BLOG_DIR, `${post.slug}.html`), limpiarHtml(html), 'utf8');
   }
-  await writeFile(path.join(ROOT, 'blog.html'), renderIndice(ordenados, await urlPortadaBlog(portadaBlog.date)), 'utf8');
+  await writeFile(path.join(ROOT, 'blog.html'), limpiarHtml(renderIndice(ordenados, await urlPortadaBlog(portadaBlog.date))), 'utf8');
   await actualizarSitemap(ordenados);
   log(`Renderizados ${ordenados.length} artículos y blog.html`);
 }

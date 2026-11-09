@@ -70,13 +70,83 @@
     @keyframes tlShimmer { to { background-position: 220% 0; } }
     .blog-prose p { color: #cbd5e1; line-height: 1.8; margin-top: 1rem; }
     .blog-prose h2 { color: #fff; font-weight: 800; font-size: 1.45rem; line-height: 1.25; margin-top: 2.5rem; letter-spacing: -.01em; }
+    #blog-progress {
+      position: fixed; top: 0; left: 0; z-index: 60;
+      height: 3px; width: 0;
+      background: linear-gradient(90deg, #10b981, #d4af37);
+      box-shadow: 0 0 12px rgba(16,185,129,.6);
+      transition: width .1s linear;
+    }
+    .blog-keypoints {
+      border: 1px solid rgba(212,175,55,.28);
+      background: linear-gradient(135deg, rgba(212,175,55,.08), rgba(15,25,35,.9));
+      border-radius: 1rem;
+      padding: 1.25rem 1.4rem;
+    }
+    .blog-keypoints ul li { display: flex; gap: .65rem; align-items: flex-start; }
+    .blog-toc-mobile {
+      border: 1px solid #1e293b;
+      background: rgba(15,25,35,.85);
+      border-radius: 1rem;
+      padding: .9rem 1.1rem;
+    }
+    .blog-toc-mobile summary { cursor: pointer; font-size: .8rem; font-weight: 800; color: #e2e8f0; list-style: none; }
+    .blog-toc-mobile summary::-webkit-details-marker { display: none; }
+    .blog-toc-mobile summary::after { content: '+'; float: right; color: #10b981; font-weight: 900; }
+    .blog-toc-mobile[open] summary::after { content: '−'; }
+    .blog-toc { list-style: none; margin: 0; padding: 0; }
+    .blog-toc li + li { margin-top: .35rem; }
+    .blog-toc a {
+      display: flex; gap: .55rem; align-items: baseline;
+      border-radius: .6rem; padding: .5rem .6rem;
+      font-size: .8rem; line-height: 1.35; color: #94a3b8;
+      transition: background .2s ease, color .2s ease;
+    }
+    .blog-toc a:hover { color: #d1fae5; background: rgba(16,185,129,.08); }
+    .blog-toc a.is-active { color: #6ee7b7; background: rgba(16,185,129,.12); }
+    .blog-toc a span { font-size: .62rem; font-weight: 900; letter-spacing: .08em; color: #64748b; }
+    .blog-toc a.is-active span { color: #34d399; }
+    .blog-section-head { display: flex; align-items: flex-start; gap: .8rem; margin-top: 2.6rem; }
+    .blog-section-head h2 { margin-top: 0; }
+    .blog-section-num {
+      flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+      min-width: 2rem; height: 2rem; margin-top: .1rem;
+      border-radius: .6rem; border: 1px solid rgba(16,185,129,.35);
+      background: rgba(16,185,129,.12);
+      font-size: .68rem; font-weight: 900; letter-spacing: .08em; color: #6ee7b7;
+    }
+    .blog-prose .blog-lead::first-letter {
+      float: left; padding: .1rem .55rem 0 0;
+      font-size: 3.6rem; line-height: .82; font-weight: 900; color: #10b981;
+    }
+    .blog-figure, .blog-hero { overflow: hidden; border-radius: 1rem; border: 1px solid #1e293b; background: #0f1923; }
+    .blog-figure { margin: 1.6rem 0 1.8rem; }
+    .blog-hero { border-radius: 1.25rem; box-shadow: 0 20px 50px rgba(0,0,0,.28); }
+    .blog-figure img, .blog-hero img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+    .blog-figure figcaption, .blog-hero figcaption { padding: .8rem 1rem 1rem; font-size: .72rem; line-height: 1.5; color: #94a3b8; }
+    .blog-figure figcaption > span:first-child, .blog-hero figcaption > span:first-child { display: block; color: #cbd5e1; }
+    .blog-credito { display: block; margin-top: .35rem; color: #64748b; font-size: .65rem; }
+    .blog-credito a { color: #34d399; text-decoration: none; }
+    .blog-credito a:hover { text-decoration: underline; }
+    .blog-pullquote {
+      margin: 2rem 0; padding: 1.1rem 1.3rem;
+      border-left: 3px solid #d4af37; border-radius: 0 .9rem .9rem 0;
+      background: linear-gradient(90deg, rgba(212,175,55,.08), transparent);
+      color: #e2e8f0; font-size: 1.1rem; line-height: 1.6; font-weight: 600; font-style: italic;
+    }
+    .blog-prose a { color: #34d399; text-decoration: underline; text-decoration-color: rgba(52,211,153,.4); text-underline-offset: 2px; }
+    .blog-prose a:hover { color: #6ee7b7; }
+    @media (max-width: 640px) {
+      .blog-prose .blog-lead::first-letter { font-size: 3rem; }
+      .blog-pullquote { font-size: 1rem; }
+    }
     [hidden] { display: none !important; }
     ::selection { background: #10b981; color: #000; }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
     }
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"¡Prepara tu compra de PC de segunda mano con este checklist!","description":"Aprende a evaluar tu futura compra de PC de segunda mano con nuestra guía paso a paso, evitando errores y ahorrando dinero.","datePublished":"2026-11-09","dateModified":"2026-11-09","inLanguage":"es-ES","articleSection":"Hardware","image":"https://tecnolobato.one/blog/img/comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.jpg","author":{"@type":"Organization","name":"TecnoLobato"},"publisher":{"@type":"Organization","name":"TecnoLobato","logo":{"@type":"ImageObject","url":"https://tecnolobato.one/logo.jpg"}},"mainEntityOfPage":"https://tecnolobato.one/blog/comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.html","url":"https://tecnolobato.one/blog/comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.html"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"¡Prepara tu compra de PC de segunda mano con este checklist!","description":"Aprende a evaluar tu futura compra de PC de segunda mano con nuestra guía paso a paso, evitando errores y ahorrando dinero.","datePublished":"2026-11-09","dateModified":"2026-11-09","inLanguage":"es-ES","articleSection":"Hardware","image":"https://tecnolobato.one/blog/img/comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.jpg","wordCount":745,"author":{"@type":"Organization","name":"TecnoLobato"},"publisher":{"@type":"Organization","name":"TecnoLobato","logo":{"@type":"ImageObject","url":"https://tecnolobato.one/logo.jpg"}},"mainEntityOfPage":"https://tecnolobato.one/blog/comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.html","url":"https://tecnolobato.one/blog/comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.html"}</script>
 </head>
 <body class="min-h-screen bg-lobatoDark font-sans text-slate-200 antialiased">
   <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-lobatoDark/90 backdrop-blur">
@@ -104,6 +174,7 @@
       <a href="../index.html#contacto" class="whitespace-nowrap">Contacto</a>
     </nav>
   </header>
+  <div id="blog-progress" aria-hidden="true"></div>
   <main class="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
     <nav class="mb-8 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500" aria-label="Migas de pan">
       <a href="../index.html" class="transition hover:text-lobatoGreen">Inicio</a>
@@ -114,53 +185,115 @@
     </nav>
 
     <div class="grid gap-10 lg:grid-cols-3">
-      <article class="lg:col-span-2">
+      <article class="min-w-0 lg:col-span-2">
         <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-bold text-slate-400">
           <span class="rounded-full border border-emerald-500/30 bg-emerald-950/50 px-3 py-1 text-emerald-300">Hardware</span>
           <time datetime="2026-11-09">9 de noviembre de 2026</time>
           <span aria-hidden="true">·</span>
           <span>4 min de lectura</span>
+          <span aria-hidden="true">·</span>
+          <span>Por <strong class="text-slate-300">TecnoLobato</strong></span>
         </div>
 
         <h1 class="mt-5 text-3xl font-black leading-[1.1] tracking-tight text-white sm:text-5xl">¡Prepara tu compra de PC de segunda mano con este checklist!</h1>
         <p class="mt-5 border-l-2 border-emerald-500/60 pl-5 text-base leading-relaxed text-slate-300 sm:text-lg">Aprende a evaluar tu futura compra de PC de segunda mano con nuestra guía paso a paso, evitando errores y ahorrando dinero.</p>
-        <figure class="mt-7 overflow-hidden rounded-2xl border border-slate-800">
-          <img src="../blog/img/comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.svg" alt="Portada del artículo: ¡Prepara tu compra de PC de segunda mano con este checklist!" class="w-full" loading="eager">
-        </figure>
+        <div class="mt-7"><figure class="blog-hero">
+          <img src="../blog/img/fotos/hardware-ordenadores-usados.jpg" alt="Varios ordenadores de sobremesa de segunda mano en venta" width="1200" height="800" loading="eager" fetchpriority="high">
+          <figcaption>
+            <span>Revisar un equipo usado antes de pagar evita sorpresas.</span>
+            <span class="blog-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:4_Used_desktop_computers_for_sale.jpg" target="_blank" rel="noopener nofollow">Cjp24</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener nofollow">CC BY-SA 4.0</a></span>
+          </figcaption>
+        </figure></div>
+
+        <div class="blog-keypoints mt-8">
+          <p class="flex items-center gap-2 text-[11px] font-black uppercase tracking-[.16em] text-emerald-400">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+            Lo esencial en 30 segundos
+          </p>
+          <ul class="mt-3 space-y-2.5 text-sm leading-relaxed text-slate-300"><li><svg class="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Realiza pruebas de arranque y diagnóstico para verificar el estado del PC.</span></li><li><svg class="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Asegúrate de que los componentes sean compatibles y actualizados.</span></li><li><svg class="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Consulta con un profesional en la reparación de PC si tienes dudas sobre la compatibilidad o el estado del PC.</span></li></ul>
+        </div>
+
+        <details class="blog-toc-mobile mt-5 lg:hidden">
+          <summary>En este artículo</summary>
+          <ol class="blog-toc"><li><a href="#seccion-1"><span>01</span>Preparación del equipo para la compra</a></li><li><a href="#seccion-2"><span>02</span>Inspección física del ordenador</a></li><li><a href="#seccion-3"><span>03</span>Pruebas de arranque y diagnóstico</a></li><li><a href="#seccion-4"><span>04</span>Verificación de la configuración y compatibilidad</a></li><li><a href="#seccion-5"><span>05</span>Errores comunes y cuándo pedir ayuda</a></li></ol>
+        </details>
 
         <div class="blog-prose mt-8">
-          <section>
-    <h2>Preparación del equipo para la compra</h2>
-    <p>Antes de adquirir un PC de segunda mano, es crucial evaluar su estado y funcionalidad. Si tienes acceso a un amigo o familiar que pueda dejarte un monitor y un teclado, es un gran plus. Esto te permitirá realizar una prueba de arranque y verificar si el equipo funciona correctamente. Además, prepara un USB con herramientas de diagnóstico como MemTest86+ o CrystalDiskInfo.</p><p>En caso de no contar con estos recursos, considera visitar un amigo con PC o acudir a una tienda especializada en reparación de hardware. Esto te permitirá obtener una opinión objetiva sobre el estado del equipo.</p>
-  </section><section>
-    <h2>Inspección física del ordenador</h2>
-    <p>El primer paso al inspeccionar un PC de segunda mano es examinar la limpieza y el estado general de su exterior. Un ordenador con restos de polvo o suciedad puede indicar que ha estado en malas condiciones. Verifica si el equipo presenta marcas de golpes, arañazos o cualquier otro daño visible. Si tienes dudas, busca profesionales en la reparación de PC que puedan revisarlo.</p><p>Además, revisa la distribución interna: la placa base y los cables deben dejar espacio para que el aire circule. Si todo está muy apretado o hay componentes mal colocados, la ventilación puede verse afectada.</p>
-  </section><section>
-    <h2>Pruebas de arranque y diagnóstico</h2>
-    <p>Una vez que hayas inspeccionado el equipo visualmente, es hora de ponerlo a prueba. Enciende el PC y ve a través del proceso de arranque. Presta atención a cualquier mensaje de error que puedas ver en la pantalla. Estos mensajes pueden indicarte si hay problemas con el hardware o el software. Si el ordenador arranca pero no funciona correctamente, podría ser un signo de problemas más profundos.</p><p>Utiliza herramientas de diagnóstico como el MemTest86+ para verificar la integridad de la memoria RAM. Si este software no carga correctamente o muestra errores, hay posibilidades de que el PC tenga problemas de hardware. También puedes usar el SFC (System File Checker) de Windows para verificar si los archivos del sistema operativo están corrompidos.</p>
-  </section><section>
-    <h2>Verificación de la configuración y compatibilidad</h2>
-    <p>Una vez que hayas comprobado que el PC arranca sin problemas, es el momento de revisar su configuración y compatibilidad. Verifica si los componentes principales como la CPU, la placa base y la memoria RAM son compatibles entre sí. Si no lo sabes, busca un manual de tu PC o consulta con un profesional en la reparación de PC. Esto te ayudará a asegurarte de que los componentes estén correctamente configurados y no causen problemas de incompatibilidad.</p><p>Además, asegúrate de que la configuración del BIOS esté correcta. Verifica si los periféricos como el ratón y el teclado funcionan correctamente. Si hay problemas, revisa las configuraciones de la BIOS o considera la posibilidad de que el PC tenga un problema de hardware o software que necesite ser solucionado.</p>
-  </section><section>
-    <h2>Errores comunes y cuándo pedir ayuda</h2>
-    <p>Es normal cometer errores al comprar un PC de segunda mano. Uno de los errores más comunes es adquirir un equipo con componentes obsoletos que no serán útiles en el futuro. Antes de comprar, asegúrate de que los componentes sean actualizados y compatibles con tus necesidades. Si no estás seguro de cómo evaluar la compatibilidad de los componentes, considera pedir ayuda a un profesional en la reparación de PC o a un amigo que sepa de hardware.</p><p>Otro error común es adquirir un PC que tenga problemas ocultos. Si notas que el PC arranca con problemas o no funciona correctamente, es posible que el equipo tenga problemas que necesiten ser solucionados. En este caso, es mejor pedir ayuda a un profesional en la reparación de PC para garantizar que el equipo esté en perfectas condiciones antes de realizar la compra.</p>
-  </section>
+          <section id="seccion-1" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">01</span>
+        <h2>Preparación del equipo para la compra</h2>
+      </div>
+      <p class="blog-lead">Antes de adquirir un PC de segunda mano, es crucial evaluar su estado y funcionalidad. Si tienes acceso a un amigo o familiar que pueda dejarte un monitor y un teclado, es un gran plus. Esto te permitirá realizar una prueba de arranque y verificar si el equipo funciona correctamente. Además, prepara un USB con herramientas de diagnóstico como MemTest86+ o CrystalDiskInfo.</p><p>En caso de no contar con estos recursos, considera visitar un amigo con PC o acudir a una tienda especializada en reparación de hardware. Esto te permitirá obtener una opinión objetiva sobre el estado del equipo.</p>
+      <figure class="blog-figure">
+      <img src="../blog/img/fotos/mantenimiento-reparacion.jpg" alt="Técnico trabajando en la reparación de un ordenador" width="1200" height="800" loading="lazy" decoding="async">
+      <figcaption>
+        <span>Una revisión a tiempo evita averías mayores.</span>
+        <span class="blog-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Computer_repair_in_progress.jpg" target="_blank" rel="noopener nofollow">Vintechcomputerservices</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener nofollow">CC BY-SA 4.0</a></span>
+      </figcaption>
+    </figure>
 
-          <div class="mt-10 rounded-2xl border border-emerald-500/30 bg-emerald-950/30 p-6 sm:p-7">
+    </section><section id="seccion-2" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">02</span>
+        <h2>Inspección física del ordenador</h2>
+      </div>
+      <p>El primer paso al inspeccionar un PC de segunda mano es examinar la limpieza y el estado general de su exterior. Un ordenador con restos de polvo o suciedad puede indicar que ha estado en malas condiciones. Verifica si el equipo presenta marcas de golpes, arañazos o cualquier otro daño visible. Si tienes dudas, busca profesionales en la reparación de PC que puedan revisarlo.</p><p>Además, revisa la distribución interna: la placa base y los cables deben dejar espacio para que el aire circule. Si todo está muy apretado o hay componentes mal colocados, la ventilación puede verse afectada.</p>
+
+      <blockquote class="blog-pullquote">“El primer paso al inspeccionar un PC de segunda mano es examinar la limpieza y el estado general de su exterior.”</blockquote>
+    </section><section id="seccion-3" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">03</span>
+        <h2>Pruebas de arranque y diagnóstico</h2>
+      </div>
+      <p>Una vez que hayas inspeccionado el equipo visualmente, es hora de ponerlo a prueba. Enciende el PC y ve a través del proceso de arranque. Presta atención a cualquier mensaje de error que puedas ver en la pantalla. Estos mensajes pueden indicarte si hay problemas con el hardware o el software. Si el ordenador arranca pero no funciona correctamente, podría ser un signo de problemas más profundos.</p><p>Utiliza herramientas de diagnóstico como el MemTest86+ para verificar la integridad de la memoria RAM. Si este software no carga correctamente o muestra errores, hay posibilidades de que el PC tenga problemas de hardware. También puedes usar el SFC (System File Checker) de Windows para verificar si los archivos del sistema operativo están corrompidos.</p>
+      <figure class="blog-figure">
+      <img src="../blog/img/fotos/hardware-memoria-ram.jpg" alt="Módulos de memoria RAM sobre fondo oscuro" width="1200" height="800" loading="lazy" decoding="async">
+      <figcaption>
+        <span>La RAM influye en cuántas tareas puedes hacer a la vez.</span>
+        <span class="blog-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Random_Access_Memory_HyperX.jpg" target="_blank" rel="noopener nofollow">Zsinytwiki</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener nofollow">CC0</a></span>
+      </figcaption>
+    </figure>
+
+    </section><section id="seccion-4" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">04</span>
+        <h2>Verificación de la configuración y compatibilidad</h2>
+      </div>
+      <p>Una vez que hayas comprobado que el PC arranca sin problemas, es el momento de revisar su configuración y compatibilidad. Verifica si los componentes principales como la CPU, la placa base y la memoria RAM son compatibles entre sí. Si no lo sabes, busca un manual de tu PC o consulta con un profesional en la reparación de PC. Esto te ayudará a asegurarte de que los componentes estén correctamente configurados y no causen problemas de incompatibilidad.</p><p>Además, asegúrate de que la configuración del BIOS esté correcta. Verifica si los periféricos como el ratón y el teclado funcionan correctamente. Si hay problemas, revisa las configuraciones de la BIOS o considera la posibilidad de que el PC tenga un problema de hardware o software que necesite ser solucionado.</p>
+
+
+    </section><section id="seccion-5" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">05</span>
+        <h2>Errores comunes y cuándo pedir ayuda</h2>
+      </div>
+      <p>Es normal cometer errores al comprar un PC de segunda mano. Uno de los errores más comunes es adquirir un equipo con componentes obsoletos que no serán útiles en el futuro. Antes de comprar, asegúrate de que los componentes sean actualizados y compatibles con tus necesidades. Si no estás seguro de cómo evaluar la compatibilidad de los componentes, considera pedir ayuda a un profesional en la reparación de PC o a un amigo que sepa de hardware.</p><p>Otro error común es adquirir un PC que tenga problemas ocultos. Si notas que el PC arranca con problemas o no funciona correctamente, es posible que el equipo tenga problemas que necesiten ser solucionados. En este caso, es mejor pedir ayuda a un profesional en la reparación de PC para garantizar que el equipo esté en perfectas condiciones antes de realizar la compra.</p>
+      <figure class="blog-figure">
+      <img src="../blog/img/fotos/hardware-placa-base.jpg" alt="Primer plano de una placa base de ordenador" width="1200" height="800" loading="lazy" decoding="async">
+      <figcaption>
+        <span>La placa base determina qué componentes puedes ampliar.</span>
+        <span class="blog-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Computer_motherboard_11.jpg" target="_blank" rel="noopener nofollow">Kurt Kaiser</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener nofollow">CC0</a></span>
+      </figcaption>
+    </figure>
+
+    </section>
+
+          <div class="mt-12 rounded-3xl border border-emerald-500/30 bg-emerald-950/30 p-6 sm:p-8">
             <h2 class="!mt-0 flex items-center gap-2 text-lg font-black text-white">
               <svg class="h-5 w-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2z"/><path d="M9 22h6"/></svg>
               Consejos prácticos
             </h2>
-            <ol class="mt-5 space-y-4"><li class="flex gap-3">
+            <ol class="mt-6 grid gap-3 sm:grid-cols-2"><li class="flex gap-3 rounded-xl border border-emerald-500/15 bg-emerald-950/20 p-4">
     <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-[11px] font-black text-emerald-300">1</span>
     <span class="text-sm leading-relaxed text-slate-300">Realiza pruebas de arranque y diagnóstico para verificar el estado del PC.</span>
-  </li><li class="flex gap-3">
+  </li><li class="flex gap-3 rounded-xl border border-emerald-500/15 bg-emerald-950/20 p-4">
     <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-[11px] font-black text-emerald-300">2</span>
     <span class="text-sm leading-relaxed text-slate-300">Asegúrate de que los componentes sean compatibles y actualizados.</span>
-  </li><li class="flex gap-3">
+  </li><li class="flex gap-3 rounded-xl border border-emerald-500/15 bg-emerald-950/20 p-4">
     <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-[11px] font-black text-emerald-300">3</span>
     <span class="text-sm leading-relaxed text-slate-300">Consulta con un profesional en la reparación de PC si tienes dudas sobre la compatibilidad o el estado del PC.</span>
-  </li><li class="flex gap-3">
+  </li><li class="flex gap-3 rounded-xl border border-emerald-500/15 bg-emerald-950/20 p-4">
     <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-[11px] font-black text-emerald-300">4</span>
     <span class="text-sm leading-relaxed text-slate-300">No adquieras un PC con problemas ocultos, ya que esto puede causar futuros problemas de funcionamiento.</span>
   </li></ol>
@@ -178,6 +311,13 @@
             </div>
             <a href="https://wa.me/34687397664?text=Hola%20TecnoLobato%2C%20he%20le%C3%ADdo%20el%20art%C3%ADculo%20%22%C2%A1Prepara%20tu%20compra%20de%20PC%20de%20segunda%20mano%20con%20este%20checklist!%22%20y%20quiero%20hacer%20una%20consulta" target="_blank" rel="noopener" class="shrink-0 rounded-xl bg-[#25D366] px-5 py-3 text-xs font-extrabold text-white transition hover:bg-[#1ebd59]">Consultar por WhatsApp</a>
           </div>
+
+          <div class="mt-8 flex flex-wrap items-center gap-2 text-xs font-bold">
+            <span class="text-slate-500">Compartir:</span>
+            <a href="https://wa.me/?text=%C2%A1Prepara%20tu%20compra%20de%20PC%20de%20segunda%20mano%20con%20este%20checklist!%20%E2%80%94%20https%3A%2F%2Ftecnolobato.one%2Fblog%2Fcomprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.html" target="_blank" rel="noopener" class="rounded-full border border-slate-700 px-3 py-1.5 text-slate-300 transition hover:border-emerald-500/50 hover:text-emerald-300">WhatsApp</a>
+            <a href="https://twitter.com/intent/tweet?text=%C2%A1Prepara%20tu%20compra%20de%20PC%20de%20segunda%20mano%20con%20este%20checklist!&amp;url=https%3A%2F%2Ftecnolobato.one%2Fblog%2Fcomprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.html" target="_blank" rel="noopener" class="rounded-full border border-slate-700 px-3 py-1.5 text-slate-300 transition hover:border-emerald-500/50 hover:text-emerald-300">X</a>
+            <button type="button" data-copiar="https://tecnolobato.one/blog/comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.html" class="rounded-full border border-slate-700 px-3 py-1.5 text-slate-300 transition hover:border-emerald-500/50 hover:text-emerald-300">Copiar enlace</button>
+          </div>
         </div>
 
         <div class="mt-10 border-t border-slate-800 pt-6">
@@ -186,21 +326,67 @@
       </article>
 
       <aside class="space-y-5">
-        <div class="rounded-2xl border border-slate-800 bg-lobatoCard/85 p-6 lg:sticky lg:top-28">
-          <div class="flex items-center gap-3">
-            <img src="../logo.jpg" alt="TecnoLobato" class="h-12 w-12 rounded-full border-2 border-lobatoGold object-cover">
-            <div>
-              <p class="text-sm font-black text-white">TecnoLobato</p>
-              <p class="text-[11px] font-semibold text-slate-400">Taller informático · Chipiona</p>
-            </div>
+        <div class="space-y-5 lg:sticky lg:top-24">
+          <div class="hidden rounded-2xl border border-slate-800 bg-lobatoCard/85 p-6 lg:block">
+            <p class="text-[10px] font-black uppercase tracking-[.16em] text-lobatoGold">En este artículo</p>
+            <ol class="blog-toc mt-4"><li><a href="#seccion-1"><span>01</span>Preparación del equipo para la compra</a></li><li><a href="#seccion-2"><span>02</span>Inspección física del ordenador</a></li><li><a href="#seccion-3"><span>03</span>Pruebas de arranque y diagnóstico</a></li><li><a href="#seccion-4"><span>04</span>Verificación de la configuración y compatibilidad</a></li><li><a href="#seccion-5"><span>05</span>Errores comunes y cuándo pedir ayuda</a></li></ol>
           </div>
-          <p class="mt-4 text-xs leading-relaxed text-slate-400">Montaje, reparación, mantenimiento y presupuestos a medida. Publicamos divulgación informática todos los días.</p>
-          <a href="../index.html#contacto" class="mt-4 block rounded-xl border border-emerald-500/40 bg-emerald-950/40 px-4 py-3 text-center text-xs font-extrabold text-emerald-300 transition hover:bg-emerald-900/50">Pedir presupuesto</a>
-          
+          <div class="rounded-2xl border border-slate-800 bg-lobatoCard/85 p-6">
+            <div class="flex items-center gap-3">
+              <img src="../logo.jpg" alt="TecnoLobato" class="h-12 w-12 rounded-full border-2 border-lobatoGold object-cover">
+              <div>
+                <p class="text-sm font-black text-white">TecnoLobato</p>
+                <p class="text-[11px] font-semibold text-slate-400">Taller informático · Chipiona</p>
+              </div>
+            </div>
+            <p class="mt-4 text-xs leading-relaxed text-slate-400">Montaje, reparación, mantenimiento y presupuestos a medida. Publicamos divulgación informática todos los días.</p>
+            <a href="../index.html#contacto" class="mt-4 block rounded-xl border border-emerald-500/40 bg-emerald-950/40 px-4 py-3 text-center text-xs font-extrabold text-emerald-300 transition hover:bg-emerald-900/50">Pedir presupuesto</a>
+          </div>
         </div>
+
       </aside>
     </div>
   </main>
+
+  <script>
+    (function () {
+      var barra = document.getElementById('blog-progress');
+      if (barra) {
+        var actualizar = function () {
+          var total = document.documentElement.scrollHeight - window.innerHeight;
+          var avance = total > 0 ? Math.min(100, Math.max(0, (window.scrollY / total) * 100)) : 0;
+          barra.style.width = avance + '%';
+        };
+        window.addEventListener('scroll', actualizar, { passive: true });
+        actualizar();
+      }
+
+      var enlaces = Array.prototype.slice.call(document.querySelectorAll('.blog-toc a'));
+      if (enlaces.length && 'IntersectionObserver' in window) {
+        var observador = new IntersectionObserver(function (entradas) {
+          entradas.forEach(function (entrada) {
+            if (!entrada.isIntersecting) return;
+            enlaces.forEach(function (enlace) {
+              enlace.classList.toggle('is-active', enlace.getAttribute('href') === '#' + entrada.target.id);
+            });
+          });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        document.querySelectorAll('.blog-section').forEach(function (seccion) { observador.observe(seccion); });
+      }
+
+      document.querySelectorAll('[data-copiar]').forEach(function (boton) {
+        boton.addEventListener('click', function () {
+          var texto = boton.getAttribute('data-copiar');
+          if (!navigator.clipboard) return;
+          navigator.clipboard.writeText(texto).then(function () {
+            var original = boton.textContent;
+            boton.textContent = '¡Copiado!';
+            setTimeout(function () { boton.textContent = original; }, 1800);
+          });
+        });
+      });
+    })();
+  </script>
   <footer class="mt-16 border-t border-slate-800/80 bg-black/20 py-9 text-center text-xs text-slate-500">
     <p>© 2026 TecnoLobato · Servicios Informáticos · Chipiona (Cádiz)</p>
     <div class="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-2 font-medium">

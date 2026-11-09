@@ -1,0 +1,482 @@
+[
+  {
+    "archivo": "hardware-cpu.jpg",
+    "alt": "Procesador AMD Ryzen visto desde arriba",
+    "pie": "El procesador marca el ritmo de muchas tareas del equipo.",
+    "credito": "Fritzchens Fritz",
+    "licencia": "CC0",
+    "licenciaUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fuente": "https://commons.wikimedia.org/wiki/File:AMD_Ryzen_5_2600_(39851733273).jpg",
+    "tags": [
+      "Hardware"
+    ],
+    "claves": [
+      "cpu",
+      "procesador",
+      "nucleos",
+      "frecuencia",
+      "cache",
+      "gaming"
+    ]
+  },
+  {
+    "archivo": "hardware-fuente-alimentacion.jpg",
+    "alt": "Fuente de alimentación ATX modular",
+    "pie": "Una fuente de calidad protege al resto de componentes.",
+    "credito": "Project Kei",
+    "licencia": "CC BY-SA 4.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Full_modular_ATX_power_supply_unit.jpg",
+    "tags": [
+      "Hardware"
+    ],
+    "claves": [
+      "fuente",
+      "alimentacion",
+      "psu",
+      "energia",
+      "eficiencia",
+      "segura"
+    ]
+  },
+  {
+    "archivo": "hardware-memoria-ram.jpg",
+    "alt": "Módulos de memoria RAM sobre fondo oscuro",
+    "pie": "La RAM influye en cuántas tareas puedes hacer a la vez.",
+    "credito": "Zsinytwiki",
+    "licencia": "CC0",
+    "licenciaUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Random_Access_Memory_HyperX.jpg",
+    "tags": [
+      "Hardware"
+    ],
+    "claves": [
+      "ram",
+      "memoria"
+    ]
+  },
+  {
+    "archivo": "hardware-monitor.jpg",
+    "alt": "Monitor de ordenador mostrando código",
+    "pie": "La resolución y la frecuencia del monitor cambian la experiencia.",
+    "credito": "Markus Spiske markusspiske",
+    "licencia": "CC0",
+    "licenciaUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Code_on_computer_monitor_(Unsplash).jpg",
+    "tags": [
+      "Hardware"
+    ],
+    "claves": [
+      "monitor",
+      "pantalla",
+      "resolucion",
+      "hz",
+      "panel",
+      "gaming"
+    ]
+  },
+  {
+    "archivo": "hardware-ordenadores-usados.jpg",
+    "alt": "Varios ordenadores de sobremesa de segunda mano en venta",
+    "pie": "Revisar un equipo usado antes de pagar evita sorpresas.",
+    "credito": "Cjp24",
+    "licencia": "CC BY-SA 4.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:4_Used_desktop_computers_for_sale.jpg",
+    "tags": [
+      "Hardware"
+    ],
+    "claves": [
+      "segunda mano",
+      "usado",
+      "compra",
+      "ordenador",
+      "pc",
+      "equipo"
+    ]
+  },
+  {
+    "archivo": "hardware-placa-base.jpg",
+    "alt": "Primer plano de una placa base de ordenador",
+    "pie": "La placa base determina qué componentes puedes ampliar.",
+    "credito": "Kurt Kaiser",
+    "licencia": "CC0",
+    "licenciaUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Computer_motherboard_11.jpg",
+    "tags": [
+      "Hardware"
+    ],
+    "claves": [
+      "placa",
+      "motherboard",
+      "componente",
+      "compatibilidad",
+      "ampliar",
+      "montaje",
+      "componentes"
+    ]
+  },
+  {
+    "archivo": "hardware-portatil.jpg",
+    "alt": "Ordenador portátil abierto sobre una mesa",
+    "pie": "En un portátil, la limpieza y la refrigeración requieren más cuidado.",
+    "credito": "KK IN HK",
+    "licencia": "CC BY-SA 4.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Laptop_computer.jpeg",
+    "tags": [
+      "Hardware",
+      "Mantenimiento"
+    ],
+    "claves": [
+      "portatil",
+      "laptop",
+      "mantenimiento",
+      "bateria",
+      "teclado"
+    ]
+  },
+  {
+    "archivo": "hardware-ssd-nvme.jpg",
+    "alt": "Unidad SSD NVMe vista desde arriba",
+    "pie": "Un SSD NVMe ofrece más velocidad que un disco mecánico.",
+    "credito": "D-Kuru",
+    "licencia": "CC BY-SA 4.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Samsung_980_PRO_PCIe_4.0_NVMe_SSD_1TB-top_PNr%C2%B00915.jpg",
+    "tags": [
+      "Hardware"
+    ],
+    "claves": [
+      "ssd",
+      "nvme",
+      "m.2",
+      "almacenamiento",
+      "disco",
+      "ampliar"
+    ]
+  },
+  {
+    "archivo": "hardware-tarjeta-grafica.jpg",
+    "alt": "Tarjeta gráfica con salida HDMI",
+    "pie": "La tarjeta gráfica se encarga de generar la imagen que ves.",
+    "credito": "Joydeep",
+    "licencia": "CC BY-SA 3.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:ASUS_NVIDIA_GeForce_210_silent_graphics_card_with_HDMI.JPG",
+    "tags": [
+      "Hardware"
+    ],
+    "claves": [
+      "grafica",
+      "gpu",
+      "vram",
+      "tarjeta",
+      "monitor",
+      "gaming"
+    ]
+  },
+  {
+    "archivo": "hardware-ventilador.jpg",
+    "alt": "Ventilador de procesador desmontado",
+    "pie": "La refrigeración marca la diferencia en equipos usados.",
+    "credito": "Install",
+    "licencia": "CC BY-SA 3.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Computer_cooler_5048.jpg",
+    "tags": [
+      "Hardware",
+      "Mantenimiento"
+    ],
+    "claves": [
+      "ventilador",
+      "refrigeración",
+      "temperatura",
+      "cooler",
+      "disipador",
+      "calent",
+      "sobrecalent",
+      "refrigera",
+      "limpiar",
+      "limpieza",
+      "polvo"
+    ]
+  },
+  {
+    "archivo": "mantenimiento-cableado.jpg",
+    "alt": "Interior de una torre con los cables organizados",
+    "pie": "Ordenar los cables mejora el flujo de aire y facilita el mantenimiento.",
+    "credito": "Tim Sheerman-Chase",
+    "licencia": "CC BY 4.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Back_of_Be_Quiet_PC_Case_Interior.jpg",
+    "tags": [
+      "Mantenimiento",
+      "Hardware"
+    ],
+    "claves": [
+      "cable",
+      "cableado",
+      "management",
+      "torre",
+      "aire",
+      "montaje"
+    ]
+  },
+  {
+    "archivo": "mantenimiento-pasta-termica.jpg",
+    "alt": "Jeringa de pasta térmica para procesadores",
+    "pie": "Cambiar la pasta térmica ayuda a mantener temperaturas estables.",
+    "credito": "Jacek Halicki",
+    "licencia": "CC BY-SA 4.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:2023_Thermal_Grizzly_Kryonaut.jpg",
+    "tags": [
+      "Mantenimiento"
+    ],
+    "claves": [
+      "pasta",
+      "térmica",
+      "temperatura",
+      "procesador",
+      "cpu"
+    ]
+  },
+  {
+    "archivo": "mantenimiento-reparacion-2.jpg",
+    "alt": "Persona reparando un ordenador durante un evento técnico",
+    "pie": "Abrir un equipo sin experiencia puede acabar en una avería.",
+    "credito": "EnricoCastelli",
+    "licencia": "CC0",
+    "licenciaUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Hacker_repairs_a_computer_-_Linux_Day_in_Torino_2022.jpg",
+    "tags": [
+      "Mantenimiento"
+    ],
+    "claves": [
+      "reparación",
+      "hardware",
+      "abrir",
+      "equipo"
+    ]
+  },
+  {
+    "archivo": "mantenimiento-reparacion.jpg",
+    "alt": "Técnico trabajando en la reparación de un ordenador",
+    "pie": "Una revisión a tiempo evita averías mayores.",
+    "credito": "Vintechcomputerservices",
+    "licencia": "CC BY-SA 4.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Computer_repair_in_progress.jpg",
+    "tags": [
+      "Mantenimiento"
+    ],
+    "claves": [
+      "reparación",
+      "diagnóstico",
+      "avería",
+      "arranque",
+      "técnico",
+      "portatil",
+      "laptop"
+    ]
+  },
+  {
+    "archivo": "redes-cable-ethernet.jpg",
+    "alt": "Cable Ethernet de categoría 8 con conectores",
+    "pie": "Un cable en buen estado es la base de una conexión estable.",
+    "credito": "Raimond Spekking",
+    "licencia": "CC BY-SA 4.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:CAT8_Ethernet_Cable-5837.jpg",
+    "tags": [
+      "Redes"
+    ],
+    "claves": [
+      "cable",
+      "ethernet",
+      "rj45",
+      "conexión",
+      "red"
+    ]
+  },
+  {
+    "archivo": "redes-router-wifi.jpg",
+    "alt": "Router Wi-Fi doméstico con antenas",
+    "pie": "La banda y la ubicación del router cambian la cobertura.",
+    "credito": "Syced",
+    "licencia": "CC0",
+    "licenciaUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fuente": "https://commons.wikimedia.org/wiki/File:ELECOM_WRC-300FEBK_WPS_WiFi_router.jpg",
+    "tags": [
+      "Redes"
+    ],
+    "claves": [
+      "wifi",
+      "router",
+      "wi-fi",
+      "banda",
+      "cobertura",
+      "inalámbrico"
+    ]
+  },
+  {
+    "archivo": "redes-sala-servidores.jpg",
+    "alt": "Sala de servidores con bastidores y cableado",
+    "pie": "La infraestructura de red también vive en el cableado.",
+    "credito": "Carl Lender from Sunrise, USA",
+    "licencia": "CC BY 2.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by/2.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Server_Room_(22397102849).jpg",
+    "tags": [
+      "Redes"
+    ],
+    "claves": [
+      "servidor",
+      "sala",
+      "rack",
+      "infraestructura",
+      "internet"
+    ]
+  },
+  {
+    "archivo": "redes-switch.jpg",
+    "alt": "Varios switches de red en un rack",
+    "pie": "Los switches reparten la conexión entre los dispositivos de la red.",
+    "credito": "ShakataGaNai",
+    "licencia": "CC BY-SA 3.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Network_switches.jpg",
+    "tags": [
+      "Redes"
+    ],
+    "claves": [
+      "switch",
+      "red",
+      "ethernet",
+      "cable",
+      "rack",
+      "tcp",
+      "udp"
+    ]
+  },
+  {
+    "archivo": "seguridad-ciberseguridad.jpg",
+    "alt": "Panel sobre ciberseguridad en una cumbre europea",
+    "pie": "La seguridad es un proceso continuo, no un producto.",
+    "credito": "belgium24.eu",
+    "licencia": "CC BY 2.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by/2.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:EU2024BE_240118_Brussels_Cybersecurity_Summit_Square_JNZT_0007.jpg",
+    "tags": [
+      "Seguridad"
+    ],
+    "claves": [
+      "ciberseguridad",
+      "seguridad",
+      "phishing",
+      "ransomware",
+      "estafa",
+      "firewall"
+    ]
+  },
+  {
+    "archivo": "seguridad-equipo-bloqueado.jpg",
+    "alt": "Pantalla de ordenador bloqueada con un candado",
+    "pie": "Bloquear el equipo es el primer paso para proteger tus datos.",
+    "credito": "Juan Pablo Olmo",
+    "licencia": "CC BY 2.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by/2.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Computer_locked.jpg",
+    "tags": [
+      "Seguridad"
+    ],
+    "claves": [
+      "contraseña",
+      "bloqueo",
+      "seguridad",
+      "acceso",
+      "datos",
+      "vpn",
+      "autenticacion",
+      "pasos"
+    ]
+  },
+  {
+    "archivo": "seguridad-laptop-datos.jpg",
+    "alt": "Personas trabajando con un portátil y discos de datos",
+    "pie": "Proteger las copias de seguridad también forma parte de la seguridad.",
+    "credito": "User:Kowalski7cc",
+    "licencia": "CC0",
+    "licenciaUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Hackers_working_on_Linux_laptop_with_computer_disks_and_repair_kits_-_Milano_2022.jpg",
+    "tags": [
+      "Seguridad"
+    ],
+    "claves": [
+      "datos",
+      "copia",
+      "seguridad",
+      "disco",
+      "laptop"
+    ]
+  },
+  {
+    "archivo": "software-codigo.jpg",
+    "alt": "Pantalla con líneas de código de programación",
+    "pie": "El software conecta todo lo que ocurre dentro del equipo.",
+    "credito": "Martin Vorel",
+    "licencia": "CC BY-SA 4.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Programming_code.jpg",
+    "tags": [
+      "Software"
+    ],
+    "claves": [
+      "código",
+      "programación",
+      "software",
+      "docker",
+      "linux",
+      "virtualizacion"
+    ]
+  },
+  {
+    "archivo": "software-desarrollador.jpg",
+    "alt": "Desarrollador de software trabajando frente a un portátil",
+    "pie": "Automatizar tareas ahorra tiempo y errores.",
+    "credito": "Tsinkala",
+    "licencia": "CC BY-SA 4.0",
+    "licenciaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Software_Developer_at_Work.jpg",
+    "tags": [
+      "Software"
+    ],
+    "claves": [
+      "desarrollador",
+      "software",
+      "aplicación",
+      "windows",
+      "linux"
+    ]
+  },
+  {
+    "archivo": "software-editor-codigo.jpg",
+    "alt": "Editor de código abierto en un escritorio",
+    "pie": "Elegir bien las herramientas también es parte del aprendizaje.",
+    "credito": "Cycling2",
+    "licencia": "CC0",
+    "licenciaUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fuente": "https://commons.wikimedia.org/wiki/File:VS_Code_Screenshot.png",
+    "tags": [
+      "Software"
+    ],
+    "claves": [
+      "editor",
+      "código",
+      "herramienta",
+      "software",
+      "programación"
+    ]
+  }
+]

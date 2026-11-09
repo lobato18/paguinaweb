@@ -70,6 +70,76 @@
     @keyframes tlShimmer { to { background-position: 220% 0; } }
     .blog-prose p { color: #cbd5e1; line-height: 1.8; margin-top: 1rem; }
     .blog-prose h2 { color: #fff; font-weight: 800; font-size: 1.45rem; line-height: 1.25; margin-top: 2.5rem; letter-spacing: -.01em; }
+    #blog-progress {
+      position: fixed; top: 0; left: 0; z-index: 60;
+      height: 3px; width: 0;
+      background: linear-gradient(90deg, #10b981, #d4af37);
+      box-shadow: 0 0 12px rgba(16,185,129,.6);
+      transition: width .1s linear;
+    }
+    .blog-keypoints {
+      border: 1px solid rgba(212,175,55,.28);
+      background: linear-gradient(135deg, rgba(212,175,55,.08), rgba(15,25,35,.9));
+      border-radius: 1rem;
+      padding: 1.25rem 1.4rem;
+    }
+    .blog-keypoints ul li { display: flex; gap: .65rem; align-items: flex-start; }
+    .blog-toc-mobile {
+      border: 1px solid #1e293b;
+      background: rgba(15,25,35,.85);
+      border-radius: 1rem;
+      padding: .9rem 1.1rem;
+    }
+    .blog-toc-mobile summary { cursor: pointer; font-size: .8rem; font-weight: 800; color: #e2e8f0; list-style: none; }
+    .blog-toc-mobile summary::-webkit-details-marker { display: none; }
+    .blog-toc-mobile summary::after { content: '+'; float: right; color: #10b981; font-weight: 900; }
+    .blog-toc-mobile[open] summary::after { content: '−'; }
+    .blog-toc { list-style: none; margin: 0; padding: 0; }
+    .blog-toc li + li { margin-top: .35rem; }
+    .blog-toc a {
+      display: flex; gap: .55rem; align-items: baseline;
+      border-radius: .6rem; padding: .5rem .6rem;
+      font-size: .8rem; line-height: 1.35; color: #94a3b8;
+      transition: background .2s ease, color .2s ease;
+    }
+    .blog-toc a:hover { color: #d1fae5; background: rgba(16,185,129,.08); }
+    .blog-toc a.is-active { color: #6ee7b7; background: rgba(16,185,129,.12); }
+    .blog-toc a span { font-size: .62rem; font-weight: 900; letter-spacing: .08em; color: #64748b; }
+    .blog-toc a.is-active span { color: #34d399; }
+    .blog-section-head { display: flex; align-items: flex-start; gap: .8rem; margin-top: 2.6rem; }
+    .blog-section-head h2 { margin-top: 0; }
+    .blog-section-num {
+      flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+      min-width: 2rem; height: 2rem; margin-top: .1rem;
+      border-radius: .6rem; border: 1px solid rgba(16,185,129,.35);
+      background: rgba(16,185,129,.12);
+      font-size: .68rem; font-weight: 900; letter-spacing: .08em; color: #6ee7b7;
+    }
+    .blog-prose .blog-lead::first-letter {
+      float: left; padding: .1rem .55rem 0 0;
+      font-size: 3.6rem; line-height: .82; font-weight: 900; color: #10b981;
+    }
+    .blog-figure, .blog-hero { overflow: hidden; border-radius: 1rem; border: 1px solid #1e293b; background: #0f1923; }
+    .blog-figure { margin: 1.6rem 0 1.8rem; }
+    .blog-hero { border-radius: 1.25rem; box-shadow: 0 20px 50px rgba(0,0,0,.28); }
+    .blog-figure img, .blog-hero img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+    .blog-figure figcaption, .blog-hero figcaption { padding: .8rem 1rem 1rem; font-size: .72rem; line-height: 1.5; color: #94a3b8; }
+    .blog-figure figcaption > span:first-child, .blog-hero figcaption > span:first-child { display: block; color: #cbd5e1; }
+    .blog-credito { display: block; margin-top: .35rem; color: #64748b; font-size: .65rem; }
+    .blog-credito a { color: #34d399; text-decoration: none; }
+    .blog-credito a:hover { text-decoration: underline; }
+    .blog-pullquote {
+      margin: 2rem 0; padding: 1.1rem 1.3rem;
+      border-left: 3px solid #d4af37; border-radius: 0 .9rem .9rem 0;
+      background: linear-gradient(90deg, rgba(212,175,55,.08), transparent);
+      color: #e2e8f0; font-size: 1.1rem; line-height: 1.6; font-weight: 600; font-style: italic;
+    }
+    .blog-prose a { color: #34d399; text-decoration: underline; text-decoration-color: rgba(52,211,153,.4); text-underline-offset: 2px; }
+    .blog-prose a:hover { color: #6ee7b7; }
+    @media (max-width: 640px) {
+      .blog-prose .blog-lead::first-letter { font-size: 3rem; }
+      .blog-pullquote { font-size: 1rem; }
+    }
     [hidden] { display: none !important; }
     ::selection { background: #10b981; color: #000; }
     @media (prefers-reduced-motion: reduce) {
@@ -142,7 +212,7 @@
           <span class="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-emerald-400">Leer el artículo <span class="transition group-hover:translate-x-1">&rarr;</span></span>
         </div>
       </a>
-      
+
     </section>
 
     <section class="mx-auto max-w-6xl px-5 pb-4 sm:px-8">
