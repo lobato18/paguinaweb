@@ -358,7 +358,7 @@
       <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300">Generados por IA & Montados en Directo</span>
     </h1>
     <p class="text-slate-400 text-base md:text-lg max-w-2xl mb-8">
-      Dile a la IA qué juegos juegas o cuánto quieres gastar. Consultará componentes reales de <strong>LDLC España</strong>, te desglosará el presupuesto y se sincronizará directamente con nuestro sistema de taller.
+      Responde unas preguntas sobre uso, resolución y presupuesto. La IA consultará componentes reales de <strong>LDLC España</strong>, te desglosará el presupuesto, te enseñará cómo quedará montado y lo sincronizará con nuestro taller.
     </p>
     
     <div class="flex flex-wrap justify-center gap-3.5">
@@ -526,21 +526,37 @@
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-950/20 text-emerald-400 text-xs font-bold tracking-wide uppercase mb-3">
         🧩 Configurador de Presupuestos
       </div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Tu PC, pieza a pieza</h2>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Tu PC, a tu medida</h2>
       <p class="text-slate-400 text-sm mt-2 max-w-2xl mx-auto">
-        Elige una configuración, revisa cada componente y mira una vista 3D orientativa de cómo podría quedar montado.
+        Responde unas preguntas, revisa cada componente y mira un esquema y una vista 3D de cómo quedará montado antes de pedir presupuesto.
       </p>
     </div>
 
     <div class="grid lg:grid-cols-5 gap-6 items-start">
-      <div class="lg:col-span-3 min-w-0 bg-lobatoCard border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl">
-        <div id="budget-tabs" class="flex flex-wrap gap-2 mb-5">
-          <span class="text-xs text-slate-500">Cargando configuraciones...</span>
+      <div class="lg:col-span-3 min-w-0 space-y-6">
+        <!-- Asistente guiado: pregunta al cliente y adapta la configuración -->
+        <div class="bg-lobatoCard border border-emerald-500/30 rounded-2xl p-4 sm:p-5 shadow-xl">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <div>
+              <span class="text-[10px] font-black uppercase tracking-wider text-emerald-400">Asistente guiado</span>
+              <h3 class="text-lg font-black text-white mt-1">Cuéntanos qué PC necesitas</h3>
+              <p class="text-[11px] text-slate-400 mt-1">Responde 4 preguntas y ajustamos componentes, montaje y presupuesto a tu caso concreto.</p>
+            </div>
+            <span id="wizard-step-badge" class="shrink-0 rounded-full border border-emerald-500/40 bg-emerald-950/40 px-2.5 py-1 text-[10px] font-black text-emerald-300">1/4 · Uso</span>
+          </div>
+          <div id="wizard-body"></div>
         </div>
-        <div id="budget-panel"></div>
+
+        <!-- Configuraciones de catálogo y presupuesto recomendado -->
+        <div class="bg-lobatoCard border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl">
+          <div id="budget-tabs" class="flex flex-wrap gap-2 mb-5">
+            <span class="text-xs text-slate-500">Cargando configuraciones...</span>
+          </div>
+          <div id="budget-panel"></div>
+        </div>
       </div>
 
-      <div class="lg:col-span-2">
+      <div class="lg:col-span-2 space-y-4">
         <div class="lg:sticky lg:top-24 bg-lobatoCard border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
           <div id="budget-3d" class="relative aspect-[4/3] bg-slate-950">
             <img
@@ -572,6 +588,17 @@
               <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-emerald-400 underline">CC BY 4.0</a>
               vía Sketchfab.
             </p>
+          </div>
+        </div>
+
+        <!-- Esquema orientativo del montaje interior -->
+        <div class="bg-lobatoCard border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+          <div class="p-4 border-b border-slate-800">
+            <h3 class="font-bold text-white text-sm">Así quedará montado</h3>
+            <p class="text-[11px] text-slate-400 mt-1">Esquema orientativo del interior, flujo de aire y cableado según la configuración elegida.</p>
+          </div>
+          <div id="budget-assembly" class="p-4">
+            <p class="text-[11px] text-slate-500">Elige una configuración para ver el esquema del montaje.</p>
           </div>
         </div>
       </div>
@@ -1082,16 +1109,20 @@
     <!-- Mensajes -->
     <div id="chat-messages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs bg-lobatoDark/80">
       <div class="bg-slate-900/95 border border-slate-800 text-slate-200 p-3.5 rounded-xl rounded-tl-none leading-relaxed">
-        ¡Hola! 👋 Soy el configurador inteligente de <strong>TecnoLobato</strong> conectado con la base de componentes de <a href="https://www.ldlc.com/es-es/" target="_blank" class="text-emerald-400 underline font-bold">LDLC.com España</a>.<br><br>
-        Indícame tu <strong>presupuesto</strong> (ej. 700€, 1000€, 1500€) y qué uso le darás (Gaming, Ofimática, Edición o Servidor). Te desglosaré las piezas con enlaces directos y, al aceptarlo, <strong>se enviará directamente a nuestro taller informático</strong>.
+        ¡Hola! 👋 Soy LoboBot, el configurador de <strong>TecnoLobato</strong> conectado con la base de componentes de <a href="https://www.ldlc.com/es-es/" target="_blank" class="text-emerald-400 underline font-bold">LDLC.com España</a>.<br><br>
+        Para acertar con tu PC necesito <strong>uso, resolución y presupuesto</strong>. Dímelo en una frase (ej. «PC para 4K con 2500€») o usa el <button type="button" onclick="focusConfigurator('gamaMedia')" class="text-emerald-400 underline font-bold">asistente guiado</button> y responde las preguntas paso a paso.<br><br>
+        Te mostraré piezas reales, el objetivo de FPS y un esquema de cómo quedará montado. Al aceptarlo, <strong>se envía directamente al taller</strong>.
       </div>
     </div>
 
     <!-- Sugerencias rápidas -->
     <div class="px-3 py-1.5 bg-slate-950 border-t border-slate-800 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap text-[10px]">
-      <button onclick="quickAsk('Presupuesto gaming de 800€ con piezas LDLC')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">PC Gaming 800€</button>
-      <button onclick="quickAsk('Presupuesto PC Gamer 1200€ LDLC')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">PC Gaming 1200€</button>
-      <button onclick="quickAsk('Home Server / NAS 600€ LDLC')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">Home Server 600€</button>
+      <button onclick="quickAsk('PC Gaming 4K con RTX 5080 y 2500€')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">PC Gaming 4K</button>
+      <button onclick="quickAsk('PC Gaming 4K con RTX 5090 y 4000€')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">PC 4K 4000€</button>
+      <button onclick="quickAsk('PC Gaming 1440p por 1300€')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">PC 1440p 1300€</button>
+      <button onclick="quickAsk('PC Gaming 1080p por 800€')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">PC 1080p 800€</button>
+      <button onclick="quickAsk('PC para edición de vídeo 4K con 2500€')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">Edición 4K</button>
+      <button onclick="quickAsk('Home Server / NAS con 1000€')" class="bg-slate-900 hover:bg-emerald-950 text-slate-300 hover:text-emerald-300 px-2 py-1 rounded border border-slate-800 transition">Home Server</button>
     </div>
 
     <!-- Formulario -->
@@ -1269,6 +1300,7 @@
   <script>
     // 1. Twitch Player + configurador de presupuestos
     document.addEventListener("DOMContentLoaded", function () {
+      renderWizard();
       renderBudgetSection('gamaMedia');
 
       try {
@@ -1355,76 +1387,196 @@
       return `https://www.ldlc.com/es-es/s?q=${encodeURIComponent(query)}`;
     }
 
-        const LDLC_CATALOG = {
+    const LDLC_CATALOG = {
       gamaEntrada: {
-        rango: "550€ - 750€",
+        rango: "700€ - 850€",
         uso: "Gaming 1080p competitivo (Fortnite, CS2, Valorant)",
+        target: "1080p · Alto · 100+ fps",
+        perfil: "Torre compacta con buen flujo de aire, disipador de aire y cableado limpio.",
         piezas: [
-          { tipo: "Procesador", nombre: "AMD Ryzen 5 5600", precio: 149.95, url: ldlcSearchUrl("Ryzen 5 5600") },
+          { tipo: "Procesador", nombre: "AMD Ryzen 5 5600", precio: 119.95, url: ldlcSearchUrl("Ryzen 5 5600") },
+          { tipo: "Disipador", nombre: "Thermalright Assassin X 120", precio: 19.95, url: ldlcSearchUrl("Thermalright Assassin X 120") },
           { tipo: "Placa Base", nombre: "Gigabyte B550M DS3H R2", precio: 89.95, url: ldlcSearchUrl("Gigabyte B550M DS3H R2") },
-          { tipo: "Memoria RAM", nombre: "Corsair Vengeance LPX 32GB (2x16GB) DDR4 3200", precio: 269.95, url: ldlcSearchUrl("Corsair Vengeance LPX 32GB DDR4 3200") },
-          { tipo: "Tarjeta Gráfica", nombre: "ASRock Radeon RX 9070 Challenger 16GB", precio: 789.00, url: ldlcSearchUrl("ASRock Radeon RX 9070 Challenger") },
-          { tipo: "Almacenamiento", nombre: "Kingston NV3 1TB NVMe PCIe 4.0", precio: 149.00, url: ldlcSearchUrl("Kingston NV3 1TB") },
-          { tipo: "Fuente", nombre: "Corsair RM750e 750W Gold", precio: 120.00, url: ldlcSearchUrl("Corsair RM750e") },
-          { tipo: "Caja", nombre: "Corsair 3000D Airflow", precio: 89.00, url: ldlcSearchUrl("Corsair 3000D Airflow") }
+          { tipo: "Memoria RAM", nombre: "Corsair Vengeance LPX 16GB (2x8GB) DDR4 3200", precio: 79.95, url: ldlcSearchUrl("Corsair Vengeance LPX 16GB DDR4 3200") },
+          { tipo: "Tarjeta Gráfica", nombre: "ASUS Radeon RX 6600 8GB", precio: 199.00, url: ldlcSearchUrl("ASUS Radeon RX 6600") },
+          { tipo: "Almacenamiento", nombre: "Kingston NV3 1TB NVMe PCIe 4.0", precio: 99.00, url: ldlcSearchUrl("Kingston NV3 1TB") },
+          { tipo: "Fuente", nombre: "Corsair CX650 650W 80+ Bronze", precio: 59.95, url: ldlcSearchUrl("Corsair CX650") },
+          { tipo: "Caja", nombre: "Fractal Design Focus G", precio: 64.95, url: ldlcSearchUrl("Fractal Focus G") }
         ],
         montaje: 50.00
       },
       gamaMedia: {
-        rango: "800€ - 1.150€",
-        uso: "Gaming 1080p/1440p Ultra & Streaming",
+        rango: "1.100€ - 1.350€",
+        uso: "Gaming 1440p alto y 1080p ultra con streaming",
+        target: "1440p · Alto · 80-120 fps",
+        perfil: "Torre airflow con disipador de torre, tres ventiladores y estética limpia.",
         piezas: [
           { tipo: "Procesador", nombre: "AMD Ryzen 5 9600X", precio: 199.00, url: ldlcSearchUrl("Ryzen 5 9600X") },
           { tipo: "Disipador", nombre: "Thermalright Assassin King 120 SE ARGB", precio: 23.00, url: ldlcSearchUrl("Thermalright Assassin King 120") },
           { tipo: "Placa Base", nombre: "MSI PRO B650M-P DDR5", precio: 134.00, url: ldlcSearchUrl("MSI PRO B650M-P") },
-          { tipo: "Memoria RAM", nombre: "Kingston FURY Beast 32GB (2x16GB) DDR5 6000MHz", precio: 499.00, url: ldlcSearchUrl("Kingston FURY Beast DDR5 32GB 6000") },
-          { tipo: "Tarjeta Gráfica", nombre: "ASRock Radeon RX 9070 Challenger 16GB", precio: 789.00, url: ldlcSearchUrl("ASRock Radeon RX 9070 Challenger") },
-          { tipo: "Almacenamiento", nombre: "Crucial T705 1TB NVMe PCIe 5.0", precio: 235.00, url: ldlcSearchUrl("Crucial T705 1TB") },
-          { tipo: "Fuente", nombre: "Corsair RM750e 750W Gold", precio: 120.00, url: ldlcSearchUrl("Corsair RM750e") },
-          { tipo: "Caja", nombre: "Antec C8 Curve Wood", precio: 149.00, url: ldlcSearchUrl("Antec C8 Curve Wood") }
-        ],
-        montaje: 50.00
-      },
-      gamaAlta: {
-        rango: "1.200€ - 1.750€",
-        uso: "Gaming 2K/4K, Edición & Streaming",
-        piezas: [
-          { tipo: "Procesador", nombre: "AMD Ryzen 7 9700X (tray)", precio: 279.00, url: ldlcSearchUrl("Ryzen 7 9700X") },
-          { tipo: "Refrigeración", nombre: "Thermalright Frost Commander 140", precio: 74.50, url: ldlcSearchUrl("Thermalright Frost Commander 140") },
-          { tipo: "Placa Base", nombre: "ASUS TUF Gaming B850-E WiFi", precio: 229.00, url: ldlcSearchUrl("ASUS TUF Gaming B850-E WiFi") },
-          { tipo: "Memoria RAM", nombre: "Kingston FURY Beast 32GB (2x16GB) DDR5 6000MHz", precio: 499.00, url: ldlcSearchUrl("Kingston FURY Beast DDR5 32GB 6000") },
-          { tipo: "Tarjeta Gráfica", nombre: "ASRock Radeon RX 9070 Challenger 16GB", precio: 789.00, url: ldlcSearchUrl("ASRock Radeon RX 9070 Challenger") },
-          { tipo: "Almacenamiento", nombre: "Crucial T705 1TB NVMe PCIe 5.0", precio: 235.00, url: ldlcSearchUrl("Crucial T705 1TB") },
-          { tipo: "Fuente", nombre: "Corsair RM750e 750W Gold", precio: 120.00, url: ldlcSearchUrl("Corsair RM750e") },
-          { tipo: "Caja", nombre: "Antec C8 Curve Wood", precio: 149.00, url: ldlcSearchUrl("Antec C8 Curve Wood") }
+          { tipo: "Memoria RAM", nombre: "Kingston FURY Beast 32GB (2x16GB) DDR5 6000 CL30", precio: 219.00, url: ldlcSearchUrl("Kingston FURY Beast DDR5 32GB 6000") },
+          { tipo: "Tarjeta Gráfica", nombre: "ASUS Radeon RX 9060 XT 16GB", precio: 379.00, url: ldlcSearchUrl("ASUS Radeon RX 9060 XT 16GB") },
+          { tipo: "Almacenamiento", nombre: "Kingston NV3 1TB NVMe PCIe 4.0", precio: 99.00, url: ldlcSearchUrl("Kingston NV3 1TB") },
+          { tipo: "Fuente", nombre: "Corsair RM750e 750W Gold", precio: 109.00, url: ldlcSearchUrl("Corsair RM750e") },
+          { tipo: "Caja", nombre: "Corsair 3000D Airflow", precio: 89.00, url: ldlcSearchUrl("Corsair 3000D Airflow") }
         ],
         montaje: 60.00
       },
-      homeServer: {
-        rango: "500€ - 850€",
-        uso: "Servidor casero 24/7, NAS, Docker",
+      gamaAlta: {
+        rango: "1.900€ - 2.200€",
+        uso: "Gaming 1440p ultra, 4K alto con FSR y edición",
+        target: "1440p · Ultra · 120+ fps / 4K · Alto con FSR",
+        perfil: "Torre amplia con GPU de tres ventiladores, refrigeración líquida AIO 240 y cableado premium.",
         piezas: [
-          { tipo: "Procesador", nombre: "AMD Ryzen 5 5600", precio: 149.95, url: ldlcSearchUrl("Ryzen 5 5600") },
+          { tipo: "Procesador", nombre: "AMD Ryzen 7 9700X", precio: 279.00, url: ldlcSearchUrl("Ryzen 7 9700X") },
+          { tipo: "Refrigeración", nombre: "Arctic Liquid Freezer III 240", precio: 89.00, url: ldlcSearchUrl("Arctic Liquid Freezer III 240") },
+          { tipo: "Placa Base", nombre: "ASUS TUF Gaming B850-E WiFi", precio: 229.00, url: ldlcSearchUrl("ASUS TUF Gaming B850-E WiFi") },
+          { tipo: "Memoria RAM", nombre: "Kingston FURY Beast 32GB (2x16GB) DDR5 6000 CL30", precio: 219.00, url: ldlcSearchUrl("Kingston FURY Beast DDR5 32GB 6000") },
+          { tipo: "Tarjeta Gráfica", nombre: "Sapphire Radeon RX 9070 XT 16GB", precio: 749.00, url: ldlcSearchUrl("Sapphire Radeon RX 9070 XT") },
+          { tipo: "Almacenamiento", nombre: "Samsung 990 Pro 1TB NVMe PCIe 4.0", precio: 109.00, url: ldlcSearchUrl("Samsung 990 Pro 1TB") },
+          { tipo: "Fuente", nombre: "Corsair RM850e 850W Gold ATX 3.1", precio: 139.00, url: ldlcSearchUrl("Corsair RM850e") },
+          { tipo: "Caja", nombre: "Antec C8 Curve Wood", precio: 149.00, url: ldlcSearchUrl("Antec C8 Curve Wood") }
+        ],
+        montaje: 70.00
+      },
+      gama4k: {
+        rango: "2.500€ - 2.900€",
+        uso: "Gaming 4K UHD, Ray Tracing y edición de vídeo 4K",
+        target: "4K · Alto/Ultra · 60-120 fps con DLSS",
+        perfil: "Torre airflow con RTX 5080 de tres ventiladores, AIO 360 ARGB y flujo de aire optimizado.",
+        piezas: [
+          { tipo: "Procesador", nombre: "AMD Ryzen 7 9800X3D", precio: 479.00, url: ldlcSearchUrl("Ryzen 7 9800X3D") },
+          { tipo: "Refrigeración", nombre: "Arctic Liquid Freezer III 360 ARGB", precio: 109.00, url: ldlcSearchUrl("Arctic Liquid Freezer III 360 ARGB") },
+          { tipo: "Placa Base", nombre: "ASUS TUF Gaming B850-PLUS WiFi", precio: 229.00, url: ldlcSearchUrl("ASUS TUF Gaming B850-PLUS WiFi") },
+          { tipo: "Memoria RAM", nombre: "Kingston FURY Beast 32GB (2x16GB) DDR5 6000 CL30", precio: 219.00, url: ldlcSearchUrl("Kingston FURY Beast DDR5 32GB 6000") },
+          { tipo: "Tarjeta Gráfica", nombre: "MSI GeForce RTX 5080 16GB GDDR7", precio: 1199.00, url: ldlcSearchUrl("MSI GeForce RTX 5080 16GB") },
+          { tipo: "Almacenamiento", nombre: "Samsung 990 Pro 2TB NVMe PCIe 4.0", precio: 189.00, url: ldlcSearchUrl("Samsung 990 Pro 2TB") },
+          { tipo: "Fuente", nombre: "Corsair RM850e 850W Gold ATX 3.1", precio: 139.00, url: ldlcSearchUrl("Corsair RM850e") },
+          { tipo: "Caja", nombre: "Corsair 4000D Airflow", precio: 99.00, url: ldlcSearchUrl("Corsair 4000D Airflow") },
+          { tipo: "Ventilación", nombre: "3x Ventiladores 120mm ARGB", precio: 45.00, url: ldlcSearchUrl("ventiladores 120mm ARGB") }
+        ],
+        montaje: 90.00
+      },
+      gama4kPlus: {
+        rango: "3.200€ - 3.700€",
+        uso: "Gaming 4K alto, streaming y edición exigente",
+        target: "4K · Alto/Ultra · 90-120 fps con DLSS",
+        perfil: "Torre premium con RTX 5080, AIO 360, 64 GB y 4 TB para juegos y proyectos.",
+        piezas: [
+          { tipo: "Procesador", nombre: "AMD Ryzen 9 9950X3D", precio: 699.00, url: ldlcSearchUrl("Ryzen 9 9950X3D") },
+          { tipo: "Refrigeración", nombre: "Arctic Liquid Freezer III 360 ARGB", precio: 109.00, url: ldlcSearchUrl("Arctic Liquid Freezer III 360 ARGB") },
+          { tipo: "Placa Base", nombre: "ASUS TUF Gaming B850-PLUS WiFi", precio: 229.00, url: ldlcSearchUrl("ASUS TUF Gaming B850-PLUS WiFi") },
+          { tipo: "Memoria RAM", nombre: "Kingston FURY Beast 64GB (2x32GB) DDR5 6000 CL30", precio: 379.00, url: ldlcSearchUrl("Kingston FURY Beast DDR5 64GB 6000") },
+          { tipo: "Tarjeta Gráfica", nombre: "MSI GeForce RTX 5080 16GB GDDR7", precio: 1199.00, url: ldlcSearchUrl("MSI GeForce RTX 5080 16GB") },
+          { tipo: "Almacenamiento", nombre: "Samsung 990 Pro 4TB NVMe PCIe 4.0", precio: 329.00, url: ldlcSearchUrl("Samsung 990 Pro 4TB") },
+          { tipo: "Fuente", nombre: "Corsair RM1000e 1000W Gold ATX 3.1", precio: 169.00, url: ldlcSearchUrl("Corsair RM1000e") },
+          { tipo: "Caja", nombre: "Corsair 4000D Airflow", precio: 99.00, url: ldlcSearchUrl("Corsair 4000D Airflow") },
+          { tipo: "Ventilación", nombre: "3x Ventiladores 120mm ARGB", precio: 45.00, url: ldlcSearchUrl("ventiladores 120mm ARGB") }
+        ],
+        montaje: 120.00
+      },
+      gama4kPro: {
+        rango: "3.800€ - 4.400€",
+        uso: "Gaming 4K 144 Hz, Ray Tracing y creación de contenido",
+        target: "4K · Ultra · 120+ fps con DLSS 4",
+        perfil: "Torre entusiasta con RTX 5090 32GB, AIO 360, fuente 1200W y cableado premium.",
+        piezas: [
+          { tipo: "Procesador", nombre: "AMD Ryzen 7 9700X", precio: 279.00, url: ldlcSearchUrl("Ryzen 7 9700X") },
+          { tipo: "Refrigeración", nombre: "Arctic Liquid Freezer III 360 ARGB", precio: 109.00, url: ldlcSearchUrl("Arctic Liquid Freezer III 360 ARGB") },
+          { tipo: "Placa Base", nombre: "ASUS TUF Gaming X870-PLUS WiFi", precio: 299.00, url: ldlcSearchUrl("ASUS TUF Gaming X870-PLUS WiFi") },
+          { tipo: "Memoria RAM", nombre: "Kingston FURY Beast 32GB (2x16GB) DDR5 6000 CL30", precio: 219.00, url: ldlcSearchUrl("Kingston FURY Beast DDR5 32GB 6000") },
+          { tipo: "Tarjeta Gráfica", nombre: "MSI GeForce RTX 5090 32GB GDDR7", precio: 2299.00, url: ldlcSearchUrl("MSI GeForce RTX 5090 32GB") },
+          { tipo: "Almacenamiento", nombre: "Samsung 990 Pro 2TB NVMe PCIe 4.0", precio: 189.00, url: ldlcSearchUrl("Samsung 990 Pro 2TB") },
+          { tipo: "Fuente", nombre: "Corsair RM1200x Shift 1200W Gold ATX 3.1", precio: 249.00, url: ldlcSearchUrl("Corsair RM1200x Shift") },
+          { tipo: "Caja", nombre: "Antec C8 Curve Wood", precio: 149.00, url: ldlcSearchUrl("Antec C8 Curve Wood") },
+          { tipo: "Ventilación", nombre: "3x Ventiladores 120mm ARGB", precio: 45.00, url: ldlcSearchUrl("ventiladores 120mm ARGB") }
+        ],
+        montaje: 110.00
+      },
+      gamaExtreme: {
+        rango: "4.800€ - 5.500€",
+        uso: "4K extremo, render 3D, IA local y creación profesional",
+        target: "4K · Ultra · 144+ fps y render profesional",
+        perfil: "Torre full-tower con RTX 5090, AIO 420, 64 GB, 4 TB + 2 TB y fuente 1200W.",
+        piezas: [
+          { tipo: "Procesador", nombre: "AMD Ryzen 9 9950X3D", precio: 699.00, url: ldlcSearchUrl("Ryzen 9 9950X3D") },
+          { tipo: "Refrigeración", nombre: "Arctic Liquid Freezer III 420 ARGB", precio: 149.00, url: ldlcSearchUrl("Arctic Liquid Freezer III 420 ARGB") },
+          { tipo: "Placa Base", nombre: "ASUS ROG Strix X870E-E Gaming WiFi", precio: 429.00, url: ldlcSearchUrl("ASUS ROG Strix X870E-E") },
+          { tipo: "Memoria RAM", nombre: "Kingston FURY Renegade 64GB (2x32GB) DDR5 6000 CL30", precio: 399.00, url: ldlcSearchUrl("Kingston FURY Renegade DDR5 64GB") },
+          { tipo: "Tarjeta Gráfica", nombre: "MSI GeForce RTX 5090 32GB GDDR7", precio: 2299.00, url: ldlcSearchUrl("MSI GeForce RTX 5090 32GB") },
+          { tipo: "Almacenamiento SO", nombre: "Samsung 990 Pro 4TB NVMe PCIe 4.0", precio: 329.00, url: ldlcSearchUrl("Samsung 990 Pro 4TB") },
+          { tipo: "Almacenamiento Datos", nombre: "Samsung 990 Pro 2TB NVMe PCIe 4.0", precio: 189.00, url: ldlcSearchUrl("Samsung 990 Pro 2TB") },
+          { tipo: "Fuente", nombre: "Corsair RM1200x Shift 1200W Gold ATX 3.1", precio: 249.00, url: ldlcSearchUrl("Corsair RM1200x Shift") },
+          { tipo: "Caja", nombre: "Fractal Design North XL", precio: 179.00, url: ldlcSearchUrl("Fractal Design North XL") },
+          { tipo: "Ventilación", nombre: "4x Ventiladores 140mm ARGB", precio: 69.00, url: ldlcSearchUrl("ventiladores 140mm ARGB") }
+        ],
+        montaje: 150.00
+      },
+      homeServer: {
+        rango: "950€ - 1.150€",
+        uso: "Servidor casero 24/7, NAS, Docker y copias de seguridad",
+        target: "Servidor 24/7 · Bajo consumo · 2x4TB",
+        perfil: "Caja sobria con discos apilados, flujo silencioso y sin iluminación.",
+        piezas: [
+          { tipo: "Procesador", nombre: "AMD Ryzen 5 5600", precio: 119.95, url: ldlcSearchUrl("Ryzen 5 5600") },
+          { tipo: "Disipador", nombre: "Thermalright Assassin X 120", precio: 19.95, url: ldlcSearchUrl("Thermalright Assassin X 120") },
           { tipo: "Placa Base", nombre: "Gigabyte B550M DS3H R2", precio: 89.95, url: ldlcSearchUrl("Gigabyte B550M DS3H R2") },
-          { tipo: "Memoria RAM", nombre: "Corsair Vengeance LPX 32GB (2x16GB) DDR4 3200", precio: 269.95, url: ldlcSearchUrl("Corsair Vengeance LPX 32GB DDR4 3200") },
-          { tipo: "Almacenamiento SO", nombre: "Kingston NV3 1TB NVMe PCIe 4.0", precio: 149.00, url: ldlcSearchUrl("Kingston NV3 1TB") },
-          { tipo: "Almacenamiento Datos", nombre: "2x Western Digital WD Red Plus 4TB NAS", precio: 425.00, url: ldlcSearchUrl("WD Red Plus 4TB") },
-          { tipo: "Fuente", nombre: "Corsair RM750e 750W Gold", precio: 120.00, url: ldlcSearchUrl("Corsair RM750e") },
+          { tipo: "Memoria RAM", nombre: "Corsair Vengeance LPX 32GB (2x16GB) DDR4 3200", precio: 159.95, url: ldlcSearchUrl("Corsair Vengeance LPX 32GB DDR4 3200") },
+          { tipo: "Almacenamiento SO", nombre: "Kingston NV3 1TB NVMe PCIe 4.0", precio: 99.00, url: ldlcSearchUrl("Kingston NV3 1TB") },
+          { tipo: "Almacenamiento Datos", nombre: "2x Western Digital WD Red Plus 4TB NAS", precio: 349.90, url: ldlcSearchUrl("WD Red Plus 4TB") },
+          { tipo: "Fuente", nombre: "Corsair CX650 650W 80+ Bronze", precio: 59.95, url: ldlcSearchUrl("Corsair CX650") },
           { tipo: "Caja", nombre: "Fractal Design Focus G", precio: 64.95, url: ldlcSearchUrl("Fractal Focus G") }
         ],
-        montaje: 50.00
+        montaje: 60.00
       }
     };
 
     // ================= CONFIGURADOR DE PRESUPUESTOS + VISTA 3D =================
     const BUDGET_TIER_LABELS = {
-      gamaEntrada: 'Entrada',
-      gamaMedia: 'Media',
-      gamaAlta: 'Alta',
+      gamaEntrada: 'Entrada 1080p',
+      gamaMedia: 'Media 1440p',
+      gamaAlta: 'Alta 1440p/4K',
+      gama4k: '4K Ultra',
+      gama4kPlus: '4K Plus',
+      gama4kPro: '4K Pro',
+      gamaExtreme: 'Extreme 4K',
       homeServer: 'Home Server'
     };
-    const BUDGET_TIER_ORDER = ['gamaEntrada', 'gamaMedia', 'gamaAlta', 'homeServer'];
+    const BUDGET_TIER_ORDER = ['gamaEntrada', 'gamaMedia', 'gamaAlta', 'gama4k', 'gama4kPlus', 'gama4kPro', 'gamaExtreme', 'homeServer'];
     let selectedBudgetTier = 'gamaMedia';
+    let customRecommendation = null;
+    let wizardStep = 0;
+    const wizardAnswers = { use: null, resolution: null, budget: null, extras: [] };
+
+    const WIZARD_USE = [
+      { id: 'gaming', icon: '🎮', label: 'Gaming', desc: 'Jugar con buena tasa de FPS' },
+      { id: 'creator', icon: '🎬', label: 'Edición / Render', desc: 'Vídeo 4K, foto y 3D' },
+      { id: 'stream', icon: '📺', label: 'Gaming + Streaming', desc: 'Jugar y emitir a la vez' },
+      { id: 'work', icon: '💼', label: 'Trabajo / Oficina', desc: 'Ofimática, estudios y multitarea' },
+      { id: 'server', icon: '🗄️', label: 'Servidor / NAS', desc: 'Copias, Docker y 24/7' }
+    ];
+    const WIZARD_RESOLUTION = [
+      { id: '1080p', label: '1080p', desc: 'Full HD · la opción más económica' },
+      { id: '1440p', label: '1440p / 2K', desc: 'El equilibrio calidad-precio' },
+      { id: '4k', label: '4K UHD', desc: 'Máximo detalle · requiere GPU alta' },
+      { id: 'unknown', label: 'No lo sé', desc: 'Te recomendamos según uso y presupuesto' }
+    ];
+    const WIZARD_BUDGET = [
+      { id: 800, label: 'Hasta 800 €', desc: 'Entrada / 1080p' },
+      { id: 1300, label: 'Hasta 1.300 €', desc: 'Equilibrado / 1440p' },
+      { id: 2000, label: 'Hasta 2.000 €', desc: 'Alto rendimiento' },
+      { id: 3000, label: 'Hasta 3.000 €', desc: '4K y edición' },
+      { id: 4000, label: 'Hasta 4.000 €', desc: '4K Pro / RTX 5090' },
+      { id: 5000, label: 'Hasta 5.000 €', desc: 'Extreme 4K / creación' }
+    ];
+    const WIZARD_EXTRAS = [
+      { id: 'wifi', label: 'WiFi 6E', desc: 'Adaptador PCIe WiFi + Bluetooth' },
+      { id: 'storage', label: 'SSD extra 2TB', desc: 'Más espacio para juegos y proyectos' },
+      { id: 'silence', label: 'Priorizar silencio', desc: 'Curva de ventiladores suave' },
+      { id: 'rgb', label: 'Iluminación RGB', desc: 'Ventiladores y tiras ARGB' },
+      { id: 'os', label: 'Windows instalado', desc: 'Sistema y programas listos' },
+      { id: 'peripherals', label: 'Monitor y periféricos', desc: 'Los presupuestamos aparte' }
+    ];
 
     function formatBudgetEuro(value) {
       return Number(value || 0).toLocaleString('es-ES', {
@@ -1444,7 +1596,7 @@
     }
 
     function budgetTotals(tier) {
-      const subtotal = tier.piezas.reduce((acc, item) => acc + Number(item.precio || 0), 0);
+      const subtotal = (tier.piezas || []).reduce((acc, item) => acc + Number(item.precio || 0), 0);
       return { subtotal, total: subtotal + Number(tier.montaje || 0) };
     }
 
@@ -1460,33 +1612,59 @@
       }
     }
 
-    function renderBudgetSection(tierId = selectedBudgetTier) {
-      selectedBudgetTier = LDLC_CATALOG[tierId] ? tierId : 'gamaMedia';
-      const tier = LDLC_CATALOG[selectedBudgetTier];
-      const totals = budgetTotals(tier);
+    function budgetIcon(tipo) {
+      const t = String(tipo || '').toLowerCase();
+      if (t.includes('procesador')) return '🧠';
+      if (t.includes('gráfica') || t.includes('grafica')) return '🎮';
+      if (t.includes('placa')) return '🧩';
+      if (t.includes('memoria')) return '⚡';
+      if (t.includes('almacenamiento') || t.includes('ssd')) return '💾';
+      if (t.includes('fuente')) return '🔌';
+      if (t.includes('caja')) return '🗄️';
+      if (t.includes('refriger') || t.includes('disipador') || t.includes('ventil')) return '❄️';
+      if (t.includes('conectividad') || t.includes('wifi')) return '📶';
+      if (t.includes('iluminación') || t.includes('iluminacion')) return '💡';
+      return '🔧';
+    }
 
+    function catalogBuild(tierId) {
+      const tier = LDLC_CATALOG[tierId];
+      return {
+        baseTier: tierId,
+        label: BUDGET_TIER_LABELS[tierId],
+        title: tier.uso,
+        uso: tier.uso,
+        target: tier.target || '',
+        perfil: tier.perfil || '',
+        piezas: tier.piezas.map((p) => ({ ...p })),
+        montaje: tier.montaje,
+        extras: [],
+        notes: [],
+        warnings: [],
+        custom: false
+      };
+    }
+
+    function renderBudgetTabs(activeId) {
       const tabs = document.getElementById('budget-tabs');
-      if (tabs) {
-        tabs.innerHTML = BUDGET_TIER_ORDER.map((id) => {
-          const active = id === selectedBudgetTier;
-          const classes = active
-            ? 'bg-lobatoGreen text-black border-lobatoGreen shadow-lg shadow-emerald-900/30'
-            : 'bg-slate-900 text-slate-300 border-slate-700 hover:border-lobatoGreen hover:text-white';
-          return `<button type="button" onclick="selectBudgetTier('${id}')" class="border font-extrabold text-xs px-3.5 py-2 rounded-lg transition ${classes}">${BUDGET_TIER_LABELS[id]}</button>`;
-        }).join('');
-      }
+      if (!tabs) return;
+      selectedBudgetTier = activeId;
+      tabs.innerHTML = BUDGET_TIER_ORDER.map((id) => {
+        const active = id === activeId;
+        const classes = active
+          ? 'bg-lobatoGreen text-black border-lobatoGreen shadow-lg shadow-emerald-900/30'
+          : 'bg-slate-900 text-slate-300 border-slate-700 hover:border-lobatoGreen hover:text-white';
+        return `<button type="button" onclick="selectBudgetTier('${id}')" class="border font-extrabold text-xs px-3.5 py-2 rounded-lg transition ${classes}">${BUDGET_TIER_LABELS[id]}</button>`;
+      }).join('');
+    }
 
-      const panel = document.getElementById('budget-panel');
-      if (!panel) return;
-
-      const whatsappMessage = encodeURIComponent(
-        `Hola Jose Angel, quiero el presupuesto "${BUDGET_TIER_LABELS[selectedBudgetTier]}" de TecnoLobato por ${formatBudgetEuro(totals.total)}. ¿Me confirmas disponibilidad?`
-      );
-      const rows = tier.piezas.map((piece) => `
-        <div class="flex items-center justify-between gap-3 rounded-xl border border-slate-800 bg-slate-950/60 px-3 py-2.5">
-          <div class="min-w-0">
+    function budgetPieceRows(build) {
+      return (build.piezas || []).map((piece) => `
+        <div class="flex items-start gap-3 rounded-xl border border-slate-800 bg-slate-950/60 px-3 py-2.5">
+          <span class="text-base leading-none mt-0.5" aria-hidden="true">${budgetIcon(piece.tipo)}</span>
+          <div class="min-w-0 flex-1">
             <span class="block text-[10px] uppercase tracking-wider text-slate-500">${escapeBudgetHtml(piece.tipo)}</span>
-            <a href="${piece.url}" target="_blank" rel="noopener noreferrer" class="block text-xs text-slate-200 hover:text-emerald-400 transition truncate" title="${escapeBudgetHtml(piece.nombre)}">${escapeBudgetHtml(piece.nombre)}</a>
+            <a href="${piece.url}" target="_blank" rel="noopener noreferrer" class="block text-xs text-slate-200 hover:text-emerald-400 transition" title="${escapeBudgetHtml(piece.nombre)}">${escapeBudgetHtml(piece.nombre)}</a>
           </div>
           <div class="text-right shrink-0">
             <span class="block text-xs font-black text-emerald-400">${formatBudgetEuro(piece.precio)}</span>
@@ -1494,21 +1672,65 @@
           </div>
         </div>
       `).join('');
+    }
+
+    function budgetWarningsHtml(build) {
+      return (build.warnings || []).map((warning) => `<div class="mt-3 rounded-xl border border-amber-500/40 bg-amber-950/20 px-3 py-2 text-[11px] leading-relaxed text-amber-200">⚠️ ${escapeBudgetHtml(warning)}</div>`).join('');
+    }
+
+    function budgetNotesHtml(build) {
+      if (!(build.notes || []).length) return '';
+      return `<div class="mt-3 rounded-xl border border-emerald-500/20 bg-emerald-950/20 px-3 py-2 text-[10px] leading-relaxed text-emerald-200/90 space-y-1">
+        <span class="block font-black uppercase tracking-wide text-emerald-300">Ajustado a tus respuestas</span>
+        ${build.notes.map((note) => `<span class="block">• ${escapeBudgetHtml(note)}</span>`).join('')}
+      </div>`;
+    }
+
+    function renderBudgetSection(tierId = selectedBudgetTier) {
+      selectedBudgetTier = LDLC_CATALOG[tierId] ? tierId : 'gamaMedia';
+      customRecommendation = null;
+      renderBudgetPanel(catalogBuild(selectedBudgetTier));
+    }
+
+    function selectBudgetTier(tierId) {
+      renderBudgetSection(tierId);
+      const panel = document.getElementById('budget-panel');
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function renderBudgetPanel(build) {
+      if (!build) return;
+      lastGeneratedBudget = budgetToOrder(build);
+      renderBudgetTabs(build.baseTier || selectedBudgetTier);
+      const panel = document.getElementById('budget-panel');
+      if (!panel) return;
+
+      const totals = budgetTotals(build);
+      const whatsappMessage = encodeURIComponent(
+        `Hola Jose Angel, quiero el presupuesto "${build.title}" de TecnoLobato por ${formatBudgetEuro(totals.total)}. Objetivo: ${build.target || build.uso}. ¿Me confirmas disponibilidad?`
+      );
+      const target = build.target
+        ? `<span class="mt-2 inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-950/30 px-2.5 py-1 text-[10px] font-bold text-emerald-300">🎯 ${escapeBudgetHtml(build.target)}</span>`
+        : '';
 
       panel.innerHTML = `
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 pb-4 border-b border-slate-800">
-          <div>
-            <span class="text-[10px] font-black uppercase tracking-wider text-lobatoGold">Configuración ${BUDGET_TIER_LABELS[selectedBudgetTier]}</span>
-            <h3 class="text-xl font-bold text-white mt-1">${escapeBudgetHtml(tier.uso)}</h3>
-            <p class="text-xs text-slate-400 mt-1">${tier.piezas.length} componentes · Montaje y test de estrés incluido</p>
+          <div class="min-w-0">
+            <span class="text-[10px] font-black uppercase tracking-wider text-lobatoGold">${escapeBudgetHtml(build.label || 'Configuración')}</span>
+            <h3 class="text-xl font-bold text-white mt-1">${escapeBudgetHtml(build.uso)}</h3>
+            <p class="text-xs text-slate-400 mt-1">${build.piezas.length} componentes · Montaje y test de estrés incluido</p>
+            ${target}
           </div>
-          <div class="sm:text-right">
+          <div class="sm:text-right shrink-0">
             <span class="block text-[10px] uppercase tracking-wider text-slate-500">Total estimado</span>
             <span class="text-2xl font-black text-emerald-400">${formatBudgetEuro(totals.total)}</span>
+            <span class="block text-[10px] text-slate-500">IVA incluido</span>
           </div>
         </div>
 
-        <div class="mt-4 space-y-2">${rows}</div>
+        ${budgetWarningsHtml(build)}
+        <div class="mt-4 space-y-2">${budgetPieceRows(build)}</div>
+        ${budgetNotesHtml(build)}
 
         <div class="mt-4 pt-3 border-t border-slate-800 space-y-1.5 text-xs">
           <div class="flex justify-between text-slate-400">
@@ -1517,7 +1739,7 @@
           </div>
           <div class="flex justify-between text-slate-400">
             <span>Montaje, test de estrés y stream</span>
-            <span class="text-slate-200 font-semibold">${formatBudgetEuro(tier.montaje)}</span>
+            <span class="text-slate-200 font-semibold">${formatBudgetEuro(build.montaje)}</span>
           </div>
           <div class="flex justify-between pt-2 mt-1 border-t border-slate-700 text-sm font-black text-white">
             <span>TOTAL</span>
@@ -1526,22 +1748,446 @@
         </div>
 
         <p class="mt-3 text-[10px] leading-relaxed text-slate-500">
-          Precios de referencia LDLC. Pueden variar según stock y ofertas. La actualización automática multi-tienda está en preparación.
+          Precios de referencia LDLC orientativos. Pueden variar según stock y ofertas. El presupuesto se cierra antes de comprar.
         </p>
 
         <div class="mt-4 grid sm:grid-cols-2 gap-2">
           <a href="https://wa.me/34687397664?text=${whatsappMessage}" target="_blank" rel="noopener noreferrer" class="bg-[#25D366] hover:bg-[#1ebd59] text-white font-extrabold text-xs px-4 py-3 rounded-lg text-center transition">
             💬 Pedir este presupuesto
           </a>
-          <button type="button" onclick="toggleChat(); quickAsk('Quiero ajustar el presupuesto ${BUDGET_TIER_LABELS[selectedBudgetTier]} y mejorar componentes')" class="bg-emerald-950/70 hover:bg-emerald-900/70 border border-emerald-500/40 text-emerald-300 font-bold text-xs px-4 py-3 rounded-lg transition">
+          <button type="button" onclick="toggleChat(); quickAsk('Quiero ajustar esta configuración: ${escapeBudgetHtml(build.label)}')" class="bg-emerald-950/70 hover:bg-emerald-900/70 border border-emerald-500/40 text-emerald-300 font-bold text-xs px-4 py-3 rounded-lg transition">
             🤖 Ajustar con IA
           </button>
+        </div>
+        <button type="button" onclick="openOrderModal()" class="mt-2 w-full bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold text-xs px-4 py-3 rounded-lg transition">
+          ✅ Enviar este presupuesto al taller
+        </button>
+      `;
+
+      renderAssemblyPreview(build);
+    }
+
+    function renderAssemblyPreview(build) {
+      const container = document.getElementById('budget-assembly');
+      if (!container) return;
+
+      const pieces = build.piezas || [];
+      const findPiece = (re) => pieces.find((piece) => re.test(String(piece.tipo) + ' ' + String(piece.nombre))) || {};
+      const caja = findPiece(/caja/i);
+      const cooler = findPiece(/refriger|disipador/i);
+      const gpu = findPiece(/gráfica|grafica/i);
+      const psu = findPiece(/fuente/i);
+      const isAIO = /líquida|aio|freezer/i.test(String(cooler.nombre || ''));
+      const hasRgb = (build.extras || []).includes('rgb') || /argb|rgb/i.test([cooler.nombre, gpu.nombre, caja.nombre].join(' '));
+      const isServer = build.baseTier === 'homeServer';
+      const gpuLabel = isServer ? 'SIN GPU' : 'GPU';
+
+      container.innerHTML = `
+        <svg viewBox="0 0 420 300" class="w-full h-auto rounded-xl border border-slate-800 bg-slate-950" role="img" aria-label="Esquema orientativo del montaje">
+          <defs>
+            <marker id="arrowIn" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#38bdf8"/></marker>
+            <marker id="arrowOut" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#fb7185"/></marker>
+            <linearGradient id="caseGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#111827"/></linearGradient>
+          </defs>
+          <rect x="40" y="20" width="230" height="260" rx="14" fill="url(#caseGrad)" stroke="#334155"/>
+          <text x="55" y="40" fill="#64748b" font-size="9" font-weight="700">CAJA</text>
+          <rect x="52" y="70" width="18" height="60" rx="4" fill="#0e7490" stroke="#22d3ee"/>
+          <rect x="52" y="140" width="18" height="60" rx="4" fill="#0e7490" stroke="#22d3ee"/>
+          <rect x="52" y="210" width="18" height="45" rx="4" fill="#0e7490" stroke="#22d3ee"/>
+          <rect x="95" y="55" width="125" height="175" rx="6" fill="#0b1220" stroke="#475569"/>
+          ${isAIO
+            ? `<rect x="120" y="70" width="70" height="55" rx="6" fill="#1e293b" stroke="#a78bfa"/><circle cx="155" cy="97" r="16" fill="#312e81" stroke="#a78bfa"/><text x="155" y="100" text-anchor="middle" fill="#c4b5fd" font-size="8" font-weight="700">AIO</text>`
+            : `<rect x="125" y="70" width="55" height="50" rx="5" fill="#1e293b" stroke="#94a3b8"/><text x="152" y="99" text-anchor="middle" fill="#cbd5e1" font-size="8" font-weight="700">AIRE</text>`}
+          <rect x="190" y="75" width="8" height="42" rx="2" fill="#065f46" stroke="#34d399"/>
+          <rect x="202" y="75" width="8" height="42" rx="2" fill="#065f46" stroke="#34d399"/>
+          <rect x="110" y="150" width="105" height="45" rx="5" fill="#111827" stroke="${isServer ? '#475569' : '#f59e0b'}"/>
+          <text x="162" y="177" text-anchor="middle" fill="${isServer ? '#64748b' : '#fbbf24'}" font-size="8" font-weight="700">${gpuLabel}</text>
+          <rect x="80" y="235" width="130" height="35" rx="5" fill="#1e293b" stroke="#64748b"/>
+          <text x="145" y="257" text-anchor="middle" fill="#94a3b8" font-size="8" font-weight="700">FUENTE</text>
+          <path d="M30 100 H48" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowIn)"/>
+          <path d="M30 170 H48" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowIn)"/>
+          <path d="M30 232 H48" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowIn)"/>
+          <path d="M225 40 V22 H270" stroke="#fb7185" stroke-width="2" marker-end="url(#arrowOut)"/>
+          <path d="M220 60 C252 95, 252 190, 228 245" fill="none" stroke="#475569" stroke-dasharray="4 3"/>
+          <text x="292" y="148" fill="#94a3b8" font-size="9" font-weight="700">Cableado</text>
+          <text x="292" y="162" fill="#64748b" font-size="8">canalizado</text>
+          <text x="292" y="176" fill="#64748b" font-size="8">por detrás</text>
+          <text x="40" y="296" fill="#38bdf8" font-size="8">Entrada de aire</text>
+          <text x="300" y="296" fill="#fb7185" font-size="8">Salida</text>
+        </svg>
+        <div class="mt-3 grid gap-1.5 text-[11px]">
+          <div class="flex justify-between gap-3"><span class="text-slate-500">Caja</span><span class="text-slate-200 text-right">${escapeBudgetHtml(caja.nombre || 'Según configuración')}</span></div>
+          <div class="flex justify-between gap-3"><span class="text-slate-500">Refrigeración</span><span class="text-slate-200 text-right">${escapeBudgetHtml(cooler.nombre || 'Incluida')}</span></div>
+          <div class="flex justify-between gap-3"><span class="text-slate-500">Gráfica</span><span class="text-slate-200 text-right">${escapeBudgetHtml(gpu.nombre || 'Sin GPU dedicada')}</span></div>
+          <div class="flex justify-between gap-3"><span class="text-slate-500">Fuente</span><span class="text-slate-200 text-right">${escapeBudgetHtml(psu.nombre || 'Incluida')}</span></div>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-1.5 text-[10px]">
+          <span class="rounded-full border border-sky-500/30 bg-sky-950/30 px-2 py-1 text-sky-300">Flujo: frontal → trasero/superior</span>
+          <span class="rounded-full border border-slate-700 bg-slate-900 px-2 py-1 text-slate-300">${isAIO ? 'Líquida AIO' : 'Disipador de aire'}</span>
+          <span class="rounded-full border border-slate-700 bg-slate-900 px-2 py-1 text-slate-300">${hasRgb ? 'ARGB configurable' : 'Perfil sobrio'}</span>
+          ${isServer ? '<span class="rounded-full border border-emerald-500/30 bg-emerald-950/30 px-2 py-1 text-emerald-300">24/7 silencioso</span>' : ''}
+        </div>
+        <p class="mt-3 text-[10px] leading-relaxed text-slate-500">${escapeBudgetHtml(build.perfil || 'Montaje orientativo: la posición final puede variar según la caja y la longitud de la GPU.')}</p>
+      `;
+    }
+
+    // ---------- Asistente guiado: preguntas al cliente ----------
+    function wizardOption(field, option) {
+      const selected = wizardAnswers[field] === option.id;
+      const classes = selected
+        ? 'border-lobatoGreen bg-emerald-950/60 text-white shadow-lg shadow-emerald-900/20'
+        : 'border-slate-700 bg-slate-900/70 text-slate-300 hover:border-emerald-500/50 hover:text-white';
+      const value = typeof option.id === 'number' ? option.id : `'${option.id}'`;
+      return `<button type="button" onclick="wizardSelect('${field}', ${value})" class="text-left border rounded-xl px-3 py-2.5 transition ${classes}">
+        <span class="block text-xs font-black">${option.icon ? option.icon + ' ' : ''}${escapeBudgetHtml(option.label)}</span>
+        <span class="block text-[10px] text-slate-400 mt-0.5">${escapeBudgetHtml(option.desc)}</span>
+      </button>`;
+    }
+
+    function wizardExtraOption(option) {
+      const selected = wizardAnswers.extras.includes(option.id);
+      const classes = selected
+        ? 'border-lobatoGreen bg-emerald-950/60 text-white'
+        : 'border-slate-700 bg-slate-900/70 text-slate-300 hover:border-emerald-500/50 hover:text-white';
+      return `<button type="button" onclick="toggleWizardExtra('${option.id}')" class="text-left border rounded-xl px-3 py-2.5 transition ${classes}" aria-pressed="${selected}">
+        <span class="block text-xs font-black">${selected ? '✓ ' : '+ '}${escapeBudgetHtml(option.label)}</span>
+        <span class="block text-[10px] text-slate-400 mt-0.5">${escapeBudgetHtml(option.desc)}</span>
+      </button>`;
+    }
+
+    function renderWizard() {
+      const body = document.getElementById('wizard-body');
+      if (!body) return;
+      const stepNames = ['Uso', 'Resolución', 'Presupuesto', 'Extras'];
+      const badge = document.getElementById('wizard-step-badge');
+      if (badge) badge.textContent = `${wizardStep + 1}/4 · ${stepNames[wizardStep]}`;
+
+      let content = '';
+      if (wizardStep === 0) {
+        content = `<div class="grid sm:grid-cols-2 gap-2">${WIZARD_USE.map((option) => wizardOption('use', option)).join('')}</div>`;
+      } else if (wizardStep === 1) {
+        content = `<div class="grid sm:grid-cols-2 gap-2">${WIZARD_RESOLUTION.map((option) => wizardOption('resolution', option)).join('')}</div>`;
+      } else if (wizardStep === 2) {
+        content = `<div class="grid sm:grid-cols-2 gap-2">${WIZARD_BUDGET.map((option) => wizardOption('budget', option)).join('')}</div>`;
+      } else {
+        content = `<div class="grid sm:grid-cols-2 gap-2">${WIZARD_EXTRAS.map(wizardExtraOption).join('')}</div>`;
+      }
+
+      const canNext = wizardStep === 0 ? !!wizardAnswers.use
+        : wizardStep === 1 ? !!wizardAnswers.resolution
+        : wizardStep === 2 ? !!wizardAnswers.budget
+        : true;
+
+      body.innerHTML = content + `
+        <div class="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-800">
+          <button type="button" onclick="wizardBack()" class="text-[11px] font-bold text-slate-400 hover:text-white transition ${wizardStep === 0 ? 'invisible' : ''}">← Atrás</button>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="wizardReset()" class="text-[11px] font-bold text-slate-500 hover:text-rose-300 transition">Reiniciar</button>
+            ${wizardStep < 3
+              ? `<button type="button" onclick="wizardNext()" ${canNext ? '' : 'disabled'} class="bg-lobatoGreen hover:bg-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed text-black font-extrabold text-xs px-4 py-2 rounded-lg transition">Siguiente →</button>`
+              : `<button type="button" onclick="finishWizard()" class="bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold text-xs px-4 py-2 rounded-lg transition">Ver mi PC →</button>`}
+          </div>
+        </div>`;
+    }
+
+    function wizardSelect(field, value) {
+      wizardAnswers[field] = value;
+      if (field === 'use' && value === 'server') wizardAnswers.resolution = 'unknown';
+      renderWizard();
+    }
+
+    function toggleWizardExtra(id) {
+      const index = wizardAnswers.extras.indexOf(id);
+      if (index >= 0) wizardAnswers.extras.splice(index, 1);
+      else wizardAnswers.extras.push(id);
+      renderWizard();
+    }
+
+    function wizardNext() {
+      if (wizardStep === 0 && !wizardAnswers.use) return;
+      if (wizardStep === 1 && !wizardAnswers.resolution) return;
+      if (wizardStep === 2 && !wizardAnswers.budget) return;
+      wizardStep = Math.min(3, wizardStep + 1);
+      renderWizard();
+    }
+
+    function wizardBack() {
+      wizardStep = Math.max(0, wizardStep - 1);
+      renderWizard();
+    }
+
+    function wizardReset() {
+      wizardAnswers.use = null;
+      wizardAnswers.resolution = null;
+      wizardAnswers.budget = null;
+      wizardAnswers.extras = [];
+      wizardStep = 0;
+      customRecommendation = null;
+      renderWizard();
+      renderBudgetSection('gamaMedia');
+    }
+
+    function finishWizard() {
+      if (!wizardAnswers.use || !wizardAnswers.resolution || !wizardAnswers.budget) return;
+      const build = buildRecommendedBuild(wizardAnswers);
+      customRecommendation = build;
+      renderBudgetPanel(build);
+      const panel = document.getElementById('budget-panel');
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function adjustBuildWithExtras(build, answers) {
+      const extras = answers.extras || [];
+      build.extras = extras.slice();
+      const has = (id) => extras.includes(id);
+
+      if (has('wifi')) {
+        build.piezas.push({ tipo: 'Conectividad', nombre: 'Adaptador WiFi 6E PCIe + Bluetooth 5.3', precio: 35.00, url: ldlcSearchUrl('adaptador wifi 6E pcie') });
+        build.notes.push('Añadido WiFi 6E y Bluetooth por si no vas a usar cable de red.');
+      }
+      if (has('storage')) {
+        build.piezas.push({ tipo: 'Almacenamiento extra', nombre: 'SSD NVMe 2TB adicional', precio: 139.00, url: ldlcSearchUrl('SSD NVMe 2TB') });
+        build.notes.push('Segundo SSD de 2TB para juegos y proyectos, separado del sistema.');
+      }
+      if (has('rgb')) {
+        build.piezas.push({ tipo: 'Iluminación', nombre: 'Kit 3 ventiladores ARGB + controladora', precio: 49.00, url: ldlcSearchUrl('kit ventiladores ARGB 120mm') });
+        build.notes.push('Iluminación ARGB configurable y sincronizada.');
+      }
+      if (has('silence')) {
+        build.notes.push('Perfil de silencio: curva de ventiladores suave y piezas de baja sonoridad.');
+      }
+      if (has('os')) {
+        build.notes.push('Incluye instalación de Windows/Linux, drivers y programas básicos. La licencia de Windows se presupuesta aparte.');
+      }
+      if (has('peripherals')) {
+        build.notes.push('Monitor, teclado y ratón se presupuestan aparte según tamaño y Hz.');
+      }
+    }
+
+    function chooseBudgetTier({ use, resolution, budget }) {
+      const b = Number(budget) || 0;
+      if (use === 'server') return 'homeServer';
+      if (use === 'work') {
+        if (resolution === '4k' && b >= 2500) return 'gama4kPlus';
+        return b >= 1400 ? 'gamaAlta' : b >= 900 ? 'gamaMedia' : 'gamaEntrada';
+      }
+      if (resolution === '4k' || use === 'creator') {
+        if (b >= 4800) return 'gamaExtreme';
+        if (b >= 3800) return 'gama4kPro';
+        if (b >= 3200) return 'gama4kPlus';
+        if (b >= 2500) return 'gama4k';
+        if (b >= 1800) return 'gamaAlta';
+        if (b > 0) return 'gamaMedia';
+        return use === 'creator' ? 'gamaAlta' : 'gama4k';
+      }
+      if (resolution === '1440p') {
+        if (b >= 4800) return 'gamaExtreme';
+        if (b >= 3800) return 'gama4kPro';
+        if (b >= 3200) return 'gama4kPlus';
+        return b >= 1800 ? 'gamaAlta' : 'gamaMedia';
+      }
+      if (resolution === '1080p') {
+        if (b >= 4800) return 'gamaExtreme';
+        if (b >= 3800) return 'gama4kPro';
+        if (b >= 3200) return 'gama4kPlus';
+        if (b >= 1800) return 'gamaAlta';
+        return b >= 1200 ? 'gamaMedia' : 'gamaEntrada';
+      }
+      if (b >= 4800) return 'gamaExtreme';
+      if (b >= 3800) return 'gama4kPro';
+      if (b >= 3200) return 'gama4kPlus';
+      if (b >= 2500) return 'gama4k';
+      if (b >= 1400) return 'gamaAlta';
+      if (b >= 900) return 'gamaMedia';
+      if (b > 0) return 'gamaEntrada';
+      return use === 'creator' ? 'gamaAlta' : 'gamaMedia';
+    }
+
+    function buildRecommendedBuild(answers) {
+      const use = answers.use;
+      const resolution = answers.resolution;
+      const budget = Number(answers.budget) || 0;
+      let baseTier = chooseBudgetTier({ use, resolution, budget });
+
+      const order = ['gamaEntrada', 'gamaMedia', 'gamaAlta', 'gama4k', 'gama4kPlus', 'gama4kPro', 'gamaExtreme'];
+      let build = catalogBuild(baseTier);
+      if (baseTier !== 'homeServer' && budget > 0) {
+        let totals = budgetTotals(build);
+        let index = order.indexOf(baseTier);
+        while (totals.total > budget * 1.35 && index > 0) {
+          index -= 1;
+          build = catalogBuild(order[index]);
+          totals = budgetTotals(build);
+        }
+        baseTier = build.baseTier;
+      }
+
+      build.custom = true;
+      build.label = `Recomendado · ${BUDGET_TIER_LABELS[baseTier]}`;
+      if (use === 'stream') build.title = `${build.uso} + emisión en directo`;
+      else if (use === 'work') build.title = `${build.uso} · uso profesional/ofimática`;
+      else if (use === 'creator') build.title = `${build.uso} · edición y render`;
+      adjustBuildWithExtras(build, answers);
+
+      const is4kTier = ['gama4k', 'gama4kPlus', 'gama4kPro', 'gamaExtreme'].includes(baseTier);
+      if (resolution === '4k' && !is4kTier) {
+        build.warnings.push('Has pedido 4K, pero con ese presupuesto priorizamos 1440p alto o 4K con FSR. Para 4K ultra estable recomendamos la configuración 4K (desde ~2.500 €).');
+      }
+      if (resolution === '4k' && is4kTier) {
+        build.notes.push('Configuración pensada para 4K a 60-144 fps con ajustes altos/ultra y DLSS/FSR.');
+      }
+      if (use === 'server') {
+        build.notes.push('Servidor sin GPU dedicada: prioriza bajo consumo, discos y estabilidad 24/7.');
+      }
+      const finalTotals = budgetTotals(build);
+      if (budget > 0 && finalTotals.total > budget * 1.08) {
+        build.warnings.push(`El total estimado (${formatBudgetEuro(finalTotals.total)}) supera tu presupuesto de ${formatBudgetEuro(budget)}. Podemos ajustar GPU, RAM o extras para acercarlo.`);
+      }
+      return build;
+    }
+
+    function detectResolution(text) {
+      const p = String(text || '').toLowerCase();
+      if (/\b4k\b|2160p|\buhd\b/.test(p)) return '4k';
+      if (/\b2k\b|1440p|\bqhd\b/.test(p)) return '1440p';
+      if (/1080p|full\s*hd|\bfhd\b/.test(p)) return '1080p';
+      return null;
+    }
+
+    function extractBudgetAmount(text) {
+      const raw = String(text || '');
+      const explicit = raw.match(/(\d{1,3}(?:[.,]\d{3})+|\d{3,5})\s*(?:€|eur(?:os)?\b)/i);
+      if (explicit) {
+        const amount = parseInt(explicit[1].replace(/[.,]/g, ''), 10);
+        if (amount >= 300 && amount <= 6000) return amount;
+      }
+      const cleaned = raw
+        .replace(/\b(?:rtx|gtx|rx|ryzen|intel|core|i[3579]|ddr[45]|pcie|nvme|w[0-9]{4})\s*\d+/gi, ' ')
+        .replace(/\b(?:4k|2k|1080p|1440p|2160p|uhd)\b/gi, ' ');
+      const thousands = cleaned.match(/(?<![\w.])(\d{1,3}(?:[.,]\d{3})+)(?![\w.])/);
+      if (thousands) {
+        const amount = parseInt(thousands[1].replace(/[.,]/g, ''), 10);
+        if (amount >= 300 && amount <= 6000) return amount;
+      }
+      const matches = [...cleaned.matchAll(/(?<![\w.])(\d{3,5})(?![\w.])/g)]
+        .map((match) => parseInt(match[1], 10))
+        .filter((number) => number >= 300 && number <= 6000);
+      return matches.length ? matches[0] : null;
+    }
+
+    function createBuildFromPrompt(prompt) {
+      const p = String(prompt || '').toLowerCase();
+      const resolution = detectResolution(prompt);
+      const budgetAmount = extractBudgetAmount(prompt);
+      const isServer = /server|nas|servidor|docker/.test(p);
+      const isCreator = /edici|render|3d|photoshop|premiere|davinci|blender|vídeo|video/.test(p);
+      const isWork = /ofim|trabajo|estudio|word|excel|programar|oficina/.test(p);
+      const isStream = /stream|directo|twitch|emitir/.test(p);
+      const use = isServer ? 'server' : isCreator ? 'creator' : isWork ? 'work' : isStream ? 'stream' : 'gaming';
+
+      let baseTier = chooseBudgetTier({ use, resolution, budget: budgetAmount });
+      if (!budgetAmount && resolution === 'unknown' && /alto|potente|ultra|gta|cyberpunk|máximo|maximo/.test(p)) {
+        baseTier = 'gamaAlta';
+      }
+
+      const order = ['gamaEntrada', 'gamaMedia', 'gamaAlta', 'gama4k', 'gama4kPlus', 'gama4kPro', 'gamaExtreme'];
+      let build = catalogBuild(baseTier);
+      if (baseTier !== 'homeServer' && budgetAmount) {
+        let totals = budgetTotals(build);
+        let index = order.indexOf(baseTier);
+        while (totals.total > budgetAmount * 1.35 && index > 0) {
+          index -= 1;
+          build = catalogBuild(order[index]);
+          totals = budgetTotals(build);
+        }
+        baseTier = build.baseTier;
+      }
+
+      build.custom = true;
+      build.label = `Presupuesto IA · ${BUDGET_TIER_LABELS[baseTier]}`;
+      build.title = `Configuración ${BUDGET_TIER_LABELS[baseTier]}${budgetAmount ? ` · ~${budgetAmount} €` : ''}`;
+      build.answers = { use, resolution, budget: budgetAmount, extras: [] };
+
+      const is4kTier = ['gama4k', 'gama4kPlus', 'gama4kPro', 'gamaExtreme'].includes(baseTier);
+      if (resolution === '4k' && !is4kTier) {
+        build.warnings.push('Para 4K ultra sostenido necesitas una GPU de gama alta (RTX 5080 / RTX 5090). Con este presupuesto te propongo 1440p alto o 4K con FSR.');
+      }
+      if (resolution === '4k' && is4kTier) {
+        build.notes.push('Configuración preparada para 4K a 60-144 fps con ajustes altos/ultra y DLSS/FSR.');
+      }
+      if (baseTier === 'homeServer') {
+        build.notes.push('Servidor sin GPU dedicada: prioriza bajo consumo, discos y estabilidad 24/7.');
+      }
+      if (!budgetAmount) {
+        build.notes.push('No has indicado presupuesto: dime una cifra y ajusto la configuración al céntimo.');
+      }
+      const finalTotals = budgetTotals(build);
+      if (budgetAmount && finalTotals.total > budgetAmount * 1.08) {
+        build.warnings.push(`El total estimado (${formatBudgetEuro(finalTotals.total)}) supera tu presupuesto de ${formatBudgetEuro(budgetAmount)}. Podemos ajustar GPU, RAM o extras para acercarlo.`);
+      }
+      return build;
+    }
+
+    function budgetToOrder(build) {
+      const totals = budgetTotals(build);
+      return {
+        title: build.title,
+        uso: build.uso,
+        target: build.target || '',
+        piezas: build.piezas,
+        subtotal: totals.subtotal.toFixed(2),
+        montaje: Number(build.montaje || 0).toFixed(2),
+        total: totals.total.toFixed(2),
+        notes: build.notes || [],
+        warnings: build.warnings || []
+      };
+    }
+
+    function budgetCardHtml(build) {
+      const totals = budgetTotals(build);
+      const rows = (build.piezas || []).map((piece) => `
+        <div class="flex items-start justify-between gap-2 border-b border-slate-900 pb-1">
+          <span class="text-slate-300">• <a href="${piece.url}" target="_blank" rel="noopener noreferrer" class="text-slate-200 hover:text-emerald-400 underline">${escapeBudgetHtml(piece.tipo)}: ${escapeBudgetHtml(piece.nombre)} 🔗</a></span>
+          <span class="text-emerald-400 font-bold whitespace-nowrap">${formatBudgetEuro(piece.precio)}</span>
+        </div>
+      `).join('');
+      const warnings = (build.warnings || []).map((warning) => `<div class="mt-2 rounded-lg border border-amber-500/40 bg-amber-950/20 px-2.5 py-2 text-[10px] leading-relaxed text-amber-200">⚠️ ${escapeBudgetHtml(warning)}</div>`).join('');
+      const notes = (build.notes || []).map((note) => `<div class="text-[10px] text-emerald-200/80">• ${escapeBudgetHtml(note)}</div>`).join('');
+      const whatsappMessage = encodeURIComponent(`Hola Jose Angel, la IA me ha hecho este presupuesto: ${build.title} por ${formatBudgetEuro(totals.total)}. Objetivo: ${build.target || build.uso}`);
+
+      return `
+        <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
+          <div class="flex items-start justify-between gap-2 pb-2 border-b border-slate-800">
+            <div class="min-w-0">
+              <span class="text-[10px] font-black text-lobatoGold uppercase">${escapeBudgetHtml(build.label || 'Presupuesto')}</span>
+              <h4 class="font-bold text-white text-sm">${escapeBudgetHtml(build.title)}</h4>
+              <p class="text-[10px] text-emerald-300 mt-0.5">🎯 ${escapeBudgetHtml(build.target || build.uso)}</p>
+            </div>
+            <span class="text-xs bg-emerald-950 border border-emerald-500/40 text-emerald-400 px-2 py-0.5 rounded font-bold whitespace-nowrap">${formatBudgetEuro(totals.total)}</span>
+          </div>
+          ${warnings}
+          <div class="space-y-1.5 my-3 text-[11px] font-mono">${rows}</div>
+          <div class="pt-2 border-t border-slate-800 text-[11px] space-y-1">
+            <div class="flex justify-between text-slate-400"><span>Subtotal componentes</span><span class="text-slate-200 font-bold">${formatBudgetEuro(totals.subtotal)}</span></div>
+            <div class="flex justify-between text-slate-400"><span>Montaje, test y stream</span><span class="text-slate-200 font-bold">${formatBudgetEuro(build.montaje)}</span></div>
+            <div class="flex justify-between pt-1 border-t border-slate-700 font-bold text-white"><span>TOTAL</span><span class="text-emerald-400">${formatBudgetEuro(totals.total)}</span></div>
+          </div>
+          ${notes ? `<div class="mt-2 space-y-1">${notes}</div>` : ''}
+          <div class="mt-3 grid grid-cols-2 gap-2">
+            <button onclick="openOrderModal()" class="py-2 bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold text-[11px] rounded-lg transition">✅ Aceptar y enviar</button>
+            <button onclick="focusConfigurator('${build.baseTier}')" class="py-2 bg-slate-900 hover:bg-emerald-950 border border-slate-700 text-slate-200 font-bold text-[11px] rounded-lg transition">🧩 Ver montaje</button>
+          </div>
+          <a href="https://wa.me/34687397664?text=${whatsappMessage}" target="_blank" rel="noopener noreferrer" class="mt-2 block py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-[11px] rounded-lg transition text-center">💬 Consultar o modificar en WhatsApp</a>
         </div>
       `;
     }
 
-    function selectBudgetTier(tierId) {
-      renderBudgetSection(tierId);
+    function focusConfigurator(tierId) {
+      const chatWin = document.getElementById('ai-chat-window');
+      if (chatWin) chatWin.classList.add('hidden');
+      renderBudgetSection(LDLC_CATALOG[tierId] ? tierId : 'gamaMedia');
+      const section = document.getElementById('presupuestos');
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function loadBudget3D() {
@@ -1593,100 +2239,9 @@
     }
 
     function buildLDLCBudget(userPrompt) {
-      const p = userPrompt.toLowerCase();
-      let selected = null;
-      let title = "";
-
-      const numbers = userPrompt.match(/\d+/g);
-      let budgetAmount = numbers ? parseInt(numbers[0]) : null;
-
-      if (p.includes("server") || p.includes("nas") || p.includes("servidor")) {
-        selected = LDLC_CATALOG.homeServer;
-        title = "Home Server & Almacenamiento NAS LDLC";
-      } else if (budgetAmount) {
-        if (budgetAmount <= 750) {
-          selected = LDLC_CATALOG.gamaEntrada;
-          title = `Configuración Gaming Entrada (~${budgetAmount}€)`;
-        } else if (budgetAmount <= 1750) {
-          selected = LDLC_CATALOG.gamaMedia;
-          title = `Configuración Gaming Equilibrada (~${budgetAmount}€)`;
-        } else {
-          selected = LDLC_CATALOG.gamaAlta;
-          title = `Configuración Gaming Alta / Render (~${budgetAmount}€)`;
-        }
-      } else if (p.includes("alto") || p.includes("4k") || p.includes("2k") || p.includes("potente") || p.includes("render") || p.includes("gta") || p.includes("cyberpunk")) {
-        selected = LDLC_CATALOG.gamaAlta;
-        title = "Configuración Gaming de Alto Rendimiento LDLC";
-      } else if (p.includes("barato") || p.includes("economico") || p.includes("entrada") || p.includes("fortnite") || p.includes("lol") || p.includes("valorant")) {
-        selected = LDLC_CATALOG.gamaEntrada;
-        title = "Configuración Gaming Económica LDLC";
-      } else {
-        selected = LDLC_CATALOG.gamaMedia;
-        title = "Configuración Gaming Equilibrada LDLC";
-      }
-
-      let subtotal = selected.piezas.reduce((acc, item) => acc + item.precio, 0);
-      let total = subtotal + selected.montaje;
-
-      lastGeneratedBudget = {
-        title: title,
-        uso: selected.uso,
-        piezas: selected.piezas,
-        subtotal: subtotal.toFixed(2),
-        montaje: selected.montaje.toFixed(2),
-        total: total.toFixed(2)
-      };
-
-      let html = `
-        <div class="border border-emerald-500/40 rounded-xl p-3 bg-slate-950/70">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-800">
-            <div>
-              <span class="text-[10px] font-black text-lobatoGold uppercase">Presupuesto Referenciado LDLC</span>
-              <h4 class="font-bold text-white text-sm">${title}</h4>
-            </div>
-            <span class="text-xs bg-emerald-950 border border-emerald-500/40 text-emerald-400 px-2 py-0.5 rounded font-bold">${lastGeneratedBudget.total} €</span>
-          </div>
-          <p class="text-[11px] text-slate-400 my-2">Uso recomendado: ${selected.uso}</p>
-
-          <div class="space-y-1.5 my-3 text-[11px] font-mono">
-      `;
-
-      selected.piezas.forEach(p => {
-        html += `
-          <div class="flex items-start justify-between gap-2 border-b border-slate-900 pb-1">
-            <span class="text-slate-300">• <a href="${p.url}" target="_blank" title="Ver en LDLC.com" class="text-slate-200 hover:text-emerald-400 underline">${p.tipo}: ${p.nombre} 🔗</a></span>
-            <span class="text-emerald-400 font-bold whitespace-nowrap">${p.precio.toFixed(2)}€</span>
-          </div>
-        `;
-      });
-
-      html += `
-          </div>
-          <div class="pt-2 border-t border-slate-800 text-[11px] flex justify-between text-slate-400">
-            <span>Subtotal Componentes:</span>
-            <span class="text-slate-200 font-bold">${lastGeneratedBudget.subtotal} €</span>
-          </div>
-          <div class="text-[11px] flex justify-between text-slate-400">
-            <span>Montaje, Test de Estrés & Stream Twitch:</span>
-            <span class="text-slate-200 font-bold">${lastGeneratedBudget.montaje} €</span>
-          </div>
-          <div class="pt-2 mt-1 border-t border-slate-700 text-xs flex justify-between font-bold text-white">
-            <span>TOTAL PRESUPUESTO:</span>
-            <span class="text-emerald-400 text-sm">${lastGeneratedBudget.total} €</span>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800 flex flex-col gap-2">
-            <button onclick="openOrderModal()" class="w-full py-2.5 bg-lobatoGreen hover:bg-emerald-400 text-black font-extrabold text-xs rounded-lg transition shadow flex items-center justify-center gap-1.5">
-              <span>✅ Aceptar y Enviar Pedido a TecnoLobato</span>
-            </button>
-            <a href="https://wa.me/34687397664?text=Hola%20Jose%20Angel,%20la%20IA%20me%20ha%20hecho%20este%20presupuesto:%20${encodeURIComponent(title)}%20por%20${lastGeneratedBudget.total}€" target="_blank" class="w-full py-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-xs rounded-lg transition text-center">
-              💬 Consultar o Modificar en WhatsApp
-            </a>
-          </div>
-        </div>
-      `;
-
-      return html;
+      const build = createBuildFromPrompt(userPrompt);
+      lastGeneratedBudget = budgetToOrder(build);
+      return budgetCardHtml(build);
     }
 
     function handleChatSubmit(e) {
@@ -1697,6 +2252,21 @@
 
       appendMessage('user', text);
       input.value = '';
+
+      const hasUsefulInfo = detectResolution(text)
+        || extractBudgetAmount(text)
+        || /gaming|juego|juegos|server|nas|servidor|edici|render|ofim|trabajo|stream|twitch|oficina|4k|2k|1080|1440/i.test(text);
+
+      if (!hasUsefulInfo && text.length < 40) {
+        appendMessage('bot', `
+          Para recomendarte bien necesito tres datos:<br><br>
+          1) <strong>Uso</strong>: gaming, edición, trabajo o servidor.<br>
+          2) <strong>Resolución</strong>: 1080p, 1440p o 4K.<br>
+          3) <strong>Presupuesto</strong> aproximado.<br><br>
+          También puedes usar el <button type="button" onclick="focusConfigurator('gamaMedia')" class="text-emerald-400 underline font-bold">asistente guiado</button> de la sección Presupuestos y responder las preguntas paso a paso.
+        `, true);
+        return;
+      }
 
       appendMessage('bot', 'Consultando componentes y stock en catálogo LDLC.com... 🐺');
       const container = document.getElementById('chat-messages');
@@ -1714,6 +2284,7 @@
       let summary = `PRESUPUESTO LDLC - TECNOLOBATO\n`;
       summary += `Configuración: ${lastGeneratedBudget.title}\n`;
       summary += `Uso: ${lastGeneratedBudget.uso}\n`;
+      if (lastGeneratedBudget.target) summary += `Objetivo: ${lastGeneratedBudget.target}\n`;
       summary += `--------------------------------------\n`;
       lastGeneratedBudget.piezas.forEach(p => {
         summary += `• [${p.tipo}] ${p.nombre} -> ${p.precio.toFixed(2)}€\n`;
@@ -1722,6 +2293,11 @@
       summary += `Subtotal Piezas: ${lastGeneratedBudget.subtotal} €\n`;
       summary += `Montaje & Emisión Twitch: ${lastGeneratedBudget.montaje} €\n`;
       summary += `TOTAL ESTIMADO: ${lastGeneratedBudget.total} €\n`;
+      if ((lastGeneratedBudget.notes || []).length) {
+        summary += `--------------------------------------\n`;
+        summary += `Ajustes según tus respuestas:\n`;
+        lastGeneratedBudget.notes.forEach(note => { summary += `• ${note}\n`; });
+      }
 
       document.getElementById('order-summary-text').value = summary;
       document.getElementById('order-modal').classList.remove('hidden');

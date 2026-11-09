@@ -1,4 +1,4 @@
-const CACHE = "tecnolobato-v4";
+const CACHE = "tecnolobato-v5";
 const PRECACHE = ["./", "./index.html", "./directos.html", "./blog.html", "./logo.jpg", "./favicon.png", "./manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
