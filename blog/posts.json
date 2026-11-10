@@ -1,5 +1,77 @@
 [
   {
+    "slug": "refrigeracion-por-aire-o-liquida-que-necesita-tu-equipo",
+    "title": "Refrigeración por aire o líquida: qué necesita tu PC",
+    "date": "2026-11-10",
+    "summary": "Aprende a elegir la mejor opción de refrigeración para tu ordenador. Descubre cuándo optar por la refrigeración por aire y cuándo por líquida, con consejos prácticos para mantenerte en el límite del rendimiento.",
+    "tag": "Hardware",
+    "readTime": "4 min",
+    "topic": "Refrigeración por aire o líquida: qué necesita tu equipo",
+    "sections": [
+      {
+        "heading": "Introducción a la refrigeración",
+        "paragraphs": [
+          "En una PC, la refrigeración juega un papel crucial para mantener los componentes del ordenador a una temperatura óptima. Existen dos tipos principales: la refrigeración por aire y la refrigeración líquida. Cada una tiene sus ventajas y desventajas, y elegir la correcta dependerá de tus necesidades y presupuesto.",
+          "Esta guía te ayudará a entender las diferencias entre estas dos tecnologías, a evaluar las necesidades de tu PC y a tomar la decisión más adecuada para tu caso."
+        ]
+      },
+      {
+        "heading": "Refrigeración por aire",
+        "paragraphs": [
+          "La refrigeración por aire es la opción más común y económica. Consiste en el uso de ventiladores y silenciosos radiadores para expulsar el calor del interior del ordenador. Esta opción es adecuada para PCs de uso general y juegos moderados.",
+          "Para elegir un sistema de refrigeración por aire, considera el tamaño y la potencia de los ventiladores, así como la compatibilidad con los componentes del PC. Además, busca sistemas que ofrezcan una buena distribución del aire para evitar zonas de sobrecalentamiento."
+        ]
+      },
+      {
+        "heading": "Refrigeración líquida",
+        "paragraphs": [
+          "La refrigeración líquida es un método más avanzado que utiliza líquidos con alta capacidad de disipación térmica. Los radiadores líquidos y los pompa de refrigeración ayudan a mantener los componentes del ordenador a una temperatura más baja, permitiendo un rendimiento más constante.",
+          "Esta opción es ideal para PC de gaming de alto rendimiento y overclocking, donde el rendimiento y la estabilidad son cruciales. Sin embargo, es más costosa y requiere un mantenimiento regular para evitar fugas y manchas."
+        ]
+      },
+      {
+        "heading": "Cuándo elegir cada opción",
+        "paragraphs": [
+          "La elección entre refrigeración por aire y líquida dependerá de varios factores. Si tienes un ordenador para uso general y juegos moderados, la refrigeración por aire es suficiente. Por otro lado, si buscas un rendimiento óptimo y estabilidad constante, la refrigeración líquida podría ser la mejor opción.",
+          "Además, ten en cuenta que la refrigeración por aire es más fácil de instalar y mantener, mientras que la refrigeración líquida puede requerir ciertas habilidades técnicas y un mantenimiento más riguroso."
+        ]
+      },
+      {
+        "heading": "Consejos prácticos",
+        "paragraphs": [
+          "Aquí te dejamos algunos consejos para ayudarte a tomar la decisión correcta:",
+          "1. Evalúa el uso del ordenador: ¿Es para uso general, gaming, overclocking o trabajo intenso?",
+          "2. Considera el presupuesto: la refrigeración por aire es más económica, mientras que la líquida requiere una inversión mayor.",
+          "3. Investiga compatibilidad: asegúrate de que los componentes elegidos sean compatibles con el sistema de refrigeración.",
+          "4. Mantén la limpieza: las áreas de ventilación deben estar libres de polvo para mejorar la eficiencia del sistema de refrigeración."
+        ]
+      },
+      {
+        "heading": "Errores comunes y cuándo pedir ayuda",
+        "paragraphs": [
+          "Aunque elegir el sistema de refrigeración correcto puede parecer sencillo, hay algunas cosas que pueden salir mal. Algunos errores comunes incluyen:",
+          "1. Elegir un sistema de refrigeración que no sea compatible con el ordenador.",
+          "2. No considerar la compatibilidad con otros componentes del PC.",
+          "3. Instalar un sistema de refrigeración sin experiencia previa, lo que puede causar daños.",
+          "Si te encuentras con alguna de estas situaciones, no dudes en pedir ayuda a un profesional. En TecnoLobato, ofrecemos servicios de instalación y mantenimiento de sistemas de refrigeración en Chipiona, Cádiz.",
+          "Nuestros técnicos están altamente cualificados y podrán asesorarte sobre la mejor opción para tu ordenador, además de realizar la instalación de forma segura y eficiente."
+        ]
+      },
+      {
+        "heading": "Conclusión",
+        "paragraphs": [
+          "Con esta guía, esperamos que hayas podido evaluar tus necesidades y elegir la mejor opción de refrigeración para tu ordenador. Si tienes dudas o necesitas asesoramiento adicional, no dudes en ponerte en contacto con TecnoLobato. Estamos a tu disposición por WhatsApp para ayudarte con todas tus consultas y necesidades de mantenimiento de hardware."
+        ]
+      }
+    ],
+    "tips": [
+      "Evalúa el uso del ordenador antes de elegir el sistema de refrigeración.",
+      "Consigue un sistema de refrigeración que sea compatible con el ordenador y sus componentes.",
+      "Mantén la limpieza de las áreas de ventilación para mejorar la eficiencia del sistema de refrigeración."
+    ],
+    "conclusion": "Con esta información, esperamos que hayas podido tomar una decisión informada sobre la mejor opción de refrigeración para tu ordenador. Si tienes dudas o necesitas ayuda, no dudes en ponerte en contacto con TecnoLobato. Estamos a tu disposición para asesorarte y ayudarte en la instalación y mantenimiento de tu equipo."
+  },
+  {
     "slug": "comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar",
     "title": "¡Prepara tu compra de PC de segunda mano con este checklist!",
     "date": "2026-11-09",
