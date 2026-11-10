@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cómo montar tu primer PC paso a paso · Blog TecnoLobato</title>
+  <meta name="description" content="Guía completa para montar tu primer ordenador desde cero: instalación del procesador (CPU), la memoria, el almacenamiento y las conexiones, primer arranque e instalación del sistema operativo.">
+  <meta name="author" content="TecnoLobato">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://tecnolobato.one/blog/como-montar-tu-primer-pc-paso-a-paso.html">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="apple-touch-icon" href="../logo.jpg">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="TecnoLobato">
+  <meta property="og:title" content="Cómo montar tu primer PC paso a paso">
+  <meta property="og:description" content="Guía completa para montar tu primer ordenador desde cero: instalación del procesador (CPU), la memoria, el almacenamiento y las conexiones, primer arranque e instalación del sistema operativo.">
+  <meta property="og:url" content="https://tecnolobato.one/blog/como-montar-tu-primer-pc-paso-a-paso.html">
+  <meta property="og:image" content="https://tecnolobato.one/blog/img/como-montar-tu-primer-pc-paso-a-paso.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cómo montar tu primer PC paso a paso">
+  <meta name="twitter:description" content="Guía completa para montar tu primer ordenador desde cero: instalación del procesador (CPU), la memoria, el almacenamiento y las conexiones, primer arranque e instalación del sistema operativo.">
+  <meta name="twitter:image" content="https://tecnolobato.one/blog/img/como-montar-tu-primer-pc-paso-a-paso.jpg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            lobatoDark: '#070d14',
+            lobatoCard: '#0f1923',
+            lobatoGreen: '#10b981',
+            lobatoGold: '#d4af37',
+            waGreen: '#25D366'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background:
+        radial-gradient(circle at 10% 0%, rgba(16,185,129,.10), transparent 30rem),
+        radial-gradient(circle at 90% 5%, rgba(212,175,55,.08), transparent 28rem),
+        linear-gradient(180deg, #050b12 0%, #07111b 50%, #050b12 100%);
+    }
+    .tl-grid-bg {
+      background-image:
+        linear-gradient(rgba(16,185,129,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16,185,129,.05) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+    .tl-card {
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .tl-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(16,185,129,.42);
+      box-shadow: 0 18px 45px rgba(0,0,0,.28);
+    }
+    .tl-shimmer {
+      background: linear-gradient(90deg, #10b981, #f0d58a, #10b981);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: tlShimmer 4s linear infinite;
+    }
+    @keyframes tlShimmer { to { background-position: 220% 0; } }
+    .blog-prose p { color: #cbd5e1; line-height: 1.8; margin-top: 1rem; }
+    .blog-prose h2 { color: #fff; font-weight: 800; font-size: 1.45rem; line-height: 1.25; margin-top: 2.5rem; letter-spacing: -.01em; }
+    #blog-progress {
+      position: fixed; top: 0; left: 0; z-index: 60;
+      height: 3px; width: 0;
+      background: linear-gradient(90deg, #10b981, #d4af37);
+      box-shadow: 0 0 12px rgba(16,185,129,.6);
+      transition: width .1s linear;
+    }
+    .blog-keypoints {
+      border: 1px solid rgba(212,175,55,.28);
+      background: linear-gradient(135deg, rgba(212,175,55,.08), rgba(15,25,35,.9));
+      border-radius: 1rem;
+      padding: 1.25rem 1.4rem;
+    }
+    .blog-keypoints ul li { display: flex; gap: .65rem; align-items: flex-start; }
+    .blog-toc-mobile {
+      border: 1px solid #1e293b;
+      background: rgba(15,25,35,.85);
+      border-radius: 1rem;
+      padding: .9rem 1.1rem;
+    }
+    .blog-toc-mobile summary { cursor: pointer; font-size: .8rem; font-weight: 800; color: #e2e8f0; list-style: none; }
+    .blog-toc-mobile summary::-webkit-details-marker { display: none; }
+    .blog-toc-mobile summary::after { content: '+'; float: right; color: #10b981; font-weight: 900; }
+    .blog-toc-mobile[open] summary::after { content: '−'; }
+    .blog-toc { list-style: none; margin: 0; padding: 0; }
+    .blog-toc li + li { margin-top: .35rem; }
+    .blog-toc a {
+      display: flex; gap: .55rem; align-items: baseline;
+      border-radius: .6rem; padding: .5rem .6rem;
+      font-size: .8rem; line-height: 1.35; color: #94a3b8;
+      transition: background .2s ease, color .2s ease;
+    }
+    .blog-toc a:hover { color: #d1fae5; background: rgba(16,185,129,.08); }
+    .blog-toc a.is-active { color: #6ee7b7; background: rgba(16,185,129,.12); }
+    .blog-toc a span { font-size: .62rem; font-weight: 900; letter-spacing: .08em; color: #64748b; }
+    .blog-toc a.is-active span { color: #34d399; }
+    .blog-section-head { display: flex; align-items: flex-start; gap: .8rem; margin-top: 2.6rem; }
+    .blog-section-head h2 { margin-top: 0; }
+    .blog-section-num {
+      flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+      min-width: 2rem; height: 2rem; margin-top: .1rem;
+      border-radius: .6rem; border: 1px solid rgba(16,185,129,.35);
+      background: rgba(16,185,129,.12);
+      font-size: .68rem; font-weight: 900; letter-spacing: .08em; color: #6ee7b7;
+    }
+    .blog-prose .blog-lead::first-letter {
+      float: left; padding: .1rem .55rem 0 0;
+      font-size: 3.6rem; line-height: .82; font-weight: 900; color: #10b981;
+    }
+    .blog-figure, .blog-hero { overflow: hidden; border-radius: 1rem; border: 1px solid #1e293b; background: #0f1923; }
+    .blog-figure { margin: 1.6rem 0 1.8rem; }
+    .blog-hero { border-radius: 1.25rem; box-shadow: 0 20px 50px rgba(0,0,0,.28); }
+    .blog-figure img, .blog-hero img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+    .blog-figure figcaption, .blog-hero figcaption { padding: .8rem 1rem 1rem; font-size: .72rem; line-height: 1.5; color: #94a3b8; }
+    .blog-figure figcaption > span:first-child, .blog-hero figcaption > span:first-child { display: block; color: #cbd5e1; }
+    .blog-credito { display: block; margin-top: .35rem; color: #64748b; font-size: .65rem; }
+    .blog-credito a { color: #34d399; text-decoration: none; }
+    .blog-credito a:hover { text-decoration: underline; }
+    .blog-pullquote {
+      margin: 2rem 0; padding: 1.1rem 1.3rem;
+      border-left: 3px solid #d4af37; border-radius: 0 .9rem .9rem 0;
+      background: linear-gradient(90deg, rgba(212,175,55,.08), transparent);
+      color: #e2e8f0; font-size: 1.1rem; line-height: 1.6; font-weight: 600; font-style: italic;
+    }
+    .blog-prose a { color: #34d399; text-decoration: underline; text-decoration-color: rgba(52,211,153,.4); text-underline-offset: 2px; }
+    .blog-prose a:hover { color: #6ee7b7; }
+    @media (max-width: 640px) {
+      .blog-prose .blog-lead::first-letter { font-size: 3rem; }
+      .blog-pullquote { font-size: 1rem; }
+    }
+    [hidden] { display: none !important; }
+    ::selection { background: #10b981; color: #000; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Cómo montar tu primer PC paso a paso","description":"Guía completa para montar tu primer ordenador desde cero: instalación del procesador (CPU), la memoria, el almacenamiento y las conexiones, primer arranque e instalación del sistema operativo.","datePublished":"2026-11-10","dateModified":"2026-11-10","inLanguage":"es-ES","articleSection":"Hardware","image":"https://tecnolobato.one/blog/img/como-montar-tu-primer-pc-paso-a-paso.jpg","wordCount":1153,"author":{"@type":"Organization","name":"TecnoLobato"},"publisher":{"@type":"Organization","name":"TecnoLobato","logo":{"@type":"ImageObject","url":"https://tecnolobato.one/logo.jpg"}},"mainEntityOfPage":"https://tecnolobato.one/blog/como-montar-tu-primer-pc-paso-a-paso.html","url":"https://tecnolobato.one/blog/como-montar-tu-primer-pc-paso-a-paso.html"}</script>
+</head>
+<body class="min-h-screen bg-lobatoDark font-sans text-slate-200 antialiased">
+  <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-lobatoDark/90 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
+      <a href="../index.html" class="flex items-center gap-3">
+        <img src="../logo.jpg" alt="TecnoLobato" class="h-10 w-10 rounded-full border-2 border-lobatoGold object-cover">
+        <span class="text-lg font-black tracking-wider text-white">TECNO<span class="text-lobatoGreen">LOBATO</span>
+          <span class="block text-[9px] font-semibold uppercase tracking-[.18em] text-slate-400">Divulgación informática</span>
+        </span>
+      </a>
+      <nav class="hidden items-center gap-5 text-sm font-medium text-slate-300 md:flex">
+        <a href="../index.html" class="transition hover:text-lobatoGreen">Inicio</a>
+        <a href="../directos.html" class="transition hover:text-lobatoGreen">Trabajos en directo</a>
+        <a href="../segundamano.html" class="transition hover:text-lobatoGold">Segunda mano</a>
+        <a href="../blog.html" class="font-bold text-lobatoGreen">Blog</a>
+        <a href="../index.html#contacto" class="transition hover:text-lobatoGreen">Contacto</a>
+      </nav>
+      <a href="https://wa.me/34687397664?text=Hola%20TecnoLobato%2C%20quiero%20hacer%20una%20consulta" target="_blank" rel="noopener" class="rounded-lg bg-[#25D366] px-4 py-2.5 text-xs font-extrabold text-white shadow-lg shadow-emerald-900/30 transition hover:bg-[#1ebd59]">WhatsApp</a>
+    </div>
+    <nav class="flex gap-4 overflow-x-auto border-t border-slate-800/60 px-5 py-2 text-xs font-semibold text-slate-300 md:hidden">
+      <a href="../index.html" class="whitespace-nowrap">Inicio</a>
+      <a href="../directos.html" class="whitespace-nowrap">Directos</a>
+      <a href="../segundamano.html" class="whitespace-nowrap">Segunda mano</a>
+      <a href="../blog.html" class="whitespace-nowrap font-bold text-lobatoGreen">Blog</a>
+      <a href="../index.html#contacto" class="whitespace-nowrap">Contacto</a>
+    </nav>
+  </header>
+  <div id="blog-progress" aria-hidden="true"></div>
+  <main class="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
+    <nav class="mb-8 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500" aria-label="Migas de pan">
+      <a href="../index.html" class="transition hover:text-lobatoGreen">Inicio</a>
+      <span aria-hidden="true">/</span>
+      <a href="../blog.html" class="transition hover:text-lobatoGreen">Blog</a>
+      <span aria-hidden="true">/</span>
+      <span class="text-slate-300">Hardware</span>
+    </nav>
+
+    <div class="grid gap-10 lg:grid-cols-3">
+      <article class="min-w-0 lg:col-span-2">
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-bold text-slate-400">
+          <span class="rounded-full border border-emerald-500/30 bg-emerald-950/50 px-3 py-1 text-emerald-300">Hardware</span>
+          <time datetime="2026-11-10">10 de noviembre de 2026</time>
+          <span aria-hidden="true">·</span>
+          <span>8 min de lectura</span>
+          <span aria-hidden="true">·</span>
+          <span>Por <strong class="text-slate-300">TecnoLobato</strong></span>
+        </div>
+
+        <h1 class="mt-5 text-3xl font-black leading-[1.1] tracking-tight text-white sm:text-5xl">Cómo montar tu primer PC paso a paso</h1>
+        <p class="mt-5 border-l-2 border-emerald-500/60 pl-5 text-base leading-relaxed text-slate-300 sm:text-lg">Guía completa para montar tu primer ordenador desde cero: instalación del procesador (CPU), la memoria, el almacenamiento y las conexiones, primer arranque e instalación del sistema operativo.</p>
+        <div class="mt-7"><figure class="blog-hero">
+          <img src="../blog/img/fotos/hardware-cpu.jpg" alt="Procesador AMD Ryzen visto desde arriba" width="1200" height="800" loading="eager" fetchpriority="high">
+          <figcaption>
+            <span>El procesador marca el ritmo de muchas tareas del equipo.</span>
+            <span class="blog-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:AMD_Ryzen_5_2600_(39851733273).jpg" target="_blank" rel="noopener nofollow">Fritzchens Fritz</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener nofollow">CC0</a></span>
+          </figcaption>
+        </figure></div>
+
+        <div class="blog-keypoints mt-8">
+          <p class="flex items-center gap-2 text-[11px] font-black uppercase tracking-[.16em] text-emerald-400">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+            Lo esencial en 30 segundos
+          </p>
+          <ul class="mt-3 space-y-2.5 text-sm leading-relaxed text-slate-300"><li><svg class="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Comprueba la compatibilidad entre procesador, placa base y memoria antes de comprar los componentes.</span></li><li><svg class="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>No fuerces ningún componente: si no encaja, revisa la orientación y consulta el manual.</span></li><li><svg class="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Conecta el monitor a la tarjeta gráfica si has instalado una dedicada, no a la placa base.</span></li></ul>
+        </div>
+
+        <details class="blog-toc-mobile mt-5 lg:hidden">
+          <summary>En este artículo</summary>
+          <ol class="blog-toc"><li><a href="#seccion-1"><span>01</span>Reúne todos los componentes</a></li><li><a href="#seccion-2"><span>02</span>Instala el procesador y el disipador</a></li><li><a href="#seccion-3"><span>03</span>Coloca la memoria RAM</a></li><li><a href="#seccion-4"><span>04</span>Monta la placa base en el gabinete</a></li><li><a href="#seccion-5"><span>05</span>Instala el almacenamiento</a></li><li><a href="#seccion-6"><span>06</span>Instala la fuente de alimentación</a></li><li><a href="#seccion-7"><span>07</span>Conecta el cableado y los ventiladores</a></li><li><a href="#seccion-8"><span>08</span>Cierra el gabinete y conecta los periféricos</a></li><li><a href="#seccion-9"><span>09</span>Enciende el PC por primera vez</a></li><li><a href="#seccion-10"><span>10</span>Instala el sistema operativo</a></li><li><a href="#seccion-11"><span>11</span>Instala los controladores y actualizaciones</a></li><li><a href="#seccion-12"><span>12</span>Configura tu cuenta y personaliza el equipo</a></li><li><a href="#seccion-13"><span>13</span>Comprueba el resultado y cuida tu equipo</a></li></ol>
+        </details>
+
+        <div class="blog-prose mt-8">
+          <section id="seccion-1" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">01</span>
+        <h2>Reúne todos los componentes</h2>
+      </div>
+      <p class="blog-lead">Antes de empezar el montaje, reúne todos los componentes y comprueba que la placa base es compatible con el procesador, la memoria y el resto del equipo. Prepara también un destornillador de estrella, bridas o velcro para el cableado y, si puedes, una pulsera antiestática para evitar descargas.</p><p>La lista básica incluye el procesador, la placa base, los módulos de memoria RAM, el almacenamiento (SSD o HDD), la fuente de alimentación, el gabinete, la tarjeta gráfica si tu procesador no tiene gráficos integrados, el monitor, el teclado y el ratón. Ten a mano el manual de la placa base: es la mejor guía para saber dónde va cada conector.</p>
+      <figure class="blog-figure">
+      <img src="../blog/img/fotos/hardware-placa-base.jpg" alt="Primer plano de una placa base de ordenador" width="1200" height="800" loading="lazy" decoding="async">
+      <figcaption>
+        <span>La placa base determina qué componentes puedes ampliar.</span>
+        <span class="blog-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Computer_motherboard_11.jpg" target="_blank" rel="noopener nofollow">Kurt Kaiser</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener nofollow">CC0</a></span>
+      </figcaption>
+    </figure>
+
+    </section><section id="seccion-2" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">02</span>
+        <h2>Instala el procesador y el disipador</h2>
+      </div>
+      <p>Localiza el zócalo del procesador en la placa base y levanta la palanca de sujeción. Alinea la marca triangular del procesador con la del zócalo, déjalo caer suavemente y baja la palanca. No fuerces nunca el procesador: si no encaja, revisa la orientación.</p><p>Aplica una pequeña cantidad de pasta térmica en el centro del procesador y coloca el disipador siguiendo las instrucciones del fabricante. Aprieta los tornillos en cruz y conecta el ventilador del disipador al conector de la placa base marcado como CPU_FAN.</p>
+
+      <blockquote class="blog-pullquote">“Localiza el zócalo del procesador en la placa base y levanta la palanca de sujeción.”</blockquote>
+    </section><section id="seccion-3" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">03</span>
+        <h2>Coloca la memoria RAM</h2>
+      </div>
+      <p>Abre los pestillos de las ranuras de memoria y alinea la muesca del módulo con la de la ranura. Presiona con firmeza y de forma uniforme hasta que los pestillos se cierren con un clic. Si la placa base lo permite, instala los módulos en las ranuras indicadas por el manual para aprovechar el doble canal.</p><p>Evita tocar los contactos dorados de los módulos y no los fuerces si no entran: casi siempre es porque están al revés o mal alineados.</p>
+      <figure class="blog-figure">
+      <img src="../blog/img/fotos/hardware-memoria-ram.jpg" alt="Módulos de memoria RAM sobre fondo oscuro" width="1200" height="800" loading="lazy" decoding="async">
+      <figcaption>
+        <span>La RAM influye en cuántas tareas puedes hacer a la vez.</span>
+        <span class="blog-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Random_Access_Memory_HyperX.jpg" target="_blank" rel="noopener nofollow">Zsinytwiki</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener nofollow">CC0</a></span>
+      </figcaption>
+    </figure>
+
+    </section><section id="seccion-4" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">04</span>
+        <h2>Monta la placa base en el gabinete</h2>
+      </div>
+      <p>Coloca el escudo de conexiones (I/O shield) en el hueco trasero del gabinete. Comprueba que los separadores metálicos coinciden con los agujeros de la placa base y atorníllala sin apretar en exceso, siguiendo un orden en cruz.</p><p>Antes de atornillar, comprueba que no queda ningún separador suelto debajo de la placa: podría provocar un cortocircuito.</p>
+
+
+    </section><section id="seccion-5" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">05</span>
+        <h2>Instala el almacenamiento</h2>
+      </div>
+      <p>Si usas un SSD M.2 NVMe, insértalo en la ranura correspondiente con el ángulo indicado y fíjalo con el tornillo o la pestaña del manual. Si usas un SSD o HDD de 2,5 o 3,5 pulgadas, monta la unidad en el soporte del gabinete y conecta el cable de datos SATA a la placa base y el de alimentación a la fuente.</p><p>Deja el cable de datos bien sujeto y evita doblarlo en exceso, sobre todo en los conectores.</p>
+      <figure class="blog-figure">
+      <img src="../blog/img/fotos/hardware-ssd-nvme.jpg" alt="Unidad SSD NVMe vista desde arriba" width="1200" height="800" loading="lazy" decoding="async">
+      <figcaption>
+        <span>Un SSD NVMe ofrece más velocidad que un disco mecánico.</span>
+        <span class="blog-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Samsung_980_PRO_PCIe_4.0_NVMe_SSD_1TB-top_PNr%C2%B00915.jpg" target="_blank" rel="noopener nofollow">D-Kuru</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener nofollow">CC BY-SA 4.0</a></span>
+      </figcaption>
+    </figure>
+
+    </section><section id="seccion-6" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">06</span>
+        <h2>Instala la fuente de alimentación</h2>
+      </div>
+      <p>Monta la fuente en el compartimento del gabinete con el ventilador orientado según el diseño de la caja. Atorníllala firmemente y conecta el cable de tierra del enchufe; una fuente de calidad protege al resto de componentes.</p><p>Si la fuente es modular, conecta primero los cables que vayas a necesitar y deja el resto guardados para no dificultar el flujo de aire.</p>
+
+
+    </section><section id="seccion-7" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">07</span>
+        <h2>Conecta el cableado y los ventiladores</h2>
+      </div>
+      <p>Conecta el cableado de alimentación: el cable de 24 pines a la placa base y el de 8 pines de la CPU al conector EPS. Lleva la alimentación SATA al almacenamiento y conecta los cables del panel frontal: encendido, reinicio, USB y audio.</p><p>Conecta los ventiladores del gabinete a los conectores de la placa base o directamente a la fuente mediante adaptadores. Revisa que cada cable quede bien asentado y sin tensión.</p>
+      <figure class="blog-figure">
+      <img src="../blog/img/fotos/mantenimiento-cableado.jpg" alt="Interior de una torre con los cables organizados" width="1200" height="800" loading="lazy" decoding="async">
+      <figcaption>
+        <span>Ordenar los cables mejora el flujo de aire y facilita el mantenimiento.</span>
+        <span class="blog-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Back_of_Be_Quiet_PC_Case_Interior.jpg" target="_blank" rel="noopener nofollow">Tim Sheerman-Chase</a> · <a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="noopener nofollow">CC BY 4.0</a></span>
+      </figcaption>
+    </figure>
+
+    </section><section id="seccion-8" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">08</span>
+        <h2>Cierra el gabinete y conecta los periféricos</h2>
+      </div>
+      <p>Ordena los cables con bridas o velcro para mejorar el flujo de aire y facilita el mantenimiento futuro. Cierra el panel lateral y asegúralo con sus tornillos.</p><p>Conecta el monitor a la tarjeta gráfica si has instalado una dedicada; si no, usa la salida de vídeo de la placa base. Conecta el teclado, el ratón y, si lo deseas, altavoces o auriculares.</p>
+
+
+    </section><section id="seccion-9" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">09</span>
+        <h2>Enciende el PC por primera vez</h2>
+      </div>
+      <p>Conecta el cable de alimentación a la fuente y a un enchufe que funcione. Pulsa el interruptor de la fuente si lo tiene y después el botón de encendido del gabinete. Comprueba que los ventiladores giran y que se encienden las luces de la placa base.</p><p>Entra en la BIOS o UEFI y verifica que se detectan el procesador, la memoria y el almacenamiento. Aprovecha para comprobar la temperatura del procesador y configurar el orden de arranque.</p>
+      <figure class="blog-figure">
+      <img src="../blog/img/fotos/hardware-ventilador.jpg" alt="Ventilador de procesador desmontado" width="1200" height="800" loading="lazy" decoding="async">
+      <figcaption>
+        <span>La refrigeración marca la diferencia en equipos usados.</span>
+        <span class="blog-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Computer_cooler_5048.jpg" target="_blank" rel="noopener nofollow">Install</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0" target="_blank" rel="noopener nofollow">CC BY-SA 3.0</a></span>
+      </figcaption>
+    </figure>
+
+    </section><section id="seccion-10" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">10</span>
+        <h2>Instala el sistema operativo</h2>
+      </div>
+      <p>Crea un USB de instalación con Windows o Linux desde otro equipo. Arranca desde el USB, sigue las instrucciones del instalador y elige el disco donde quieres instalar el sistema.</p><p>Durante la instalación se pedirá crear una cuenta y configurar la red. Dedica unos minutos a elegir bien las opciones de privacidad y las actualizaciones automáticas.</p>
+
+
+    </section><section id="seccion-11" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">11</span>
+        <h2>Instala los controladores y actualizaciones</h2>
+      </div>
+      <p>Descarga los controladores del chipset, la tarjeta gráfica, la red y el audio desde la web oficial del fabricante de cada componente. Evita instaladores de terceros y revisa siempre el modelo exacto.</p><p>Instala después las actualizaciones del sistema operativo y los parches de seguridad. Reinicia cuando sea necesario y comprueba en el administrador de dispositivos que no queda ningún componente sin controlador.</p>
+      <figure class="blog-figure">
+      <img src="../blog/img/fotos/hardware-tarjeta-grafica.jpg" alt="Tarjeta gráfica con salida HDMI" width="1200" height="800" loading="lazy" decoding="async">
+      <figcaption>
+        <span>La tarjeta gráfica se encarga de generar la imagen que ves.</span>
+        <span class="blog-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:ASUS_NVIDIA_GeForce_210_silent_graphics_card_with_HDMI.JPG" target="_blank" rel="noopener nofollow">Joydeep</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0" target="_blank" rel="noopener nofollow">CC BY-SA 3.0</a></span>
+      </figcaption>
+    </figure>
+
+    </section><section id="seccion-12" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">12</span>
+        <h2>Configura tu cuenta y personaliza el equipo</h2>
+      </div>
+      <p>Crea tu cuenta de usuario, ajusta el idioma, la zona horaria y las preferencias de escritorio. Instala el navegador, la suite de oficina y las aplicaciones que uses a diario.</p><p>Configura una copia de seguridad automática y un gestor de contraseñas. Son dos hábitos sencillos que te ahorrarán muchos problemas más adelante.</p>
+
+
+    </section><section id="seccion-13" class="blog-section scroll-mt-28">
+      <div class="blog-section-head">
+        <span class="blog-section-num">13</span>
+        <h2>Comprueba el resultado y cuida tu equipo</h2>
+      </div>
+      <p>Vigila las temperaturas durante los primeros días y escucha si algún ventilador hace ruido extraño. Limpia el polvo del interior cada pocos meses con aire comprimido y el equipo apagado.</p><p>Mantén el sistema actualizado y revisa las copias de seguridad de vez en cuando. Si el equipo no arranca o muestra una avería, no lo fuerces: pide un diagnóstico a un técnico y valora la reparación con un profesional.</p>
+      <figure class="blog-figure">
+      <img src="../blog/img/fotos/mantenimiento-reparacion.jpg" alt="Técnico trabajando en la reparación de un ordenador" width="1200" height="800" loading="lazy" decoding="async">
+      <figcaption>
+        <span>Una revisión a tiempo evita averías mayores.</span>
+        <span class="blog-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Computer_repair_in_progress.jpg" target="_blank" rel="noopener nofollow">Vintechcomputerservices</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener nofollow">CC BY-SA 4.0</a></span>
+      </figcaption>
+    </figure>
+
+    </section>
+
+          <div class="mt-12 rounded-3xl border border-emerald-500/30 bg-emerald-950/30 p-6 sm:p-8">
+            <h2 class="!mt-0 flex items-center gap-2 text-lg font-black text-white">
+              <svg class="h-5 w-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2z"/><path d="M9 22h6"/></svg>
+              Consejos prácticos
+            </h2>
+            <ol class="mt-6 grid gap-3 sm:grid-cols-2"><li class="flex gap-3 rounded-xl border border-emerald-500/15 bg-emerald-950/20 p-4">
+    <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-[11px] font-black text-emerald-300">1</span>
+    <span class="text-sm leading-relaxed text-slate-300">Comprueba la compatibilidad entre procesador, placa base y memoria antes de comprar los componentes.</span>
+  </li><li class="flex gap-3 rounded-xl border border-emerald-500/15 bg-emerald-950/20 p-4">
+    <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-[11px] font-black text-emerald-300">2</span>
+    <span class="text-sm leading-relaxed text-slate-300">No fuerces ningún componente: si no encaja, revisa la orientación y consulta el manual.</span>
+  </li><li class="flex gap-3 rounded-xl border border-emerald-500/15 bg-emerald-950/20 p-4">
+    <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-[11px] font-black text-emerald-300">3</span>
+    <span class="text-sm leading-relaxed text-slate-300">Conecta el monitor a la tarjeta gráfica si has instalado una dedicada, no a la placa base.</span>
+  </li><li class="flex gap-3 rounded-xl border border-emerald-500/15 bg-emerald-950/20 p-4">
+    <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-[11px] font-black text-emerald-300">4</span>
+    <span class="text-sm leading-relaxed text-slate-300">Descarga los controladores desde la web oficial del fabricante y evita instaladores de terceros.</span>
+  </li><li class="flex gap-3 rounded-xl border border-emerald-500/15 bg-emerald-950/20 p-4">
+    <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-[11px] font-black text-emerald-300">5</span>
+    <span class="text-sm leading-relaxed text-slate-300">Antes de cerrar el gabinete, revisa que todos los cables estén bien asentados y sin tensión.</span>
+  </li></ol>
+          </div>
+
+          <div class="mt-10 rounded-2xl border border-slate-800 bg-lobatoCard/80 p-6 sm:p-7">
+            <h2 class="!mt-0 text-lg font-black text-white">Para terminar</h2>
+            <p class="!mt-3">Montar tu primer PC requiere paciencia y atención al detalle, pero seguir estos pasos te permitirá tener un equipo estable y listo para usar. Si tienes dudas sobre la compatibilidad de los componentes o prefieres que un profesional se encargue del montaje, en TecnoLobato estamos a tu disposición por WhatsApp para ayudarte.</p>
+          </div>
+
+          <div class="mt-10 flex flex-col items-start justify-between gap-4 rounded-2xl border border-emerald-500/25 bg-gradient-to-r from-emerald-950/60 to-lobatoCard p-6 sm:flex-row sm:items-center">
+            <div>
+              <p class="text-sm font-black text-white">¿Quieres que lo revisemos contigo?</p>
+              <p class="mt-1 text-xs leading-relaxed text-slate-400">Escríbenos por WhatsApp y te orientamos sobre tu equipo sin compromiso.</p>
+            </div>
+            <a href="https://wa.me/34687397664?text=Hola%20TecnoLobato%2C%20he%20le%C3%ADdo%20el%20art%C3%ADculo%20%22C%C3%B3mo%20montar%20tu%20primer%20PC%20paso%20a%20paso%22%20y%20quiero%20hacer%20una%20consulta" target="_blank" rel="noopener" class="shrink-0 rounded-xl bg-[#25D366] px-5 py-3 text-xs font-extrabold text-white transition hover:bg-[#1ebd59]">Consultar por WhatsApp</a>
+          </div>
+
+          <div class="mt-8 flex flex-wrap items-center gap-2 text-xs font-bold">
+            <span class="text-slate-500">Compartir:</span>
+            <a href="https://wa.me/?text=C%C3%B3mo%20montar%20tu%20primer%20PC%20paso%20a%20paso%20%E2%80%94%20https%3A%2F%2Ftecnolobato.one%2Fblog%2Fcomo-montar-tu-primer-pc-paso-a-paso.html" target="_blank" rel="noopener" class="rounded-full border border-slate-700 px-3 py-1.5 text-slate-300 transition hover:border-emerald-500/50 hover:text-emerald-300">WhatsApp</a>
+            <a href="https://twitter.com/intent/tweet?text=C%C3%B3mo%20montar%20tu%20primer%20PC%20paso%20a%20paso&amp;url=https%3A%2F%2Ftecnolobato.one%2Fblog%2Fcomo-montar-tu-primer-pc-paso-a-paso.html" target="_blank" rel="noopener" class="rounded-full border border-slate-700 px-3 py-1.5 text-slate-300 transition hover:border-emerald-500/50 hover:text-emerald-300">X</a>
+            <button type="button" data-copiar="https://tecnolobato.one/blog/como-montar-tu-primer-pc-paso-a-paso.html" class="rounded-full border border-slate-700 px-3 py-1.5 text-slate-300 transition hover:border-emerald-500/50 hover:text-emerald-300">Copiar enlace</button>
+          </div>
+        </div>
+
+        <div class="mt-10 border-t border-slate-800 pt-6">
+          <a href="../blog.html" class="text-sm font-bold text-emerald-400 transition hover:text-emerald-300">&larr; Volver a todos los artículos</a>
+        </div>
+      </article>
+
+      <aside class="space-y-5">
+        <div class="space-y-5 lg:sticky lg:top-24">
+          <div class="hidden rounded-2xl border border-slate-800 bg-lobatoCard/85 p-6 lg:block">
+            <p class="text-[10px] font-black uppercase tracking-[.16em] text-lobatoGold">En este artículo</p>
+            <ol class="blog-toc mt-4"><li><a href="#seccion-1"><span>01</span>Reúne todos los componentes</a></li><li><a href="#seccion-2"><span>02</span>Instala el procesador y el disipador</a></li><li><a href="#seccion-3"><span>03</span>Coloca la memoria RAM</a></li><li><a href="#seccion-4"><span>04</span>Monta la placa base en el gabinete</a></li><li><a href="#seccion-5"><span>05</span>Instala el almacenamiento</a></li><li><a href="#seccion-6"><span>06</span>Instala la fuente de alimentación</a></li><li><a href="#seccion-7"><span>07</span>Conecta el cableado y los ventiladores</a></li><li><a href="#seccion-8"><span>08</span>Cierra el gabinete y conecta los periféricos</a></li><li><a href="#seccion-9"><span>09</span>Enciende el PC por primera vez</a></li><li><a href="#seccion-10"><span>10</span>Instala el sistema operativo</a></li><li><a href="#seccion-11"><span>11</span>Instala los controladores y actualizaciones</a></li><li><a href="#seccion-12"><span>12</span>Configura tu cuenta y personaliza el equipo</a></li><li><a href="#seccion-13"><span>13</span>Comprueba el resultado y cuida tu equipo</a></li></ol>
+          </div>
+          <div class="rounded-2xl border border-slate-800 bg-lobatoCard/85 p-6">
+            <div class="flex items-center gap-3">
+              <img src="../logo.jpg" alt="TecnoLobato" class="h-12 w-12 rounded-full border-2 border-lobatoGold object-cover">
+              <div>
+                <p class="text-sm font-black text-white">TecnoLobato</p>
+                <p class="text-[11px] font-semibold text-slate-400">Taller informático · Chipiona</p>
+              </div>
+            </div>
+            <p class="mt-4 text-xs leading-relaxed text-slate-400">Montaje, reparación, mantenimiento y presupuestos a medida. Publicamos divulgación informática todos los días.</p>
+            <a href="../index.html#contacto" class="mt-4 block rounded-xl border border-emerald-500/40 bg-emerald-950/40 px-4 py-3 text-center text-xs font-extrabold text-emerald-300 transition hover:bg-emerald-900/50">Pedir presupuesto</a>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-lobatoCard/85 p-6">
+          <p class="text-[10px] font-black uppercase tracking-[.16em] text-lobatoGold">Sigue leyendo</p>
+          <div class="mt-4"><div class="space-y-3">
+        <a href="../blog/refrigeracion-por-aire-o-liquida-que-necesita-tu-equipo.html" class="group flex gap-3 rounded-xl border border-slate-800 bg-slate-900/60 p-3 transition hover:border-emerald-500/40">
+          <img src="../blog/img/refrigeracion-por-aire-o-liquida-que-necesita-tu-equipo.svg" alt="" class="h-16 w-24 shrink-0 rounded-lg border border-slate-800 object-cover" loading="lazy">
+          <span class="min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-wide text-emerald-400">Hardware</span>
+            <span class="mt-1 block text-xs font-bold leading-snug text-white transition group-hover:text-emerald-300">Refrigeración por aire o líquida: qué necesita tu PC</span>
+          </span>
+        </a><a href="../blog/comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.html" class="group flex gap-3 rounded-xl border border-slate-800 bg-slate-900/60 p-3 transition hover:border-emerald-500/40">
+          <img src="../blog/img/comprar-un-pc-de-segunda-mano-checklist-antes-de-pagar.svg" alt="" class="h-16 w-24 shrink-0 rounded-lg border border-slate-800 object-cover" loading="lazy">
+          <span class="min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-wide text-emerald-400">Hardware</span>
+            <span class="mt-1 block text-xs font-bold leading-snug text-white transition group-hover:text-emerald-300">¡Prepara tu compra de PC de segunda mano con este checklist!</span>
+          </span>
+        </a>
+      </div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var barra = document.getElementById('blog-progress');
+      if (barra) {
+        var actualizar = function () {
+          var total = document.documentElement.scrollHeight - window.innerHeight;
+          var avance = total > 0 ? Math.min(100, Math.max(0, (window.scrollY / total) * 100)) : 0;
+          barra.style.width = avance + '%';
+        };
+        window.addEventListener('scroll', actualizar, { passive: true });
+        actualizar();
+      }
+
+      var enlaces = Array.prototype.slice.call(document.querySelectorAll('.blog-toc a'));
+      if (enlaces.length && 'IntersectionObserver' in window) {
+        var observador = new IntersectionObserver(function (entradas) {
+          entradas.forEach(function (entrada) {
+            if (!entrada.isIntersecting) return;
+            enlaces.forEach(function (enlace) {
+              enlace.classList.toggle('is-active', enlace.getAttribute('href') === '#' + entrada.target.id);
+            });
+          });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        document.querySelectorAll('.blog-section').forEach(function (seccion) { observador.observe(seccion); });
+      }
+
+      document.querySelectorAll('[data-copiar]').forEach(function (boton) {
+        boton.addEventListener('click', function () {
+          var texto = boton.getAttribute('data-copiar');
+          if (!navigator.clipboard) return;
+          navigator.clipboard.writeText(texto).then(function () {
+            var original = boton.textContent;
+            boton.textContent = '¡Copiado!';
+            setTimeout(function () { boton.textContent = original; }, 1800);
+          });
+        });
+      });
+    })();
+  </script>
+  <footer class="mt-16 border-t border-slate-800/80 bg-black/20 py-9 text-center text-xs text-slate-500">
+    <p>© 2026 TecnoLobato · Servicios Informáticos · Chipiona (Cádiz)</p>
+    <div class="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-2 font-medium">
+      <a href="../index.html" class="transition hover:text-lobatoGreen">Inicio</a>
+      <a href="../blog.html" class="transition hover:text-lobatoGreen">Blog</a>
+      <a href="../directos.html" class="transition hover:text-lobatoGreen">Trabajos en directo</a>
+      <a href="../segundamano.html" class="transition hover:text-lobatoGold">Segunda mano</a>
+      <a href="https://twitch.tv/tecnolobato" target="_blank" rel="noopener" class="transition hover:text-purple-400">Twitch</a>
+      <a href="https://wa.me/34687397664?text=Hola%20TecnoLobato%2C%20quiero%20hacer%20una%20consulta" target="_blank" rel="noopener" class="transition hover:text-emerald-400">WhatsApp</a>
+    </div>
+    <p class="mx-auto mt-4 max-w-md text-[10px] text-slate-600">Contenido divulgativo elaborado por TecnoLobato. Si vas a manipular hardware, hazlo con las precauciones adecuadas.</p>
+  </footer>
+</body>
+</html>
