@@ -925,7 +925,7 @@ function renderIndice(posts, ogImage) {
   const ordenados = ordenarPosts(posts);
   const ultimo = ordenados[0];
   const tags = [...new Set(ordenados.map((p) => p.tag).filter(Boolean))];
-  const resto = ordenados.slice(1);
+  const resto = ordenados;
 
   const destacado = ultimo
     ? `<a href="blog/${ultimo.slug}.html" class="tl-card group relative block overflow-hidden rounded-3xl border border-emerald-500/25 bg-gradient-to-br from-emerald-950/70 via-lobatoCard to-lobatoDark p-7 sm:p-10">
