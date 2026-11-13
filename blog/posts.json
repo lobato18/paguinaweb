@@ -1,5 +1,63 @@
 [
   {
+    "slug": "mantenimiento-de-un-portatil-lo-que-si-puedes-hacer-tu",
+    "title": "Mantenimiento del portátil: Tareas que puedes hacer tú",
+    "date": "2026-11-13",
+    "summary": "Descubre cómo mantener tu portátil en óptimas condiciones sin necesidad de grandes conocimientos. Aprende a limpiar, actualizar y optimizar tu PC.",
+    "tag": "Mantenimiento",
+    "readTime": "3 min",
+    "topic": "Mantenimiento de un portátil: lo que sí puedes hacer tú",
+    "sections": [
+      {
+        "heading": "Limpieza interna",
+        "paragraphs": [
+          "La acumulación de polvo en los componentes internos de tu portátil puede reducir su rendimiento y aumentar la temperatura. Utiliza un aspirador de bocanadas ligero o un paño suave para retirar el polvo de los ventiladores y las ranuras de ventilación. Es recomendable realizar esta tarea cada seis meses para mantener un rendimiento óptimo.",
+          "Además, asegúrate de que la ventilación esté libre de obstrucciones. Un ventilador obstruido puede generar más calor, lo que afecta directamente a la duración de la batería y a la estabilidad de tu PC."
+        ]
+      },
+      {
+        "heading": "Actualización del sistema",
+        "paragraphs": [
+          "Mantener tu sistema operativo actualizado es crucial para asegurar una seguridad óptima y aprovechar las mejoras de rendimiento. Visita el sitio web oficial de Windows o Linux para obtener las últimas actualizaciones. Sigue los pasos de la instalación y asegúrate de que tu portátil esté conectado a Internet durante el proceso.",
+          "Recuerda que las actualizaciones de programas de terceros también son importantes. Mantén tus aplicaciones actualizadas para aprovechar las mejoras de rendimiento y seguridad que se incluyen en cada versión."
+        ]
+      },
+      {
+        "heading": "Optimización del rendimiento",
+        "paragraphs": [
+          "Reducir el consumo de recursos de tu portátil puede mejorar su rendimiento. Utiliza el administrador de tareas para identificar aplicaciones que consumen un alto porcentaje de CPU o RAM. Cierra estas aplicaciones o ajusta sus configuraciones para optimizar el rendimiento.",
+          "Instala un software de optimización del rendimiento. Herramientas como CCleaner pueden limpiar el sistema, eliminar archivos temporales y optimizar el disco duro, lo que resulta en una PC más rápida y eficiente."
+        ]
+      },
+      {
+        "heading": "Errores comunes y cuándo pedir ayuda",
+        "paragraphs": [
+          "Es frecuente que se produzcan errores durante el mantenimiento del portátil, como la inestabilidad del sistema o la aparición de mensajes de error. Si estos problemas persisten, es posible que sea necesario pedir ayuda profesional.",
+          "Si tu portátil se calienta demasiado, si hay ruidos extraños o si notas un comportamiento anormal, es recomendable acudir a TecnoLobato para un chequeo profesional. Además, si no estás seguro sobre cómo realizar una tarea, no dudes en buscar asistencia."
+        ]
+      },
+      {
+        "heading": "Consejos prácticos",
+        "paragraphs": [
+          "Elije un lugar bien ventilado para usar tu portátil. Evita el uso directo del sol o de la luz artificial, ya que pueden aumentar la temperatura interna del dispositivo.",
+          "No olvides la importancia de un buen soporte. Coloca tu portátil en un soporte adecuado para mejorar la ventilación y evitar problemas de sobrecalentamiento."
+        ]
+      },
+      {
+        "heading": "Conclusión",
+        "paragraphs": [
+          "El mantenimiento regular de tu portátil puede prolongar su vida útil y mejorar su rendimiento. Recuerda que, aunque puedes realizar ciertas tareas por tu cuenta, siempre puedes confiar en TecnoLobato para cualquier problema que no sepas resolver. No dudes en ponerte en contacto con nosotros a través de WhatsApp para recibir asesoramiento personalizado."
+        ]
+      }
+    ],
+    "tips": [
+      "Limpia los ventiladores con cuidado para evitar dañar el hardware.",
+      "Utiliza programas de optimización del rendimiento pero sigue las instrucciones para no causar problemas.",
+      "Evita dejar el portátil en el suelo o en superficies que no sean planas para mejorar la ventilación."
+    ],
+    "conclusion": "El mantenimiento regular de tu portátil puede ser una tarea sencilla y efectiva si sigues estos consejos. No dudes en contactar con TecnoLobato en caso de tener dudas o necesites asistencia. Puedes ponerte en contacto con nosotros a través de WhatsApp para recibir ayuda profesional en cualquier momento."
+  },
+  {
     "slug": "monitor-para-gaming-hz-resolucion-y-tipo-de-panel",
     "title": "Monitor para gaming: Hz, resolución y tipo de panel",
     "date": "2026-11-11",
