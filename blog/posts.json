@@ -58,6 +58,67 @@
     "conclusion": "El mantenimiento regular de tu portátil puede ser una tarea sencilla y efectiva si sigues estos consejos. No dudes en contactar con TecnoLobato en caso de tener dudas o necesites asistencia. Puedes ponerte en contacto con nosotros a través de WhatsApp para recibir ayuda profesional en cualquier momento."
   },
   {
+    "slug": "como-ampliar-la-ram-o-el-ssd-sin-romper-nada",
+    "title": "Cómo ampliar la RAM o el SSD de tu PC sin problemas",
+    "date": "2026-11-12",
+    "summary": "Descubre cómo ampliar la RAM y el SSD de tu PC de manera segura y rápida, evitando errores comunes y teniendo tu equipo más potente en poco tiempo.",
+    "tag": "Hardware",
+    "readTime": "4 min",
+    "topic": "Cómo ampliar la RAM o el SSD sin romper nada",
+    "sections": [
+      {
+        "heading": "Antes de empezar: ¿Qué es la RAM y el SSD?",
+        "paragraphs": [
+          "La RAM (Random Access Memory) es la memoria de acceso aleatorio de tu ordenador, responsable de almacenar temporalmente la información que el sistema necesita para funcionar. Ampliar la RAM puede mejorar el rendimiento al permitir a tu ordenador manejar más tareas simultáneamente. Por otro lado, el SSD (Solid State Drive) es un disco duro interno que es más rápido que un HDD tradicional. añadir un SSD puede aumentar significativamente la velocidad de inicio y de carga de aplicaciones.",
+          "Para este tutorial, asumiremos que tu PC tiene un diseño estándar y que tienes acceso físico a su interior. Si no es así, contacta con TecnoLobato para una asesoría."
+        ]
+      },
+      {
+        "heading": "Cómo ampliar la RAM",
+        "paragraphs": [
+          "Para ampliar la RAM, es crucial que elijas un módulo compatible con tu ordenador. Comprueba el manual de tu PC o elige uno de los mismos fabricantes y con la misma capacidad que la RAM que ya tiene. Normalmente, el módulo se instala en una ranura específica de tu madre placa, que debe estar libre. Asegúrate de llevar un paquete limpio y usar un destornillador antiestático. Inserta el módulo en la ranura y presiona suavemente hasta que se encaje. No olvides que un reinicio es necesario para que tu sistema detecte la nueva RAM.",
+          "Si elijes la opción de aumentar la RAM a 16GB o más, asegúrate de que tu ordenador esté preparado para soportar esa cantidad. Algunos sistemas operativos y programas pueden necesitar actualizaciones para aprovechar la RAM adicional."
+        ]
+      },
+      {
+        "heading": "Cómo ampliar el SSD",
+        "paragraphs": [
+          "Para ampliar el SSD, necesitarás un nuevo disco. Compra uno con la capacidad que desees y que sea compatible con tu ordenador. Algunas PC modernas permiten el intercambio de SSDs fácilmente, mientras que otras pueden requerir que el sistema sea abierto. Inserta el nuevo SSD en la ranura vacía y conecta los cables de alimentación y de datos al motherboard. No olvides conectar la parte delantera del ordenador a la fuente si es necesario. Una vez conectado, instala el nuevo SSD mediante la herramienta de gestión de discos de tu sistema operativo. Esto requerirá un reinicio para que tu sistema reconozca el nuevo disco y lo integre en el sistema.",
+          "Si estás familiarizado con la gestión de discos, puedes optar por unir los discos SSD existentes en un sistema de arranque único o en un sistema de arranque y almacenamiento separado. Esto puede mejorar la velocidad y la gestión de archivos."
+        ]
+      },
+      {
+        "heading": "Errores comunes y cuándo pedir ayuda",
+        "paragraphs": [
+          "Es común cometer errores al ampliar la RAM o el SSD. Algunos de los más comunes incluyen la inserción incorrecta del módulo, la falta de un reinicio del sistema, y la falta de compatibilidad entre el nuevo módulo y el ordenador. Si tu PC no arranca o te muestra errores después de la instalación, es posible que haya habido un error en la instalación. En estos casos, es recomendable consultar con un técnico.",
+          "Si no estás seguro de cómo proceder o si encuentras resistencia física o eléctrica, evita intentarlo por tu cuenta y pide ayuda a TecnoLobato. Nuestro equipo de profesionales te asesorará y realizará la instalación para ti, garantizando que todo esté bien y sin riesgo de dañar tu PC."
+        ]
+      },
+      {
+        "heading": "Consejos prácticos",
+        "paragraphs": [
+          "Consejo 1: Siempre comprueba la compatibilidad antes de adquirir nuevos componentes. La compatibilidad es crucial para evitar problemas. Puedes usar herramientas en línea como Crucial System Scanner para verificar rápidamente si tu PC admite ampliaciones de RAM y SSD.",
+          "Consejo 2: Mantén un entorno limpio al realizar la instalación. Esto reduce la probabilidad de errores causados por polvo o suciedad.",
+          "Consejo 3: Si te encuentras en duda sobre cualquier paso, no dudes en consultar con un profesional. TecnoLobato ofrece asesoramiento gratuito y puedes pedir ayuda sin compromiso.",
+          "Consejo 4: Si decides ampliar la RAM y el SSD por tu cuenta, asegúrate de que tu sistema operativo esté optimizado para aprovechar la nueva capacidad. Algunas actualizaciones de software pueden ser necesarias."
+        ]
+      },
+      {
+        "heading": "Conclusión",
+        "paragraphs": [
+          "Ahora que has aprendido cómo ampliar la RAM y el SSD de tu PC, estás listo para mejorar el rendimiento de tu ordenador. Si necesitas ayuda o tienes dudas, no dudes en contactar con TecnoLobato por WhatsApp. Estamos aquí para asistirte en todo momento, garantizando que tu PC funcione de la mejor manera posible."
+        ]
+      }
+    ],
+    "tips": [
+      "Verifica que tu PC esté en un entorno limpio y ordenado antes de realizar cualquier instalación.",
+      "Utiliza herramientas de compatibilidad como Crucial System Scanner antes de comprar nuevos componentes.",
+      "Si estás en duda, no dudes en pedir ayuda a TecnoLobato por WhatsApp.",
+      "Optimiza tu sistema operativo después de la instalación para asegurarte de que aprovecha la nueva capacidad."
+    ],
+    "conclusion": "Ahora que has aprendido cómo ampliar la RAM y el SSD de tu PC, estás listo para mejorar el rendimiento de tu ordenador. Si necesitas ayuda o tienes dudas, no dudes en contactar con TecnoLobato por WhatsApp. Estamos aquí para asistirte en todo momento, garantizando que tu PC funcione de la mejor manera posible."
+  },
+  {
     "slug": "monitor-para-gaming-hz-resolucion-y-tipo-de-panel",
     "title": "Monitor para gaming: Hz, resolución y tipo de panel",
     "date": "2026-11-11",

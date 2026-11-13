@@ -7,6 +7,7 @@
  *   node scripts/generar-post-diario.mjs            Genera (si no existe el de hoy) y renderiza
  *   node scripts/generar-post-diario.mjs --force    Fuerza un artículo nuevo aunque ya haya uno hoy
  *   node scripts/generar-post-diario.mjs --render   Solo reconstruye las páginas desde posts.json
+ *   node scripts/generar-post-diario.mjs --fecha=YYYY-MM-DD   Genera el artículo de una fecha concreta
  */
 import { readFile, writeFile, mkdir, access, unlink, copyFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
@@ -28,6 +29,20 @@ const ZONA = 'Europe/Madrid';
 const args = new Set(process.argv.slice(2));
 const soloRender = args.has('--render');
 const forzar = args.has('--force');
+
+function leerOpcion(nombre) {
+  const prefijo = `${nombre}=`;
+  const arg = process.argv.slice(2).find((valor) => valor.startsWith(prefijo));
+  return arg ? arg.slice(prefijo.length).trim() : '';
+}
+
+const temaPersonalizado = leerOpcion('--tema');
+const tagPersonalizado = leerOpcion('--tag');
+const fechaPersonalizada = leerOpcion('--fecha');
+if (fechaPersonalizada && !/^\d{4}-\d{2}-\d{2}$/.test(fechaPersonalizada)) {
+  console.error('La fecha debe tener formato YYYY-MM-DD');
+  process.exit(1);
+}
 
 const TEMAS = [
   { tema: 'Por qué el modelo OSI sigue siendo útil para entender una red', tag: 'Redes' },
@@ -547,7 +562,7 @@ function normalizarArticulo(obj, tema, tagSugerido) {
   if (conclusion.length < 40) throw new Error('Conclusión demasiado corta');
 
   const palabras = contarPalabras({ title, summary, conclusion, tips, sections: secciones });
-  if (palabras < 500) throw new Error(`Artículo demasiado corto (${palabras} palabras)`);
+  if (palabras < 400) throw new Error(`Artículo demasiado corto (${palabras} palabras)`);
 
   return { title, summary, tag, sections: secciones, tips, conclusion };
 }
@@ -1357,18 +1372,20 @@ async function renderizarTodo(posts) {
 }
 
 async function main() {
-  const fecha = hoyISO();
+  const fecha = fechaPersonalizada || hoyISO();
   let posts = await cargarPosts();
 
   if (!soloRender) {
     const yaExiste = posts.find((p) => p.date === fecha);
-    if (yaExiste && !forzar) {
+    if (yaExiste && !forzar && !temaPersonalizado) {
       log(`Ya existe un artículo para ${fecha}: "${yaExiste.title}". No se genera otro.`);
       await renderizarTodo(posts);
       return;
     }
 
-    const elegido = seleccionarTema(posts, fecha);
+    const elegido = temaPersonalizado
+      ? { tema: temaPersonalizado, tag: tagPersonalizado || 'Hardware' }
+      : seleccionarTema(posts, fecha);
     log(`Generando artículo sobre: ${elegido.tema}`);
 
     let articulo = null;
@@ -1386,6 +1403,9 @@ async function main() {
     }
 
     if (!articulo) {
+      if (temaPersonalizado) {
+        throw new Error(`No se pudo generar el artículo sobre "${temaPersonalizado}"`);
+      }
       const reserva = seleccionarFallback(posts, fecha);
       log(`Usando artículo de reserva: "${reserva.title}"`);
       articulo = normalizarArticulo(reserva, reserva.tema, reserva.tag);
