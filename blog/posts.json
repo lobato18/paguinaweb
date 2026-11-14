@@ -1,5 +1,65 @@
 [
   {
+    "slug": "que-hacer-si-tu-pc-no-arranca-diagnostico-paso-a-paso",
+    "title": "Guía paso a paso para solucionar un ordenador que no arranca",
+    "date": "2026-11-14",
+    "summary": "Aprender a diagnosticar y solucionar problemas de arranque en tu PC de manera efectiva, desde comprobar la carga de la batería hasta realizar un mantenimiento básico.",
+    "tag": "Mantenimiento",
+    "readTime": "3 min",
+    "topic": "Qué hacer si tu PC no arranca: diagnóstico paso a paso",
+    "sections": [
+      {
+        "heading": "Comprueba la carga de la batería",
+        "paragraphs": [
+          "El primer paso es verificar si la batería de la fuente de alimentación está cargada correctamente. Abre la torre del PC y localiza la batería de la fuente. Observa si está bien conectada y si la luz de estado está encendida. Si la batería no está cargada, conecta la toma eléctrica y comprueba de nuevo.",
+          "Si la batería está cargada pero el PC sigue sin arrancar, asegúrate de que todos los cables de alimentación estén correctamente conectados, especialmente el de la fuente principal."
+        ]
+      },
+      {
+        "heading": "Comprueba el estado del ordenador",
+        "paragraphs": [
+          "Observa si el ordenador emite algún sonido al encenderse. Un sonido de BIOS normal es un indicativo de que el sistema está cargando correctamente. Si no hay ningún sonido, podría ser que el disco duro o la memoria RAM estén causando problemas.",
+          "Inspecciona la zona de la placa base para cualquier signo de quemaduras o componentes dañados. Si detectas algo sospechoso, lo mejor es que busques ayuda profesional."
+        ]
+      },
+      {
+        "heading": "Realiza un arranque seguro",
+        "paragraphs": [
+          "Ejecuta un arranque seguro para verificar si el problema radica en programas recientes o en el sistema operativo. Para hacerlo, arranca manteniendo presionada la tecla F8 durante la pantalla de arranque.",
+          "Si el arranque seguro no funciona, es posible que el sistema operativo o los drivers estén dañados. En este caso, considera reinstalarlos o restaurar el sistema a una fecha anterior."
+        ]
+      },
+      {
+        "heading": "Prueba la memoria RAM y el disco duro",
+        "paragraphs": [
+          "Utiliza una herramienta de prueba de memoria RAM como MemTest86. Efectúa la prueba durante al menos 20 minutos para garantizar que no hay errores en la memoria.",
+          "Para verificar el disco duro, utiliza un software de prueba como CrystalDiskInfo. Esto te ayudará a identificar si el disco está presentando problemas de salud."
+        ]
+      },
+      {
+        "heading": "Errores comunes y cuándo pedir ayuda",
+        "paragraphs": [
+          "Comunmente, el problema se puede resolver con estos pasos, pero si sigues teniendo problemas, es probable que el fallo esté en hardware. Asegúrate de que todos los componentes estén correctamente instalados y que no haya sobrecalentamiento.",
+          "Si el PC sigue sin arrancar después de intentarlo varias veces, es mejor que busques asistencia profesional. TecnoLobato puede ayudarte a identificar y solucionar el problema de manera rápida y eficiente."
+        ]
+      },
+      {
+        "heading": "Consejos prácticos",
+        "paragraphs": [
+          "Siempre realiza un respaldo de tus datos antes de hacer cualquier cambio en el sistema.",
+          "Mantén la torre del PC libre de polvo y realiza un mantenimiento básico una vez al año.",
+          "Utiliza un programa antivirus de confianza para proteger tu PC de posibles amenazas."
+        ]
+      }
+    ],
+    "tips": [
+      "Realiza un respaldo de tus datos antes de intentar arrancar el PC de manera segura.",
+      "Mantén la torre del PC limpia y realiza un mantenimiento anual.",
+      "Utiliza siempre software antivirus para proteger tu ordenador."
+    ],
+    "conclusion": "Si sigues teniendo problemas con tu ordenador que no arranca, no dudes en contactar con TecnoLobato. Somos expertos en reparación y mantenimiento de PCs y estaremos encantados de ayudarte por WhatsApp."
+  },
+  {
     "slug": "mantenimiento-de-un-portatil-lo-que-si-puedes-hacer-tu",
     "title": "Mantenimiento del portátil: Tareas que puedes hacer tú",
     "date": "2026-11-13",
