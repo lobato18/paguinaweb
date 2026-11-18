@@ -1,5 +1,51 @@
 [
   {
+    "slug": "como-detectar-un-correo-de-phishing-en-menos-de-un-minuto",
+    "title": "Phishing: cómo detectar un correo fraudulento antes de picar",
+    "date": "2026-11-18",
+    "summary": "Los estafadores imitan a bancos, mensajerías y servicios conocidos. Estas señales te ayudan a detectar un correo falso antes de hacer clic.",
+    "tag": "Seguridad",
+    "readTime": "3 min",
+    "topic": "Cómo detectar un correo de phishing en menos de un minuto",
+    "sections": [
+      {
+        "heading": "Qué es el phishing y por qué funciona",
+        "paragraphs": [
+          "El phishing es un intento de engañarte para que entregues datos personales, credenciales o dinero haciéndose pasar por una entidad de confianza. Puede llegar por correo, SMS o mensajería instantánea, y suele aprovechar una emoción concreta: prisa, miedo a perder una cuenta o curiosidad por una supuesta entrega.",
+          "Funciona porque imita el diseño y el lenguaje de marcas reales. No hace falta que el fraude sea perfecto: basta con que una parte del mensaje resulte creíble durante los segundos en los que decides hacer clic. Por eso conviene revisar siempre el remitente, el enlace y el contexto antes de actuar."
+        ]
+      },
+      {
+        "heading": "Señales que aparecen casi siempre",
+        "paragraphs": [
+          "Desconfía de los mensajes que exigen una acción urgente, amenazan con cerrar tu cuenta o prometen un reembolso que no has solicitado. También son sospechosas las direcciones de correo extrañas, los errores de escritura y los saludos genéricos del tipo «estimado cliente».",
+          "Antes de hacer clic, pasa el ratón por encima del enlace y comprueba el dominio real. Un texto que dice «banco.com» puede apuntar a «banco-seguridad.xyz». Si la web te pide contraseña, datos de tarjeta o un código de verificación, abre la aplicación oficial por tu cuenta en lugar de usar el enlace recibido."
+        ]
+      },
+      {
+        "heading": "Qué hacer si ya has hecho clic",
+        "paragraphs": [
+          "No entres en pánico, pero actúa rápido. Si has introducido una contraseña, cámbiala desde el sitio oficial y activa la autenticación en dos pasos. Si has facilitado datos bancarios, contacta con tu entidad y revisa los movimientos de la cuenta.",
+          "Borra el mensaje y, si es posible, notifica el fraude al servicio suplantado. Si el enlace descargó un archivo, no lo ejecutes: analízalo con el antivirus y, ante la duda, restaura una copia de seguridad reciente."
+        ]
+      },
+      {
+        "heading": "Cómo proteger tu correo y tus cuentas",
+        "paragraphs": [
+          "Usa contraseñas distintas y largas para cada servicio, guardadas en un gestor de contraseñas. Activa la verificación en dos pasos siempre que esté disponible y mantén actualizado el navegador y el sistema operativo.",
+          "Revisa periódicamente las sesiones activas y los dispositivos vinculados a tus cuentas principales. Si algo no te suena, ciérralo y cambia la contraseña. La prevención más eficaz es desconfiar por defecto de cualquier mensaje que te pida datos o dinero."
+        ]
+      }
+    ],
+    "tips": [
+      "Comprueba el dominio real del enlace, no solo el texto que se muestra.",
+      "Nunca introduzcas contraseñas o códigos de verificación desde un enlace recibido.",
+      "Activa la autenticación en dos pasos en correo, banca y redes sociales.",
+      "Si el mensaje mete prisa, para y verifica por otro canal antes de responder."
+    ],
+    "conclusion": "El phishing no se detecta con una sola regla, sino con una rutina: mirar el remitente, revisar el enlace y desconfiar de la urgencia. Si tienes dudas sobre un mensaje o quieres revisar la seguridad de tu equipo, puedes escribirnos por WhatsApp y lo vemos juntos."
+  },
+  {
     "slug": "ssd-sata-nvme-y-m-2-diferencias-reales-al-elegir-almacenamiento",
     "title": "SSD SATA, NVMe y M.2: diferencias clave para tu PC",
     "date": "2026-11-17",
