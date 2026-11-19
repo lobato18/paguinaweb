@@ -1,5 +1,65 @@
 [
   {
+    "slug": "cada-cuanto-hay-que-cambiar-la-pasta-termica-del-procesador",
+    "title": "¿Cuándo renovar la pasta térmica del procesador?",
+    "date": "2026-11-19",
+    "summary": "Aprende a cuánto tiempo puede durar la pasta térmica y cómo saber si tu ordenador necesita una renovación. Con consejos prácticos, evita malos consejos y ahórrate problemas.",
+    "tag": "Mantenimiento",
+    "readTime": "4 min",
+    "topic": "Cada cuánto hay que cambiar la pasta térmica del procesador",
+    "sections": [
+      {
+        "heading": "¿Qué es la pasta térmica y para qué sirve?",
+        "paragraphs": [
+          "La pasta térmica, también conocida como compuesto térmico, es un material que se aplica sobre el procesador para mejorar la transferencia de calor entre el chip y la fuente de refrigeración. Es crucial para mantener la temperatura del procesador en niveles seguros, ya que una temperatura excesiva puede dañar el hardware y reducir su vida útil.",
+          "El material es compuesto por una base que puede ser de cobre, aluminio o titanio, y es mezclado con una sustancia adhesiva y un compuesto conductor de calor. La pasta térmica ayuda a crear un contacto más estable entre el procesador y el cooler, mejorando la transferencia de calor y reduciendo el desgaste general del sistema."
+        ]
+      },
+      {
+        "heading": "Cuánto tiempo puede durar la pasta térmica",
+        "paragraphs": [
+          "La duración de la pasta térmica puede variar según el uso y las condiciones de cada ordenador. En general, la pasta térmica de calidad puede durar entre 3 y 5 años, aunque algunos fabricantes afirman que puede ser más resistente. Sin embargo, es importante tener en cuenta que los factores como el polvo, la humedad y el uso intensivo pueden acortar esta vida útil.",
+          "Es recomendable verificar la pasta térmica cada 3 a 5 años para asegurarte de que no está reseca o descompuesta, lo cual podría afectar la transferencia de calor y el rendimiento del procesador."
+        ]
+      },
+      {
+        "heading": "Cómo saber si necesitas renovar la pasta térmica",
+        "paragraphs": [
+          "Existen varios signos que indican que es hora de renovar la pasta térmica. En primer lugar, si tu ordenador comienza a caldearse más de lo normal, especialmente durante el uso intensivo, podría ser un signo de que la pasta térmica necesita ser cambiada. Otros síntomas incluyen ruidos extraños en el cooler o el procesador, que pueden ser signos de que el contacto térmico no es óptimo.",
+          "Además, si la pasta térmica se ve reseca, descompuesta o se ha desprendido, es un claro indicativo de que es necesario un cambio. En estos casos, es recomendable revisar el cooler y el procesador para asegurarte de que no hay acumulación de polvo o otras partículas que puedan estar interfiriendo con la transferencia de calor."
+        ]
+      },
+      {
+        "heading": "Pasos para cambiar la pasta térmica",
+        "paragraphs": [
+          "Cambiar la pasta térmica es un proceso que requiere cierta paciencia y cuidado. Primero, es necesario desmontar el cooler y el procesador. Asegúrate de que el área donde vas a trabajar esté libre de polvo y que utilices un kit de limpieza adecuado para retirar cualquier residuo de pasta térmica y polvo.",
+          "Una vez limpios, aplica una nueva capa de pasta térmica sobre el procesador, asegurándote de que se distribuye uniformemente. A continuación, reasígnala el cooler y verifica que la pasta térmica esté bien encajada. Luego, prueba el sistema para comprobar si el cambio ha mejorado el rendimiento y la temperatura del procesador."
+        ]
+      },
+      {
+        "heading": "Errores comunes y cuándo pedir ayuda",
+        "paragraphs": [
+          "A veces, los usuarios pueden cometer errores al cambiar la pasta térmica, lo que puede llevar a problemas en el sistema. Algunos de los errores comunes incluyen no limpiar correctamente el procesador y el cooler antes de aplicar la pasta térmica, o aplicar la pasta térmica de forma incorrecta, que puede afectar el contacto térmico y el rendimiento del ordenador.",
+          "En casos donde no estés seguro de cómo proceder o si los problemas persisten después de cambiar la pasta térmica, es recomendable pedir ayuda a profesionales. La experiencia de los técnicos de reparación puede ser fundamental para evitar problemas y asegurar un correcto funcionamiento del sistema."
+        ]
+      },
+      {
+        "heading": "Consejos prácticos",
+        "paragraphs": [
+          "Para mantener tu ordenador en óptimas condiciones, es importante realizar revisiones periódicas de la pasta térmica y otros componentes. Además, mantén tu sistema limpio y libre de polvo, ya que el polvo puede obstruir la transferencia de calor y afectar el rendimiento del procesador.",
+          "Finalmente, si decides cambiar la pasta térmica por tu cuenta, asegúrate de usar la herramienta adecuada y seguir los pasos correctamente. Si no estás seguro o necesitas ayuda, no dudes en contactar con TecnoLobato por WhatsApp, donde podrás obtener asesoramiento y atención personalizada."
+        ]
+      }
+    ],
+    "tips": [
+      "Verifica la pasta térmica regularmente para detectar signos de desgaste o acumulación de polvo.",
+      "Utiliza un limpiador adecuado para retirar correctamente la pasta térmica antes de aplicar una nueva capa.",
+      "Si decides cambiar la pasta térmica, asegúrate de seguir los pasos correctamente para evitar problemas.",
+      "Si notas un calentamiento excesivo, considera la posibilidad de renovar la pasta térmica, ya que puede ser una de las causas."
+    ],
+    "conclusion": "Si necesitas más información sobre cómo renovar la pasta térmica o cualquier otro aspecto del mantenimiento de tu ordenador, no dudes en contactar con TecnoLobato por WhatsApp. Estamos aquí para ayudarte a mantener tu sistema en perfectas condiciones y mejorar su rendimiento."
+  },
+  {
     "slug": "como-detectar-un-correo-de-phishing-en-menos-de-un-minuto",
     "title": "Phishing: cómo detectar un correo fraudulento antes de picar",
     "date": "2026-11-18",

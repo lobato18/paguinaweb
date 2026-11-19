@@ -14,9 +14,15 @@
   </url>
   <url>
     <loc>https://tecnolobato.one/blog.html</loc>
-    <lastmod>2026-11-18</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tecnolobato.one/blog/cada-cuanto-hay-que-cambiar-la-pasta-termica-del-procesador.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tecnolobato.one/blog/como-detectar-un-correo-de-phishing-en-menos-de-un-minuto.html</loc>
