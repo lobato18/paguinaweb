@@ -1,5 +1,57 @@
 [
   {
+    "slug": "como-elegir-una-fuente-de-alimentacion-segura-y-eficiente",
+    "title": "Cómo elegir una fuente de alimentación para tu PC",
+    "date": "2026-11-20",
+    "summary": "Aprende a escoger la fuente de alimentación adecuada para tu sistema, garantizando su eficiencia y seguridad, y evita los errores comunes en este proceso.",
+    "tag": "Hardware",
+    "readTime": "3 min",
+    "topic": "Cómo elegir una fuente de alimentación segura y eficiente",
+    "sections": [
+      {
+        "heading": "Importancia de una fuente de alimentación segura",
+        "paragraphs": [
+          "Una fuente de alimentación (PSU) de alta calidad es esencial para cualquier PC. No solo asegura un suministro estable de energía a tus componentes, sino que también mejora su rendimiento y prolonga su vida útil. Una PSU defectuosa puede causar fallos en el sistema, reducir su eficiencia y en casos extremos, dañar otros componentes.",
+          "Es importante que la fuente de alimentación sea compatible con tu configuración y cumpla con los estándares de seguridad y eficiencia, como el 80 Plus."
+        ]
+      },
+      {
+        "heading": "Criterios para evaluar una fuente de alimentación",
+        "paragraphs": [
+          "Antes de adquirir una fuente de alimentación, es fundamental tener en cuenta varios criterios. La potencia (W) y el factor de eficiencia son dos aspectos cruciales. La potencia debe ser suficiente para alimentar todos los componentes de tu PC y un poco de margen adicional. El factor de eficiencia, medido en %, refleja cómo la fuente convierte la energía en electricidad útil. Un 80 Plus Bronze o superior es recomendable.",
+          "Otro factor a considerar es la calidad de las coronas y las bobinas, ya que influyen en la estabilidad y ruido del sistema. Además, el diseño del sistema de refrigeración (con o sin ventiladores) y la garantía de la marca son aspectos importantes."
+        ]
+      },
+      {
+        "heading": "Cómo identificar una fuente de alimentación de calidad",
+        "paragraphs": [
+          "Una buena forma de identificar una fuente de alimentación de calidad es comprobar su certificación. Los estándares 80 Plus son reconocidos, con 80 Plus Bronze, Silver, Gold y Platinum ofreciendo diferentes niveles de eficiencia. Además, busca marcas de confianza como Corsair, EVGA, Seasonic, y Kingston, que suelen ofrecer buenas opciones.",
+          "Para verificar la calidad interna, puedes buscar la presencia de coronas de alta calidad y bobinas en bobinas. Las corrientes fijas (rail) también son importantes, ya que las corrientes múltiples pueden causar problemas de estabilidad. Un buen diseño de refrigeración también es crucial para evitar sobrecalentamientos."
+        ]
+      },
+      {
+        "heading": "Errores comunes y cuándo pedir ayuda",
+        "paragraphs": [
+          "Un error común es comprar una fuente de alimentación que no sea lo suficientemente potente para tu configuración, lo que puede causar fallos en el sistema. También es frecuente elegir una fuente que no cumple con los estándares de seguridad, lo que puede ser peligroso. Si no estás seguro de cómo evaluar una fuente de alimentación, es mejor pedir ayuda a expertos como los de TecnoLobato.",
+          "También es recomendable evitar las fuentes de alimentación de marcas desconocidas o con poca reputación, ya que pueden no cumplir con los estándares de calidad y seguridad."
+        ]
+      },
+      {
+        "heading": "Pasos para seleccionar la fuente correcta",
+        "paragraphs": [
+          "Para seleccionar la fuente de alimentación adecuada, primero debes calcular la potencia total necesaria. Suma la potencia de cada componente (CPU, tarjeta gráfica, memoria RAM, etc.) y añade un 20-30% de margen. Luego, busca una fuente que ofrezca este valor o un poco más. Asegúrate de que la fuente tenga las correcciones de voltaje necesarias para tu configuración.",
+          "Finalmente, verifica que la fuente tenga las conexiones correctas para tus componentes. Es recomendable que la fuente tenga al menos una conexión de 24-pin ATX y las conexiones necesarias para tu tarjeta gráfica y memoria RAM."
+        ]
+      }
+    ],
+    "tips": [
+      "Si no estás seguro, busca asesoramiento profesional.",
+      "Compara precios y características en tiendas confiables.",
+      "Siempre opta por marcas de confianza para mayor seguridad."
+    ],
+    "conclusion": "Elegir la fuente de alimentación adecuada para tu PC es crucial para su rendimiento y durabilidad. TecnoLobato, tu partner en reparaciones y montajes de PC, está aquí para ayudarte a tomar decisiones informadas. Si necesitas asesoramiento sobre tu próxima compra, no dudes en ponerte en contacto con nosotros a través de WhatsApp."
+  },
+  {
     "slug": "cada-cuanto-hay-que-cambiar-la-pasta-termica-del-procesador",
     "title": "¿Cuándo renovar la pasta térmica del procesador?",
     "date": "2026-11-19",
