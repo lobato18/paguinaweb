@@ -1,5 +1,51 @@
 [
   {
+    "slug": "copias-de-seguridad-la-regla-3-2-1-explicada-con-ejemplos",
+    "title": "Copias de seguridad: la regla 3-2-1 explicada con ejemplos",
+    "date": "2026-11-21",
+    "summary": "Tener una copia no es suficiente. La regla 3-2-1 ayuda a proteger tus archivos frente a fallos de disco, robos y ransomware.",
+    "tag": "Software",
+    "readTime": "3 min",
+    "topic": "Copias de seguridad: la regla 3-2-1 explicada con ejemplos",
+    "sections": [
+      {
+        "heading": "Qué significa exactamente 3-2-1",
+        "paragraphs": [
+          "La regla 3-2-1 propone mantener al menos tres copias de los datos importantes, guardadas en dos tipos de soporte distintos y con una de ellas fuera de tu casa o del lugar de trabajo. Así, un fallo de un disco no arrastra todas las versiones disponibles.",
+          "Por ejemplo: el archivo original en el PC, una copia en un disco externo y otra en un servicio de almacenamiento en la nube. Los dos soportes podrían ser un disco duro y una unidad SSD, o un NAS y la nube. Lo importante es que no dependan del mismo fallo."
+        ]
+      },
+      {
+        "heading": "Por qué una sola copia no basta",
+        "paragraphs": [
+          "Un disco externo conectado permanentemente al ordenador también puede infectarse en un ataque de ransomware o sufrir una subida de tensión. Una copia en la nube sincronizada al instante puede propagar el borrado accidental en segundos.",
+          "La clave no es solo cuántas copias tienes, sino cuántas pueden recuperarse de forma independiente. Las copias deben ser versionadas y, si es posible, mantener una que no esté montada ni conectada de forma permanente."
+        ]
+      },
+      {
+        "heading": "Cómo aplicarlo en casa sin complicarte",
+        "paragraphs": [
+          "Empieza por lo irrecuperable: fotos, documentos, proyectos y configuraciones. Programa una copia automática diaria o semanal y revisa de vez en cuando que los archivos se abren correctamente. Una copia que nunca se ha probado no es una copia fiable.",
+          "Puedes usar un disco externo para la copia local, un NAS para centralizar varios equipos y un servicio en la nube para la copia externa. Si tienes muchos datos, prioriza primero lo importante y amplía después."
+        ]
+      },
+      {
+        "heading": "Errores que conviene evitar",
+        "paragraphs": [
+          "No guardes la única copia en el mismo equipo ni en la misma habitación que el original. Tampoco confundas sincronización con copia de seguridad: si borras un archivo y se borra en todos los dispositivos, no tienes una copia, tienes un espejo del error.",
+          "Revisa el espacio libre antes de que la copia deje de ejecutarse en silencio. Y documenta cómo restaurar: una copia útil incluye saber qué hacer con ella cuando el equipo principal falla."
+        ]
+      }
+    ],
+    "tips": [
+      "Mantén tres copias de los datos que no puedes recuperar.",
+      "Usa al menos dos soportes diferentes, por ejemplo disco externo y nube.",
+      "Guarda una copia fuera de casa o en un lugar independiente.",
+      "Prueba una restauración completa al menos una vez al año."
+    ],
+    "conclusion": "La mejor copia de seguridad es la que existe antes del fallo y la que sabes restaurar. Si quieres montar un sistema de copias para tu casa o tu negocio, podemos ayudarte a elegir discos, NAS y una rutina sencilla."
+  },
+  {
     "slug": "como-elegir-una-fuente-de-alimentacion-segura-y-eficiente",
     "title": "Cómo elegir una fuente de alimentación para tu PC",
     "date": "2026-11-20",
