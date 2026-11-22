@@ -1,5 +1,51 @@
 [
   {
+    "slug": "como-limpiar-el-interior-de-tu-pc-sin-danarlo",
+    "title": "Cómo limpiar el interior de tu PC sin dañar ningún componente",
+    "date": "2026-11-22",
+    "summary": "El polvo sube las temperaturas y acelera el desgaste. Una limpieza cuidadosa, con las herramientas adecuadas, alarga la vida del equipo.",
+    "tag": "Mantenimiento",
+    "readTime": "3 min",
+    "topic": "Cómo limpiar el interior de tu PC sin dañarlo",
+    "sections": [
+      {
+        "heading": "Cuándo merece la pena abrir el PC",
+        "paragraphs": [
+          "Si notas que los ventiladores hacen más ruido de lo habitual, que las temperaturas suben o que el equipo se apaga en carga, probablemente toca revisar la refrigeración. En ambientes con polvo o con animales, conviene inspeccionar cada pocos meses.",
+          "Antes de abrir la tapa, apaga el equipo, desenchúfalo y espera unos minutos. Descarga la electricidad estática tocando una superficie metálica conectada a tierra y evita trabajar sobre alfombras o ropa sintética."
+        ]
+      },
+      {
+        "heading": "Qué usar y qué evitar",
+        "paragraphs": [
+          "Un pincel de cerdas suaves, aire comprimido y un paño de microfibra son suficientes para la mayoría de limpiezas. Sujeta los ventiladores con el dedo o con un palillo mientras soplas, para que no giren a gran velocidad y dañen el rodamiento.",
+          "Evita el aspirador doméstico cerca de la placa: puede generar estática y arrastrar componentes pequeños. Tampoco apliques el aire comprimido a muy corta distancia ni lo inclines, porque puede expulsar líquido propelente."
+        ]
+      },
+      {
+        "heading": "Limpieza paso a paso",
+        "paragraphs": [
+          "Empieza por los filtros y rejillas exteriores. Después retira el polvo de los ventiladores y del disipador con el pincel, y usa el aire comprimido en ráfagas cortas desde cierta distancia. Limpia las aspas con cuidado y vuelve a colocar los filtros cuando estén secos.",
+          "No desmontes el disipador ni el procesador si no vas a cambiar la pasta térmica. Si el equipo tiene refrigeración líquida, revisa que la bomba funcione y que no haya fugas, pero no manipules los tubos sin necesidad."
+        ]
+      },
+      {
+        "heading": "Cuándo es mejor pedir ayuda",
+        "paragraphs": [
+          "Si el equipo no arranca después de la limpieza, si ves cables sueltos que no identificas o si necesitas cambiar la pasta térmica, es momento de parar. Forzar un conector o recolocar mal un módulo de RAM puede convertir una limpieza sencilla en una avería.",
+          "Una limpieza profesional incluye revisión de temperaturas, comprobación de conexiones y cambio de pasta térmica cuando hace falta. Es una buena ocasión para detectar un ventilador degradado antes de que provoque apagones."
+        ]
+      }
+    ],
+    "tips": [
+      "Apaga, desenchufa y descarga la estática antes de abrir la torre.",
+      "Sujeta los ventiladores mientras soplas para que no giren locos.",
+      "No uses aspiradores domésticos dentro de la caja.",
+      "Si no vas a cambiar la pasta térmica, no desmontes el disipador."
+    ],
+    "conclusion": "Una limpieza periódica, sin prisa y con las herramientas correctas, mantiene el equipo más fresco y silencioso. Si prefieres no abrirlo o quieres revisar temperaturas y pasta térmica, en TecnoLobato podemos hacerlo por ti."
+  },
+  {
     "slug": "copias-de-seguridad-la-regla-3-2-1-explicada-con-ejemplos",
     "title": "Copias de seguridad: la regla 3-2-1 explicada con ejemplos",
     "date": "2026-11-21",
