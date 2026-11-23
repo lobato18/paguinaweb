@@ -1,5 +1,65 @@
 [
   {
+    "slug": "errores-habituales-al-montar-un-pc-por-primera-vez",
+    "title": "Errores habituales al montar un PC por primera vez",
+    "date": "2026-11-23",
+    "summary": "Descubre los errores comunes que pueden arruinar tu primera montaje de PC y aprende a evitarlos para obtener un ordenador funcionando perfectamente.",
+    "tag": "Hardware",
+    "readTime": "3 min",
+    "topic": "Errores habituales al montar un PC por primera vez",
+    "sections": [
+      {
+        "heading": "Importancia del montaje adecuado",
+        "paragraphs": [
+          "Montar un PC por primera vez puede ser emocionante, pero es fácil cometer errores que podrían afectar el rendimiento de tu equipo. Es crucial seguir los pasos correctamente para evitar problemas futuros. Un montaje incorrecto puede causar malfuncionamiento, sobrecalentamiento o incluso daños permanentes a la placa base y otros componentes.",
+          "En esta guía, te explicaremos los errores más habituales y cómo evitarlos, proporcionándote una serie de consejos prácticos y una invitación a que consultes con TecnoLobato si tienes dudas."
+        ]
+      },
+      {
+        "heading": "Error 1: Falta de insuflación de aire",
+        "paragraphs": [
+          "Antes de montar el PC, asegúrate de insuflar el aire en todas las ranuras y entradas de ventilación para evitar el sobrecalentamiento. Sin esta acción, incluso un ventilador bien colocado puede no funcionar correctamente, causando daños a corto plazo en componentes sensibles.",
+          "Utiliza un neumático o un sprayer para insuflar suavemente el aire en las entradas de ventilación. Si no estás seguro, puedes pedir ayuda a un profesional."
+        ]
+      },
+      {
+        "heading": "Error 2: Falta de soporte para la placa base",
+        "paragraphs": [
+          "Al montar la placa base, es crucial utilizar soportes adecuados para evitar que se mueva o se dañe. Si no los usas, el PC puede no alinearse correctamente, causando malfunciones o incluso daños.",
+          "Utiliza soportes de placa que se adapten a tu placa madre y monta la placa base sobre ellos. Si no estás seguro, solicita ayuda a un experto."
+        ]
+      },
+      {
+        "heading": "Error 3: Conexiones incorrectas de los cables",
+        "paragraphs": [
+          "Los cables internos son cruciales para conectar correctamente todos los componentes. Conectarlos de forma incorrecta puede impedir que tu PC funcione, o incluso dañar los componentes internos.",
+          "Utiliza un manual o una guía de montaje para conectar todos los cables de alimentación y de datos. Si no estás seguro de cómo hacerlo, consulta a un profesional."
+        ]
+      },
+      {
+        "heading": "Error 4: Falta de revisión de los componentes",
+        "paragraphs": [
+          "Antes de montar el PC, es importante revisar todos los componentes para asegurarte de que estén funcionando correctamente y estén en buen estado. No hay nada peor que montar un PC y descubrir que hay un componente defectuoso.",
+          "Revisa los componentes uno a uno, asegurándote de que estén en buen estado y funcionen correctamente. Si no estás seguro, puedes pedir asesoramiento a TecnoLobato."
+        ]
+      },
+      {
+        "heading": "Cuándo pedir ayuda",
+        "paragraphs": [
+          "Si has cometido alguno de estos errores, o si te sientes incómodo con el proceso de montaje, no dudes en pedir ayuda a un profesional. TecnoLobato está aquí para ayudarte a resolver cualquier problema que puedas tener con tu PC.",
+          "Contacta con nosotros a través de WhatsApp para obtener asesoramiento y asistencia en el montaje de tu PC. Podemos ofrecerte un servicio de montaje completo o ayudarte a resolver problemas con componentes específicos."
+        ]
+      }
+    ],
+    "tips": [
+      "Utiliza protectores de placa durante el montaje para evitar arañazos y daños.",
+      "Mantén un espacio limpio y ordenado durante el montaje para evitar errores.",
+      "Utiliza herramientas de calidad para asegurar que todos los componentes queden bien sujetos.",
+      "Si no estás seguro sobre algo, no lo hagas. Consulta a un profesional antes de seguir."
+    ],
+    "conclusion": "Aprender a montar un PC puede ser una experiencia gratificante, pero es importante hacerlo correctamente para evitar problemas futuros. Si tienes dudas o necesitas ayuda, no dudes en contactar con TecnoLobato a través de WhatsApp para que te guíen en el proceso de montaje. ¡Estamos aquí para ayudarte a montar tu PC de manera segura y eficaz!"
+  },
+  {
     "slug": "como-limpiar-el-interior-de-tu-pc-sin-danarlo",
     "title": "Cómo limpiar el interior de tu PC sin dañar ningún componente",
     "date": "2026-11-22",
